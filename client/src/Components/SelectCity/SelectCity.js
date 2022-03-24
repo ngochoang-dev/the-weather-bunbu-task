@@ -1,8 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import clsx from 'clsx';
-import styles from './DetailComponent.module.css';
+import styles from './Select.module.css';
 import useClickOutSide from '../../customHook/useClickOutSide';
-
 
 const selectArr = [
     {
@@ -22,10 +21,10 @@ const selectArr = [
     }
 ]
 
-function Select({ cityId, cityName, setIdOfCity }) {
+function SelectCity() {
     const selectRef = useRef();
-
     const [showSelect, setShowSelect] = useState(false);
+    const [select, setSelect] = useState([]);
 
     useClickOutSide(e => {
         if (selectRef.current) {
@@ -33,7 +32,27 @@ function Select({ cityId, cityName, setIdOfCity }) {
                 setShowSelect(false)
             }
         }
-    })
+    });
+
+    const handleChooseCity = (cityId) => {
+        if (select.includes(cityId)) {
+            const newSelect = select.filter(item => item !== cityId);
+            return setSelect(newSelect)
+        }
+
+        setSelect(prev => [...prev, cityId])
+    };
+
+
+    const allCityName = useMemo(() => {
+        const nameCity = select.map(index => {
+            const nameFilter = selectArr.filter(item => item.id === index);
+            return nameFilter[0].name
+        });
+
+        return nameCity.join(', ')
+    }, [select]);
+
 
     return (
         <div className={clsx(
@@ -42,7 +61,7 @@ function Select({ cityId, cityName, setIdOfCity }) {
             <label className={clsx(
                 styles.select_label
             )}>
-                Your city
+                Choose City
             </label>
             <div className={clsx(
                 styles.select
@@ -54,7 +73,9 @@ function Select({ cityId, cityName, setIdOfCity }) {
                 )}
                     onClick={() => setShowSelect(!showSelect)}
                 >
-                    <span>{cityName}</span>
+                    <span>
+                        {allCityName ? allCityName : 'Choose City'}
+                    </span>
                 </div>
                 {
                     showSelect && (
@@ -65,16 +86,15 @@ function Select({ cityId, cityName, setIdOfCity }) {
                                 selectArr.map(item => {
                                     return (
                                         <li
-                                            key={item.id}
                                             style={
-                                                Number(cityId) === item.id ?
-                                                    { color: '#039BE5' } :
-                                                    {}
+                                                select.includes(item.id) ? {
+                                                    color: 'red'
+                                                }
+                                                    : {}
                                             }
-                                            onClick={() => {
-                                                setShowSelect(false)
-                                                setIdOfCity(item.id)
-                                            }}>
+                                            key={item.id}
+                                            onClick={() => handleChooseCity(item.id)}
+                                        >
                                             {item.name}
                                         </li>
                                     )
@@ -88,4 +108,4 @@ function Select({ cityId, cityName, setIdOfCity }) {
     )
 }
 
-export default Select;
+export default SelectCity

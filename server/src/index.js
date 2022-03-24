@@ -24,7 +24,7 @@ app.get('/forecast', (req, res) => {
             let data = [];
             let index = allData.findIndex(x => x.date === today);
             allData.forEach((item, i) => {
-                if (i >= index - 1 && i < index + 5) {
+                if (i >= index - 1 && i < index + 8) {
                     data.push(item)
                 }
             })
@@ -67,7 +67,6 @@ app.get('/forecast-detail', (req, res) => {
         date: today,
     })
         .then(data => {
-            console.log(data);
             res.json({
                 data: data
             })

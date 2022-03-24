@@ -32,10 +32,11 @@ a {
 }
 
 .App {
+  position: relative;
   margin: 0 auto;
   padding: 4px;
-  margin-top: 100px;
-  width: 880px;
+  margin-top: 150px;
+  width: 1080px;
   height: 400px;
   background-color: var(--white-color);
   border-radius: 8px;
@@ -44,6 +45,6 @@ a {
   -ms-border-radius: 8px;
   -o-border-radius: 8px;
   display: grid;
-  grid-template-columns: 1.2fr 2fr;
+  grid-template-columns: .8fr 2fr;
   grid-gap: 10px;
 }
