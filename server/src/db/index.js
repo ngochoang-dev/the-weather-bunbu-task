@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 async function connect() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/weather_clone', {
+        await mongoose.connect('mongodb+srv://ngochoangdev:ngochoangdev@cluster0.qqqo7.mongodb.net/weather_clone?retryWrites=true&w=majority', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })
@@ -14,4 +14,4 @@ async function connect() {
 }
 
 
-module.exports = { connect }
+module.exports = { connect };
