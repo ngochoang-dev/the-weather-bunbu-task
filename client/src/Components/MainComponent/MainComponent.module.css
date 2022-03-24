@@ -1,0 +1,86 @@
+.container {
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-end;   
+    max-width: 560px;
+    overflow: hidden;
+}
+
+.header {
+    font-weight: normal;
+}
+
+.wrapper_forecast {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.box_forecast {
+    cursor: pointer;
+    position: relative;
+    width: 140px;
+    height: 160px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+}
+
+
+.box_forecast.current {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.box_forecast>h4 {
+    color: var(--black-color);
+    font-weight: 600;
+}
+
+.box_forecast.current>h4 {
+    color: var(--white-color);
+}
+
+.box_forecast>span>.icon {
+    font-size: 4rem;
+}
+
+.humidity {
+    text-align: center;
+}
+
+.humidity>p {
+    color: #9E9E9E;  
+}
+
+
+.box_forecast.current .humidity>p {
+    color: var(--white-color);
+}
+
+.humidity>span {
+    display: block;
+    margin-top: 10px;
+}
+
+.wrapper_chart {
+    width: 600px;
+    /* border: 1px solid red; */
+    transform: translateX(-45px);
+    -webkit-transform: translateX(-45px);
+    -moz-transform: translateX(-45px);
+    -ms-transform: translateX(-45px);
+    -o-transform: translateX(-45px);
+}

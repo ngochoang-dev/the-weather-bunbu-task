@@ -1,0 +1,140 @@
+.container {
+    display: flex;
+    flex-direction:column;
+    justify-content: center
+}
+
+.wrapper_select {
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.select_label {
+    margin-right: 4px;
+}
+
+.select {
+    user-select: none;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #E0E0E0;
+    width: 160px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}   
+
+.list_city {
+    z-index: 99;
+    margin-top: 4px;
+    padding: 4px;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    border: 1px solid #E0E0E0;
+    background-color: var(--white-color);
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+.list_city>li {
+    margin: 2px 0;
+    padding: 4px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    transition: .25s    ;
+    -webkit-transition: .25s    ;
+    -moz-transition: .25s    ;
+    -ms-transition: .25s    ;
+    -o-transition: .25s    ;
+}
+
+.active_city {
+    color: var(--primary-color)
+}
+
+.list_city>li:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.wrapper_date {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.wrapper_date>span {
+    color: #9E9E9E;
+}
+
+.temperature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black-color);
+
+}
+
+.temperature>span>.icon {
+    font-size: 8rem;
+}
+
+.temperature>p {
+    position: relative;
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.temperature>p>span {
+    font-size: 1.1rem;
+    position: absolute;
+    top: 0;
+    right: -16px;
+}
+
+.status {
+    text-align: center;
+}
+
+.status>p {
+    font-weight: 600;
+    font-size: 2rem;
+    color: var(--black-color);
+}
+
+.sub_status {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box_sub_status {
+    margin: 10px;
+    text-align: center;
+}
+
+.box_sub_status>span {
+    color: #9E9E9E;
+    padding: 4px 0;
+    display: inline-block;
+}
+
+.box_sub_status>p {
+    padding: 4px 0;
+    font-size: 1.12rem;
+    font-weight: 600;
+}
