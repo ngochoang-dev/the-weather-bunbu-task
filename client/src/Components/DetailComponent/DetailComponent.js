@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,11 +8,30 @@ import Select from './Select';
 import { getDetailForecast } from '../../redux/actions';
 
 function DetailComponent({
+    detailForecast,
     typeForecast,
     idOfCity,
     setIdOfCity
 }) {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    // const {
+    //     cityId,
+    //     cityName,
+    //     description,
+    //     humidity,
+    //     temperature,
+    //     windSpeed,
+    // } = useSelector(state => state.forecastData.detailForecast);
+
+    // const [detailForecast, setDetailForecast] = useState({
+    //     cityId: '',
+    //     cityName: '',
+    //     description: '',
+    //     humidity: '',
+    //     temperature: '',
+    //     windSpeed: '',
+    // });
+
     const {
         cityId,
         cityName,
@@ -20,11 +39,23 @@ function DetailComponent({
         humidity,
         temperature,
         windSpeed,
-    } = useSelector(state => state.forecastData.detailForecast);
+    } = detailForecast;
 
-    useEffect(() => {
-        dispatch(getDetailForecast(dayjs().format('YYYY/M/DD'), idOfCity));
-    }, [dispatch, idOfCity]);
+
+    // useEffect(() => {
+    //     // dispatch(getDetailForecast(dayjs().format('YYYY/M/DD'), idOfCity));
+    //     fetch(`http://localhost:5000/forecast-detail?today=${dayjs().format('YYYY/M/DD')}&&cityId=${idOfCity}`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             setDetailForecast({
+    //                 ...data.data
+    //             });
+    //         })
+    // }, [
+    //     // dispatch, 
+    //     idOfCity
+    // ]);
+
     return (
         <div className={clsx(
             styles.container

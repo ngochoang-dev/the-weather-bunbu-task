@@ -21,10 +21,9 @@ const selectArr = [
     }
 ]
 
-function SelectCity() {
+function SelectCity({ select, setSelect }) {
     const selectRef = useRef();
     const [showSelect, setShowSelect] = useState(false);
-    const [select, setSelect] = useState([]);
 
     useClickOutSide(e => {
         if (selectRef.current) {

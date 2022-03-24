@@ -9,13 +9,16 @@ import { getAllForecast, getDetailForecast } from '../../redux/actions';
 
 function MainComponent({
     idOfCity,
-    typeForecast
+    typeForecast,
+    handleGetDetailForecast
 }) {
 
     const dispatch = useDispatch()
-    const allForecast = useSelector(state => state.forecastData.allForecast);
+    // const allForecast = useSelector(state => state.forecastData.allForecast);
     const [dataForecast, setDataForecast] = useState([]);
     const [currentForecast, setCurrentForecast] = useState(0);
+
+    const [allForecast, setAllForecast] = useState([])
 
     const humidityArr = useMemo(() => {
         return allForecast.map(item => {
@@ -39,17 +42,24 @@ function MainComponent({
         setDataForecast(dataArr);
     }, [allForecast]);
 
-    useEffect(() => {
-        dispatch(getAllForecast(dayjs().format('YYYY/M/DD'), idOfCity));
-    }, [dispatch, idOfCity]);
-
-    const handleGetDetailForecast = (date, cityId) => {
-        dispatch(getDetailForecast(dayjs(date).format('YYYY/M/DD'), cityId));
-    }
+    // const handleGetDetailForecast = (date, cityId) => {
+    //     dispatch(getDetailForecast(dayjs(date).format('YYYY/M/DD'), cityId));
+    // }
 
     useEffect(() => {
         setCurrentForecast(0)
-    }, [idOfCity])
+    }, [idOfCity]);
+
+    useEffect(() => {
+        // dispatch(getAllForecast(dayjs().format('YYYY/M/DD'), idOfCity));
+        fetch(`http://localhost:5000/forecast?today=${dayjs().format('YYYY/M/DD')}&&cityId=${idOfCity}`)
+            .then(response => response.json())
+            .then(data => {
+                setAllForecast(data.data);
+            })
+    }, [
+        // dispatch, 
+        idOfCity]);
 
     return (
         <div className={clsx(

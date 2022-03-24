@@ -32,10 +32,24 @@ a {
 }
 
 .App {
+    padding-top: 100px;
+}
+
+.Options {
+  position: relative;
+  width: 1080px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Container {
   position: relative;
   margin: 0 auto;
+  margin-bottom: 50px;
   padding: 4px;
-  margin-top: 150px;
   width: 1080px;
   height: 400px;
   background-color: var(--white-color);
@@ -47,4 +61,24 @@ a {
   display: grid;
   grid-template-columns: .8fr 2fr;
   grid-gap: 10px;
+}
+
+.Btn_create {
+  cursor: pointer;
+  padding: 6px 8px;
+  border: none;
+  outline: none;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  font-size: .9rem;
+  font-weight: 500;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.Btn_create:hover {
+  opacity: .8;
 }
