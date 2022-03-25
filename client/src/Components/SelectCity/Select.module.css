@@ -2,11 +2,6 @@
     padding: 6px 0;
     display: flex;
     align-items: center;
-    margin-left: 19px;
-}
-
-.select_label {
-    margin-right: 4px;
 }
 
 .select {
@@ -64,5 +59,38 @@
 
 .list_city>li:hover {
     background-color: var(--primary-color);
-    color: var(--white-color);
+    color: var(--white-color) !important;
+}
+
+.wrapper_list_city {
+    margin-left: 10px;
+}
+
+.wrapper_list_city>ul {
+    display: flex;
+    align-items: center;
+}
+
+.wrapper_list_city>ul>li {
+    margin: 4px 6px;
+    padding: 4px 8px;
+    background-color: var(--white-color);
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    display:flex;
+    align-items: center;
+}
+
+.wrapper_list_city>ul>li>span {
+    cursor: pointer;
+    display:flex;
+    align-items: center;
+    margin-left: 4px;
+}
+
+.icon_remove {
+    font-size: .8rem;
 }

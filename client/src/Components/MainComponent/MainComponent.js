@@ -2,10 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs'
 import { IconContext } from 'react-icons';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styles from './MainComponent.module.css';
 import LineChart from './LineChart';
-import { getAllForecast, getDetailForecast } from '../../redux/actions';
 
 function MainComponent({
     idOfCity,
@@ -13,8 +12,6 @@ function MainComponent({
     handleGetDetailForecast
 }) {
 
-    const dispatch = useDispatch()
-    // const allForecast = useSelector(state => state.forecastData.allForecast);
     const [dataForecast, setDataForecast] = useState([]);
     const [currentForecast, setCurrentForecast] = useState(0);
 
@@ -42,24 +39,18 @@ function MainComponent({
         setDataForecast(dataArr);
     }, [allForecast]);
 
-    // const handleGetDetailForecast = (date, cityId) => {
-    //     dispatch(getDetailForecast(dayjs(date).format('YYYY/M/DD'), cityId));
-    // }
 
     useEffect(() => {
         setCurrentForecast(0)
     }, [idOfCity]);
 
     useEffect(() => {
-        // dispatch(getAllForecast(dayjs().format('YYYY/M/DD'), idOfCity));
         fetch(`http://localhost:5000/forecast?today=${dayjs().format('YYYY/M/DD')}&&cityId=${idOfCity}`)
             .then(response => response.json())
             .then(data => {
                 setAllForecast(data.data);
             })
-    }, [
-        // dispatch, 
-        idOfCity]);
+    }, [idOfCity]);
 
     return (
         <div className={clsx(

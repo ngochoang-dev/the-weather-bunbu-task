@@ -1,32 +1,34 @@
 import { combineReducers } from 'redux';
 import {
-    GET_ALL_FORECAST_SUCCESS,
-    GET_DETAIL_FORECAST_SUCCESS
+    GET_ALL_CITY_SUCCESS,
+    POST_FORECAST,
+    POST_FORECAST_SUCCESS
 } from './actions';
 
 const initialState = {
-    allForecast: [],
-    detailForecast: {
-        cityId: '',
-        cityName: '',
-        description: '',
-        humidity: '',
-        temperature: '',
-        windSpeed: '',
-    },
+    loading: false,
+    cityId: null,
+    allCity: []
 };
 
 const forecastData = (state = initialState, action) => {
     switch (action.type) {
-        case GET_ALL_FORECAST_SUCCESS:
+        case POST_FORECAST:
             return {
                 ...state,
-                allForecast: action.data
+                loading: true
             }
-        case GET_DETAIL_FORECAST_SUCCESS:
+        case GET_ALL_CITY_SUCCESS:
             return {
                 ...state,
-                detailForecast: { ...action.data }
+                loading: false,
+                allCity: [...action.data]
+            }
+        case POST_FORECAST_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                cityId: action.data
             }
         default:
             return state

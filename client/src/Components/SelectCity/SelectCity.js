@@ -1,27 +1,11 @@
 import React, { useRef, useState, useMemo } from 'react';
 import clsx from 'clsx';
+import { IconContext } from 'react-icons';
+import { CgClose } from 'react-icons/cg';
 import styles from './Select.module.css';
 import useClickOutSide from '../../customHook/useClickOutSide';
 
-const selectArr = [
-    {
-        id: 1,
-        name: 'Hà Nội'
-    },
-    {
-        id: 2,
-        name: 'Đà Nẵng'
-    }, {
-        id: 3,
-        name: 'Sài Gòn'
-    },
-    {
-        id: 4,
-        name: 'Phú Quốc'
-    }
-]
-
-function SelectCity({ select, setSelect }) {
+function SelectCity({ select, setSelect, selectArr }) {
     const selectRef = useRef();
     const [showSelect, setShowSelect] = useState(false);
 
@@ -38,30 +22,31 @@ function SelectCity({ select, setSelect }) {
             const newSelect = select.filter(item => item !== cityId);
             return setSelect(newSelect)
         }
-
-        setSelect(prev => [...prev, cityId])
+        setSelect(prev => [...prev, cityId,])
     };
 
+    const handleRemoveCity = (id) => {
+        setSelect(prev => {
+            return prev.filter(item => item !== id)
+        })
+    }
 
     const allCityName = useMemo(() => {
-        const nameCity = select.map(index => {
-            const nameFilter = selectArr.filter(item => item.id === index);
-            return nameFilter[0].name
-        });
+        if (selectArr.length > 0) {
+            const nameCity = select.map(index => {
+                const nameFilter = selectArr.filter(item => item.id === index);
 
-        return nameCity.join(', ')
-    }, [select]);
-
+                return nameFilter[0] ? nameFilter[0] : []
+            });
+            return nameCity
+        }
+        return null
+    }, [select, selectArr]);
 
     return (
         <div className={clsx(
             styles.wrapper_select
         )}>
-            <label className={clsx(
-                styles.select_label
-            )}>
-                Choose City
-            </label>
             <div className={clsx(
                 styles.select
             )}
@@ -73,11 +58,11 @@ function SelectCity({ select, setSelect }) {
                     onClick={() => setShowSelect(!showSelect)}
                 >
                     <span>
-                        {allCityName ? allCityName : 'Choose City'}
+                        Choose City
                     </span>
                 </div>
                 {
-                    showSelect && (
+                    showSelect && showSelect && (
                         <ul className={clsx(
                             styles.list_city
                         )}>
@@ -87,7 +72,7 @@ function SelectCity({ select, setSelect }) {
                                         <li
                                             style={
                                                 select.includes(item.id) ? {
-                                                    color: 'red'
+                                                    color: '#039BE5'
                                                 }
                                                     : {}
                                             }
@@ -102,6 +87,29 @@ function SelectCity({ select, setSelect }) {
                         </ul>
                     )
                 }
+            </div>
+            <div className={clsx(
+                styles.wrapper_list_city
+            )}>
+                <ul>
+                    {
+                        allCityName && allCityName.map((item, i) => {
+                            return <li
+                                key={i}
+                            >
+                                {item.name}
+                                <span
+                                    onClick={() => handleRemoveCity(item.id)}
+                                >
+                                    <IconContext.Provider
+                                        value={{ className: clsx(styles.icon_remove) }}>
+                                        <CgClose />
+                                    </IconContext.Provider>
+                                </span>
+                            </li>
+                        })
+                    }
+                </ul>
             </div>
         </div>
     )

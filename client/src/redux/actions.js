@@ -1,24 +1,20 @@
-export const GET_ALL_FORECAST = 'GET_ALL_FORECAST';
-export const GET_DETAIL_FORECAST = 'GET_DETAIL_FORECAST';
-export const GET_ALL_FORECAST_SUCCESS = 'GET_ALL_FORECAST_SUCCESS';
-export const GET_DETAIL_FORECAST_SUCCESS = 'GET_DETAIL_FORECAST_SUCCESS';
+export const LOADING = 'LOADING';
+export const LOADING_SUCCESS = 'LOADING_SUCCESS';
+export const POST_FORECAST = 'POST_FORECAST';
+export const POST_FORECAST_SUCCESS = 'POST_FORECAST_SUCCESS';
+export const GET_ALL_CITY = 'GET_ALL_CITY';
+export const GET_ALL_CITY_SUCCESS = 'GET_ALL_CITY_SUCCESS';
 
-export const getAllForecast = (date, cityId) => {
+export const createForecast = (data) => {
     return {
-        type: GET_ALL_FORECAST,
-        payload: {
-            date,
-            cityId
-        }
+        type: POST_FORECAST,
+        payload: data
     }
 }
 
-export const getDetailForecast = (date, cityId) => {
+export const getAllCity = () => {
     return {
-        type: GET_DETAIL_FORECAST,
-        payload: {
-            date,
-            cityId
-        }
+        type: GET_ALL_CITY,
     }
 }
+

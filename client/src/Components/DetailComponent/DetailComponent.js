@@ -1,39 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { useDispatch, useSelector } from 'react-redux';
 import { IconContext } from "react-icons";
 import styles from './DetailComponent.module.css';
-import Select from './Select';
-import { getDetailForecast } from '../../redux/actions';
 
 function DetailComponent({
     detailForecast,
     typeForecast,
-    idOfCity,
-    setIdOfCity
 }) {
-    // const dispatch = useDispatch();
-    // const {
-    //     cityId,
-    //     cityName,
-    //     description,
-    //     humidity,
-    //     temperature,
-    //     windSpeed,
-    // } = useSelector(state => state.forecastData.detailForecast);
-
-    // const [detailForecast, setDetailForecast] = useState({
-    //     cityId: '',
-    //     cityName: '',
-    //     description: '',
-    //     humidity: '',
-    //     temperature: '',
-    //     windSpeed: '',
-    // });
 
     const {
-        cityId,
         cityName,
         description,
         humidity,
@@ -41,30 +17,16 @@ function DetailComponent({
         windSpeed,
     } = detailForecast;
 
-
-    // useEffect(() => {
-    //     // dispatch(getDetailForecast(dayjs().format('YYYY/M/DD'), idOfCity));
-    //     fetch(`http://localhost:5000/forecast-detail?today=${dayjs().format('YYYY/M/DD')}&&cityId=${idOfCity}`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setDetailForecast({
-    //                 ...data.data
-    //             });
-    //         })
-    // }, [
-    //     // dispatch, 
-    //     idOfCity
-    // ]);
-
     return (
         <div className={clsx(
             styles.container
         )}>
-            <Select
-                cityId={cityId}
-                cityName={cityName}
-                setIdOfCity={setIdOfCity}
-            />
+            <h4 className={clsx(
+                styles.your_city
+            )}>
+                Your city
+                <span>{cityName}</span>
+            </h4>
             <div className={clsx(
                 styles.wrapper_date
             )}>

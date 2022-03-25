@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import dayjs from 'dayjs';
+import { IconContext } from 'react-icons';
+import { CgClose } from 'react-icons/cg';
 import DetailComponent from '../DetailComponent/DetailComponent';
 import MainComponent from '../MainComponent/MainComponent';
 
 
-function Container({ typeForecast, id }) {
+function Container({ typeForecast, id, setSelect }) {
     const [idOfCity, setIdOfCity] = useState(id);
 
     const [detailForecast, setDetailForecast] = useState({
@@ -17,20 +19,18 @@ function Container({ typeForecast, id }) {
     });
 
     const handleGetDetailForecast = useCallback((date) => {
-        fetch(`http://localhost:5000/forecast-detail?today=${dayjs(date).format('YYYY/M/DD')}&&cityId=${id}`)
+        fetch(`http://localhost:5000/forecast-detail?today=${dayjs(date).format('YYYY/M/DD')}&&cityId=${idOfCity}`)
             .then(response => response.json())
             .then(data => {
                 setDetailForecast({
                     ...data.data
                 });
             })
-    }, [id])
+    }, [idOfCity])
 
     useEffect(() => {
-        // dispatch(getDetailForecast(dayjs().format('YYYY/M/DD'), idOfCity));
         handleGetDetailForecast()
     }, [
-        // dispatch, 
         handleGetDetailForecast,
         id
     ]);
@@ -48,8 +48,15 @@ function Container({ typeForecast, id }) {
                 typeForecast={typeForecast}
                 handleGetDetailForecast={handleGetDetailForecast}
             />
+            <button className="Btn_close"
+                onClick={() => setSelect(prev => prev.filter(i => i !== id))}
+            >
+                <IconContext.Provider value={{ className: 'icon_close' }}>
+                    <CgClose />
+                </IconContext.Provider>
+            </button>
         </div>
     )
 }
 
-export default Container;
+export default memo(Container);
