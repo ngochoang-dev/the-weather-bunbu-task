@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs'
 import { IconContext } from 'react-icons';
-import { useDispatch } from 'react-redux';
 import styles from './MainComponent.module.css';
 import LineChart from './LineChart';
 

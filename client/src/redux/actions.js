@@ -1,5 +1,3 @@
-export const LOADING = 'LOADING';
-export const LOADING_SUCCESS = 'LOADING_SUCCESS';
 export const POST_FORECAST = 'POST_FORECAST';
 export const POST_FORECAST_SUCCESS = 'POST_FORECAST_SUCCESS';
 export const GET_ALL_CITY = 'GET_ALL_CITY';
