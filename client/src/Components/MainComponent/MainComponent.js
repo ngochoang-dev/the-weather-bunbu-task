@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs'
 import { IconContext } from 'react-icons';
+
 import styles from './MainComponent.module.css';
 import LineChart from './LineChart';
 
@@ -10,10 +11,8 @@ function MainComponent({
     typeForecast,
     handleGetDetailForecast
 }) {
-
     const [dataForecast, setDataForecast] = useState([]);
     const [currentForecast, setCurrentForecast] = useState(0);
-
     const [allForecast, setAllForecast] = useState([])
 
     const humidityArr = useMemo(() => {
@@ -37,7 +36,6 @@ function MainComponent({
         }
         setDataForecast(dataArr);
     }, [allForecast]);
-
 
     useEffect(() => {
         setCurrentForecast(0)

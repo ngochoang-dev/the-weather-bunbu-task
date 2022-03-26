@@ -2,6 +2,7 @@ import React, { useRef, useState, useMemo } from 'react';
 import clsx from 'clsx';
 import { IconContext } from 'react-icons';
 import { CgClose } from 'react-icons/cg';
+
 import styles from './Select.module.css';
 import useClickOutSide from '../../customHook/useClickOutSide';
 
@@ -115,4 +116,4 @@ function SelectCity({ select, setSelect, selectArr }) {
     )
 }
 
-export default SelectCity
+export default SelectCity;

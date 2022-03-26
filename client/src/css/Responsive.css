@@ -1,0 +1,82 @@
+@media (min-width: 1024px) and (max-width: 1239px) {
+    .App {
+        width: 1024px;
+    }
+    
+    .Container {
+        width: 1024px;
+    }
+}
+
+@media (max-width: 1023px) {
+    .App {
+        width: 644px;
+        padding-top: 50px;
+    }
+
+    .Container {
+        display: block;
+        height: fit-content;
+    }
+
+    .Detail_container {
+        flex-direction: row !important;
+        margin: 45px 0 10px 0;
+        justify-content: flex-start !important;
+    }
+
+    .Wrapper_detail {
+        margin: 0 6px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 0 1px 0 rgba(0, 0, 0, .5);
+        width: 100%;
+        border-radius: 12px;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        -ms-border-radius: 12px;
+        -o-border-radius: 12px;
+}
+
+    .Wrapper_detail>div {
+        margin-right: 26px;
+    }
+
+    .Wrapper_detail>div:first-child {
+        margin-left: 42px;
+    }
+
+    .Wrapper_detail>div:last-child {
+        margin-top: 0 ;
+        margin-right: 0;
+    }
+
+    .Wrapper_detail .icon_status {
+        font-size: 5rem !important;
+    }
+
+    .Wrapper_detail .Temperature {
+        font-size: 2rem;
+    }
+
+    .Wrapper_title_detail {
+        position: absolute;
+        top: 16px;
+        left: 60px;
+        display: flex;
+        align-items: center;
+    }
+
+    .Wrapper_title_detail>div {
+        margin: 0 0 0 10px;
+    }
+
+    .MainComponent_wrapper_chart__hUijj  {
+        width: 735px !important;
+    }
+}
+
+
+@media (min-width: 740px) {
+
+}

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import clsx from 'clsx';
-import { useDispatch, useSelector } from 'react-redux';
 import { IconContext } from 'react-icons';
 import { CgCloseR } from 'react-icons/cg';
+import { useDispatch, useSelector } from 'react-redux';
+
 import styles from './Modal.module.css';
 import { createForecast } from '../../redux/actions';
 
@@ -65,4 +66,4 @@ function ModalCreate({
     )
 }
 
-export default React.memo(ModalCreate);
+export default memo(ModalCreate);

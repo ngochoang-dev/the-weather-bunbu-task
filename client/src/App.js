@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import { WiCloudy, WiDaySunny } from 'react-icons/wi';
 import { useDispatch, useSelector } from 'react-redux';
-import './App.css';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+import './css/App.css';
+import './css/Responsive.css';
 import Container from './Components/Container/Container'
 import SelectCity from './Components/SelectCity/SelectCity';
 import ModalCreate from './Components/ModalCreate/ModalCreate';
@@ -33,7 +36,15 @@ function App() {
   useEffect(() => {
     if (id || id === 0)
       setSelect([id]);
-  }, [id])
+  }, [id]);
+
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+    const items = Array.from(select);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setSelect(items);
+  }
 
 
   return (
@@ -51,16 +62,35 @@ function App() {
           New Forecast
         </button>
       </div>
-      {
-        select.map(id => {
-          return <Container
-            key={id}
-            id={id}
-            typeForecast={typeForecast}
-            setSelect={setSelect}
-          />
-        })
-      }
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="weather">
+          {(provided) => (
+            <div  {...provided.droppableProps}
+              ref={provided.innerRef}>
+              {
+                select.map((id, index) => {
+                  return (
+                    <Draggable key={id} draggableId={`dragableId-${id}`} index={index}>
+                      {(provided) => (
+                        <div ref={provided.innerRef}
+                          {...provided.draggableProps}>
+                          <Container
+                            id={id}
+                            typeForecast={typeForecast}
+                            setSelect={setSelect}
+                            provided={provided}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  )
+                })
+              }
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
       {
         showModal && (
           <ModalCreate
@@ -73,3 +103,4 @@ function App() {
 }
 
 export default App;
+

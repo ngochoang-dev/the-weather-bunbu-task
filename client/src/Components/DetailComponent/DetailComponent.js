@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { IconContext } from "react-icons";
+
 import styles from './DetailComponent.module.css';
 
 function DetailComponent({
@@ -19,28 +20,34 @@ function DetailComponent({
 
     return (
         <div className={clsx(
-            styles.container
+            styles.container,
+            'Detail_container'
         )}>
-            <h4 className={clsx(
-                styles.your_city
-            )}>
-                Your city
-                <span>{cityName}</span>
-            </h4>
             <div className={clsx(
-                styles.wrapper_date
+                "Wrapper_title_detail"
             )}>
-                <span>{dayjs().format('h:m A, ddd, MMM D, YYYY')}</span>
+                <h4 className={clsx(
+                    styles.your_city
+                )}>
+                    Your city
+                    <span>{cityName}</span>
+                </h4>
+                <div className={clsx(
+                    styles.wrapper_date
+                )}>
+                    <span>{dayjs().format('h:m A, ddd, MMM D, YYYY')}</span>
+                </div>
             </div>
             <div className={clsx(
-                styles.wrapper_detail
+                'Wrapper_detail'
             )}>
                 <div className={clsx(
                     styles.temperature
                 )}>
                     <IconContext.Provider value={{
                         className: clsx(
-                            styles.icon
+                            styles.icon,
+                            'icon_status'
                         )
                     }}>
                         {
@@ -52,7 +59,9 @@ function DetailComponent({
                             })
                         }
                     </IconContext.Provider>
-                    <p>
+                    <p className={clsx(
+                        "Temperature"
+                    )}>
                         {temperature}
                         <span>&deg;F</span>
                     </p>
