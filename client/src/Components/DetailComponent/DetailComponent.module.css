@@ -9,7 +9,7 @@
     font-weight: 400;
 }
 
-.your_city>span {
+.your_city>span:last-child {
     display: inline-block;
     margin-left: 8px;
     font-weight: 500;
@@ -36,14 +36,14 @@
     font-size: 8rem;
 }
 
-.temperature>p {
+.temperature>p, .status>span {
     position: relative;
     display: inline-block;
     font-size: 3rem;
     font-weight: 600;
 }
 
-.temperature>p>span {
+.temperature>p>span, .status>span>p {
     font-size: 1.1rem;
     position: absolute;
     top: 0;

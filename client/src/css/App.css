@@ -39,7 +39,6 @@ a {
   margin: 0 auto;   
   width: 1080px;
   min-height: 100vh;
-  /* border: 1px solid red; */
 }
 
 .Options {
@@ -51,6 +50,7 @@ a {
   align-items: center;
   justify-content: space-between;
 }
+
 
 .Container {
   position: relative;
@@ -68,6 +68,16 @@ a {
   display: grid;
   grid-template-columns: .8fr 2fr;
   grid-gap: 10px;
+  overflow-x: hidden;
+}
+
+.Main_container::-webkit-scrollbar {
+  display: none;
+  position: relative;
+}
+
+.Btn_create {
+  height: 31px
 }
 
 .Btn_create, .Btn_close, .Btn_menu {
@@ -101,6 +111,10 @@ a {
   opacity: .8;
 }
 
+.icon_new_forecast {
+  display: none;
+}
+
 .icon_close {
   color: var(--primary-color)
 }
@@ -117,6 +131,11 @@ a {
 .icon_menu {
   color: var(--primary-color);
   font-size: 1.2rem;
+}
+
+.Temperature_status {
+  display: none !important;
+  font-size: 2rem !important; 
 }
 
 /* Chrome, Safari, Edge, Opera */

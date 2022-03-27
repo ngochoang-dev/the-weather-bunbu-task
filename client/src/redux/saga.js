@@ -1,6 +1,7 @@
 import {
     POST_FORECAST,
     POST_FORECAST_SUCCESS,
+    POST_FORECAST_FAIL,
     GET_ALL_CITY,
     GET_ALL_CITY_SUCCESS,
 } from './actions';
@@ -15,7 +16,14 @@ const handlePostForecast = (payload) => {
         },
         body: JSON.stringify(payload),
     })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status >= 200 && response.status < 300) {
+                return response.json()
+            } else {
+                throw response;
+            }
+        })
+        .catch(error => { throw error });
 }
 
 const handleGetAllCity = () => {
@@ -23,8 +31,12 @@ const handleGetAllCity = () => {
 }
 
 function* createForecast(action) {
-    const data = yield call(handlePostForecast, action.payload);
-    yield put({ type: POST_FORECAST_SUCCESS, data: data.cityId })
+    try {
+        const data = yield call(handlePostForecast, action.payload);
+        yield put({ type: POST_FORECAST_SUCCESS, data: data.cityId })
+    } catch (error) {
+        yield put({ type: POST_FORECAST_FAIL, data: error })
+    }
 }
 
 function* getAllCity() {

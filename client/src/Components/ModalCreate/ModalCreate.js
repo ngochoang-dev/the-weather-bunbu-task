@@ -2,6 +2,8 @@ import React, { useState, memo } from 'react';
 import clsx from 'clsx';
 import { IconContext } from 'react-icons';
 import { CgCloseR } from 'react-icons/cg';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Modal.module.css';
@@ -25,8 +27,10 @@ function ModalCreate({
         <div className={clsx(
             styles.overlay
         )}>
+            <ToastContainer />
             <div className={clsx(
-                styles.modal
+                styles.modal,
+                "Modal"
             )}>
                 <span className={clsx(styles.btn_close)}
                     onClick={() => setShowModal(false)}

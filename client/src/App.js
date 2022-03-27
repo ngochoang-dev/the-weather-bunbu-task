@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { IconContext } from 'react-icons';
+import { TiPlus } from 'react-icons/ti';
 import { WiCloudy, WiDaySunny } from 'react-icons/wi';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -46,10 +48,10 @@ function App() {
     setSelect(items);
   }
 
-
   return (
     <div className="App">
-      <div className="Options">
+      <div className={`Options ${select.length === 3 ? "Option_unset" : ""}`}
+      >
         <SelectCity
           select={select}
           setSelect={setSelect}
@@ -59,7 +61,10 @@ function App() {
           className='Btn_create'
           onClick={() => setShowModal(true)}
         >
-          New Forecast
+          <span>New Forecast</span>
+          <IconContext.Provider value={{ className: 'icon_new_forecast' }}>
+            <TiPlus />
+          </IconContext.Provider>
         </button>
       </div>
       <DragDropContext onDragEnd={handleOnDragEnd}>

@@ -51,63 +51,71 @@ function MainComponent({
 
     return (
         <div className={clsx(
-            styles.container
+            styles.container,
+            "Main_container"
         )}>
-            <h4 className={styles.header}>Temperature</h4>
-            <LineChart
-                typeForecast={typeForecast}
-                currentForecast={currentForecast}
-                temperature={temperature}
-                humidityArr={humidityArr}
-            />
+            <h4 className={clsx(
+                styles.header,
+                "Main_header"
+            )}>Temperature</h4>
             <div className={clsx(
-                styles.wrapper_forecast
+                "Wrapper_main"
             )}>
-                {
-                    dataForecast && dataForecast.map((data, i) => {
-                        const { date, cityId, humidity, description } = data;
-                        return (
-                            <div
-                                key={i}
-                                className={clsx(
-                                    styles.box_forecast,
-                                    currentForecast === i && styles.current,
-                                )}
-                                onClick={() => {
-                                    setCurrentForecast(i);
-                                    handleGetDetailForecast(date, cityId)
-                                }}
-                            >
-                                <h4>
-                                    {
-                                        dayjs(date).format('MMM DD') === dayjs().format('MMM DD')
-                                            ?
-                                            "Today" :
-                                            dayjs(date).format('MMM DD')
-                                    }
-                                </h4>
-                                <IconContext.Provider value={{ className: clsx(styles.icon) }}>
-                                    {
-                                        typeForecast.map((item, i) => {
-                                            if (item.description === description) {
-                                                return (
-                                                    <span key={i}>
-                                                        {item.icon}
-                                                    </span>
-                                                )
-                                            }
-                                            return []
-                                        })
-                                    }
-                                </IconContext.Provider>
-                                <div className={clsx(styles.humidity)}>
-                                    <p>Humidity</p>
-                                    <span>{humidity}%</span>
+                <LineChart
+                    typeForecast={typeForecast}
+                    currentForecast={currentForecast}
+                    temperature={temperature}
+                    humidityArr={humidityArr}
+                />
+                <div className={clsx(
+                    styles.wrapper_forecast,
+                    "Wrapper_forecast"
+                )}>
+                    {
+                        dataForecast && dataForecast.map((data, i) => {
+                            const { date, cityId, humidity, description } = data;
+                            return (
+                                <div
+                                    key={i}
+                                    className={clsx(
+                                        styles.box_forecast,
+                                        currentForecast === i && styles.current,
+                                    )}
+                                    onClick={() => {
+                                        setCurrentForecast(i);
+                                        handleGetDetailForecast(date, cityId)
+                                    }}>
+                                    <h4>
+                                        {
+                                            dayjs(date).format('MMM DD') === dayjs().format('MMM DD')
+                                                ?
+                                                "Today" :
+                                                dayjs(date).format('MMM DD')
+                                        }
+                                    </h4>
+                                    <IconContext.Provider value={{ className: clsx(styles.icon) }}>
+                                        {
+                                            typeForecast.map((item, i) => {
+                                                if (item.description === description) {
+                                                    return (
+                                                        <span key={i}>
+                                                            {item.icon}
+                                                        </span>
+                                                    )
+                                                }
+                                                return []
+                                            })
+                                        }
+                                    </IconContext.Provider>
+                                    <div className={clsx(styles.humidity)}>
+                                        <p>Humidity</p>
+                                        <span>{humidity}%</span>
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    })
-                }
+                            )
+                        })
+                    }
+                </div>
             </div>
         </div>
     )

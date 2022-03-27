@@ -23,7 +23,9 @@ function SelectCity({ select, setSelect, selectArr }) {
             const newSelect = select.filter(item => item !== cityId);
             return setSelect(newSelect)
         }
-        setSelect(prev => [...prev, cityId,])
+        setSelect(prev => {
+            return prev.length < 3 ? [...prev, cityId] : prev
+        })
     };
 
     const handleRemoveCity = (id) => {
@@ -36,7 +38,6 @@ function SelectCity({ select, setSelect, selectArr }) {
         if (selectArr.length > 0) {
             const nameCity = select.map(index => {
                 const nameFilter = selectArr.filter(item => item.id === index);
-
                 return nameFilter[0] ? nameFilter[0] : []
             });
             return nameCity
@@ -46,7 +47,9 @@ function SelectCity({ select, setSelect, selectArr }) {
 
     return (
         <div className={clsx(
-            styles.wrapper_select
+            styles.wrapper_select,
+            "Wrapper_select_city_width",
+            select.length === 3 && "Wrapper_select_city"
         )}>
             <div className={clsx(
                 styles.select

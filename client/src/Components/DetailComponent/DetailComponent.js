@@ -29,7 +29,7 @@ function DetailComponent({
                 <h4 className={clsx(
                     styles.your_city
                 )}>
-                    Your city
+                    <span>Your city</span>
                     <span>{cityName}</span>
                 </h4>
                 <div className={clsx(
@@ -69,6 +69,12 @@ function DetailComponent({
                 <div className={clsx(
                     styles.status
                 )}>
+                    <span className={clsx(
+                        "Temperature_status"
+                    )}>
+                        {temperature}
+                        <p>&deg;F</p>
+                    </span>
                     <p>{description}</p>
                 </div>
                 <div className={clsx(
