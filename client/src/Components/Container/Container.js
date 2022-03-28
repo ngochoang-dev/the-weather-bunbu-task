@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback, memo } from 'react';
-import dayjs from 'dayjs';
+import React, { useState, useMemo, memo } from 'react';
 import { IconContext } from 'react-icons';
 import { CgClose } from 'react-icons/cg';
 import { GiHamburgerMenu } from 'react-icons/gi';
@@ -8,34 +7,30 @@ import DetailComponent from '../DetailComponent/DetailComponent';
 import MainComponent from '../MainComponent/MainComponent';
 
 
-function Container({ typeForecast, id, setSelect, provided }) {
+function Container({
+    typeForecast,
+    id,
+    setSelect,
+    provided,
+    detailForecast,
+    allForecast }) {
+
     const [idOfCity, setIdOfCity] = useState(id);
+    const [detailData, setDetailDate] = useState([])
 
-    const [detailForecast, setDetailForecast] = useState({
-        cityId: '',
-        cityName: '',
-        description: '',
-        humidity: '',
-        temperature: '',
-        windSpeed: '',
-    });
+    useMemo(() => {
+        const result = detailForecast.find(item => Number(item.cityId) === id)
+        setDetailDate(result)
+    }, [detailForecast, id]);
 
-    const handleGetDetailForecast = useCallback((date) => {
-        fetch(`http://localhost:5000/forecast-detail?today=${dayjs(date).format('YYYY/M/DD')}&&cityId=${idOfCity}`)
-            .then(response => response.json())
-            .then(data => {
-                setDetailForecast({
-                    ...data.data
-                });
-            })
-    }, [idOfCity])
+    const forecast = useMemo(() => {
+        return allForecast.find(item => Number(item.cityId) === id)
+    }, [allForecast, id]);
 
-    useEffect(() => {
-        handleGetDetailForecast()
-    }, [
-        handleGetDetailForecast,
-        id
-    ]);
+    const handleGetDetail = (date) => {
+        const data = forecast.data.find(item => item.date === date);
+        setDetailDate(data)
+    };
 
     return (
         <div className="Container" >
@@ -47,7 +42,7 @@ function Container({ typeForecast, id, setSelect, provided }) {
                 </IconContext.Provider>
             </button>
             <DetailComponent
-                detailForecast={detailForecast}
+                detailForecast={detailData}
                 idOfCity={idOfCity}
                 setIdOfCity={setIdOfCity}
                 typeForecast={typeForecast}
@@ -55,7 +50,8 @@ function Container({ typeForecast, id, setSelect, provided }) {
             <MainComponent
                 idOfCity={idOfCity}
                 typeForecast={typeForecast}
-                handleGetDetailForecast={handleGetDetailForecast}
+                allForecast={forecast}
+                handleGetDetail={handleGetDetail}
             />
             <button className="Btn_close"
                 onClick={() => setSelect(prev => prev.filter(i => i !== id))}

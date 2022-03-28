@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { IconContext } from "react-icons";
@@ -9,6 +9,13 @@ function DetailComponent({
     detailForecast,
     typeForecast,
 }) {
+    const [data, setData] = useState({
+        cityName: "",
+        description: "",
+        humidity: "",
+        temperature: "",
+        windSpeed: "",
+    })
 
     const {
         cityName,
@@ -16,7 +23,11 @@ function DetailComponent({
         humidity,
         temperature,
         windSpeed,
-    } = detailForecast;
+    } = data;
+
+    useEffect(() => {
+        detailForecast && setData(detailForecast)
+    }, [detailForecast])
 
     return (
         <div className={clsx(

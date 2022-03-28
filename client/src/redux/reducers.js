@@ -4,13 +4,17 @@ import {
     GET_ALL_CITY_SUCCESS,
     POST_FORECAST,
     POST_FORECAST_SUCCESS,
-    POST_FORECAST_FAIL
+    POST_FORECAST_FAIL,
+    GET_DETAIL_FORECAST_SUCCESS,
+    GET_ALL_FORECAST_SUCCESS,
 } from './actions';
 
 const initialState = {
     loading: false,
     cityId: null,
-    allCity: []
+    allCity: [],
+    detailForecast: [],
+    allForecast: [],
 };
 
 const forecastData = (state = initialState, action) => {
@@ -54,6 +58,16 @@ const forecastData = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+            }
+        case GET_DETAIL_FORECAST_SUCCESS:
+            return {
+                ...state,
+                detailForecast: action.data
+            }
+        case GET_ALL_FORECAST_SUCCESS:
+            return {
+                ...state,
+                allForecast: action.data
             }
         default:
             return state

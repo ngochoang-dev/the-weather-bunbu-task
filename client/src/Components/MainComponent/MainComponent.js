@@ -9,45 +9,42 @@ import LineChart from './LineChart';
 function MainComponent({
     idOfCity,
     typeForecast,
-    handleGetDetailForecast
+    handleGetDetail,
+    allForecast
 }) {
     const [dataForecast, setDataForecast] = useState([]);
     const [currentForecast, setCurrentForecast] = useState(0);
-    const [allForecast, setAllForecast] = useState([])
+    const [data, setData] = useState([])
 
     const humidityArr = useMemo(() => {
-        return allForecast.map(item => {
+        return data.map(item => {
             return item.humidity
         })
-    }, [allForecast]);
+    }, [data]);
 
     const temperature = useMemo(() => {
-        if (allForecast.length > 0)
-            return allForecast[currentForecast + 1].temperature
-    }, [allForecast, currentForecast])
-
+        if (data.length > 0)
+            return data[currentForecast + 1].temperature
+        return 0
+    }, [data, currentForecast])
 
     useMemo(() => {
         let dataArr = [];
-        for (let i = 0; i < allForecast.length; i++) {
-            if (i !== 0 && i !== allForecast.length - 1) {
-                dataArr.push(allForecast[i])
+        for (let i = 0; i < data.length; i++) {
+            if (i !== 0 && i !== data.length - 1) {
+                dataArr.push(data[i])
             }
         }
         setDataForecast(dataArr);
-    }, [allForecast]);
+    }, [data]);
 
     useEffect(() => {
         setCurrentForecast(0)
     }, [idOfCity]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/forecast?today=${dayjs().format('YYYY/M/DD')}&&cityId=${idOfCity}`)
-            .then(response => response.json())
-            .then(data => {
-                setAllForecast(data.data);
-            })
-    }, [idOfCity]);
+        allForecast && setData(allForecast.data)
+    }, [allForecast]);
 
     return (
         <div className={clsx(
@@ -83,7 +80,7 @@ function MainComponent({
                                     )}
                                     onClick={() => {
                                         setCurrentForecast(i);
-                                        handleGetDetailForecast(date, cityId)
+                                        handleGetDetail(date, cityId)
                                     }}>
                                     <h4>
                                         {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { IconContext } from 'react-icons';
 import { TiPlus } from 'react-icons/ti';
 import { WiCloudy, WiDaySunny } from 'react-icons/wi';
@@ -10,7 +10,7 @@ import './css/Responsive.css';
 import Container from './Components/Container/Container'
 import SelectCity from './Components/SelectCity/SelectCity';
 import ModalCreate from './Components/ModalCreate/ModalCreate';
-import { getAllCity } from './redux/actions';
+import { getAllCity, handleGetDetailForecast, getAllForecast } from './redux/actions';
 
 const typeForecast = [
   {
@@ -25,10 +25,10 @@ const typeForecast = [
 
 function App() {
   const dispatch = useDispatch();
-  const [select, setSelect] = useState([1]);
+  const [selectId, setSelect] = useState([1, 2]);
   const [showModal, setShowModal] = useState(false);
 
-  const selectArr = useSelector(state => state.forecastData.allCity);
+  const { allCity, detailForecast, allForecast } = useSelector(state => state.forecastData);
   const id = useSelector(state => state.forecastData.cityId);
 
   useEffect(() => {
@@ -42,20 +42,32 @@ function App() {
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-    const items = Array.from(select);
+    const items = Array.from(selectId);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     setSelect(items);
   }
 
+  const handleGetDetail = useCallback(() => {
+    dispatch(handleGetDetailForecast({ selectId }))
+  }, [selectId, dispatch]);
+
+  useEffect(() => {
+    handleGetDetail()
+  }, [handleGetDetail, id]);
+
+  useEffect(() => {
+    dispatch(getAllForecast(selectId))
+  }, [selectId, dispatch]);
+
+
   return (
     <div className="App">
-      <div className={`Options ${select.length === 3 ? "Option_unset" : ""}`}
-      >
+      <div className={`Options ${selectId.length === 3 ? "Option_unset" : ""}`}>
         <SelectCity
-          select={select}
+          select={selectId}
           setSelect={setSelect}
-          selectArr={selectArr}
+          selectArr={allCity}
         />
         <button
           className='Btn_create'
@@ -73,7 +85,7 @@ function App() {
             <div  {...provided.droppableProps}
               ref={provided.innerRef}>
               {
-                select.map((id, index) => {
+                selectId.map((id, index) => {
                   return (
                     <Draggable key={id} draggableId={`dragableId-${id}`} index={index}>
                       {(provided) => (
@@ -84,6 +96,8 @@ function App() {
                             typeForecast={typeForecast}
                             setSelect={setSelect}
                             provided={provided}
+                            detailForecast={detailForecast}
+                            allForecast={allForecast}
                           />
                         </div>
                       )}

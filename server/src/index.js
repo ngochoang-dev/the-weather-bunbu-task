@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 5000;
+const port = 5001;
 const db = require('./db/index');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -20,36 +20,37 @@ app.use(bodyParser.urlencoded({
 
 app.get('/forecast', (req, res) => {
     const { today, cityId } = req.query;
-    Weather.find({ cityId: cityId }).sort({ date: 1 })
+    const ids = JSON.parse(cityId)
+    Weather.find({
+        "cityId": {
+            $in: ids
+        }
+    }).sort({ date: 1 })
         .then((allData) => {
             let data = [];
-            let index = allData.findIndex(x => x.date === today);
-            allData.forEach((item, i) => {
-                if (i >= index - 1 && i < index + 8) {
-                    data.push(item)
-                }
+            const result = allData.sort((a, b) => {
+                return Number(a.cityId) - Number(b.cityId)
             })
-            return data;
-        })
-        .then(data => {
-            const newData = data.map(item => {
-                const {
-                    cityId,
-                    temperature,
-                    humidity,
-                    description,
-                    date,
-                } = item;
-                return {
-                    cityId,
-                    temperature,
-                    humidity,
-                    description,
-                    date,
-                }
+            ids.forEach(id => {
+                let index = result.findIndex(x => {
+                    return x.date === today && Number(x.cityId) === id
+                });
+                let arr = [];
+                result.forEach((item, i) => {
+                    if (id === Number(item.cityId)) {
+                        if (i >= index - 1 && i < index + 8 && id === Number(item.cityId)) {
+                            arr.push(item);
+                        }
+                    }
+                })
+                data.push({
+                    cityId: id,
+                    data: arr
+                })
             })
+
             res.json({
-                data: newData
+                data: data
             })
         })
         .catch(err => {
@@ -63,8 +64,10 @@ app.get('/forecast', (req, res) => {
 
 app.get('/forecast-detail', (req, res) => {
     const { today, cityId } = req.query;
-    Weather.findOne({
-        cityId: cityId,
+    Weather.find({
+        "cityId": {
+            $in: JSON.parse(cityId)
+        },
         date: today,
     })
         .then(data => {
@@ -81,25 +84,6 @@ app.get('/forecast-detail', (req, res) => {
         })
 
 })
-
-app.post('/create-forecast', (req, res) => {
-    const newForecast = new Weather({
-        ...req.body
-    })
-    newForecast.save()
-        .then(() => {
-            res.json({
-                name: 'asdasdasd'
-            })
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                success: false,
-                message: 'Có lỗi xảy ra'
-            })
-        })
-});
 
 app.post('/create-new-forecast', (req, res) => {
     const { cityName } = req.body;
