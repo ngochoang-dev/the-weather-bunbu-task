@@ -1,53 +1,64 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { useDispatch, useSelector } from 'react-redux';
 import { IconContext } from "react-icons";
+
 import styles from './DetailComponent.module.css';
-import Select from './Select';
-import { getDetailForecast } from '../../redux/actions';
 
 function DetailComponent({
+    detailForecast,
     typeForecast,
-    idOfCity,
-    setIdOfCity
 }) {
-    const dispatch = useDispatch();
+    const [data, setData] = useState({
+        cityName: "",
+        description: "",
+        humidity: "",
+        temperature: "",
+        windSpeed: "",
+    })
+
     const {
-        cityId,
         cityName,
         description,
         humidity,
         temperature,
         windSpeed,
-    } = useSelector(state => state.forecastData.detailForecast);
+    } = data;
 
     useEffect(() => {
-        dispatch(getDetailForecast(dayjs().format('YYYY/M/DD'), idOfCity));
-    }, [dispatch, idOfCity]);
+        detailForecast && setData(detailForecast)
+    }, [detailForecast])
+
     return (
         <div className={clsx(
-            styles.container
+            styles.container,
+            'Detail_container'
         )}>
-            <Select
-                cityId={cityId}
-                cityName={cityName}
-                setIdOfCity={setIdOfCity}
-            />
             <div className={clsx(
-                styles.wrapper_date
+                "Wrapper_title_detail"
             )}>
-                <span>{dayjs().format('h:m A, ddd, MMM D, YYYY')}</span>
+                <h4 className={clsx(
+                    styles.your_city
+                )}>
+                    <span>Your city</span>
+                    <span>{cityName}</span>
+                </h4>
+                <div className={clsx(
+                    styles.wrapper_date
+                )}>
+                    <span>{dayjs().format('h:m A, ddd, MMM D, YYYY')}</span>
+                </div>
             </div>
             <div className={clsx(
-                styles.wrapper_detail
+                'Wrapper_detail'
             )}>
                 <div className={clsx(
                     styles.temperature
                 )}>
                     <IconContext.Provider value={{
                         className: clsx(
-                            styles.icon
+                            styles.icon,
+                            'icon_status'
                         )
                     }}>
                         {
@@ -59,7 +70,9 @@ function DetailComponent({
                             })
                         }
                     </IconContext.Provider>
-                    <p>
+                    <p className={clsx(
+                        "Temperature"
+                    )}>
                         {temperature}
                         <span>&deg;F</span>
                     </p>
@@ -67,6 +80,12 @@ function DetailComponent({
                 <div className={clsx(
                     styles.status
                 )}>
+                    <span className={clsx(
+                        "Temperature_status"
+                    )}>
+                        {temperature}
+                        <p>&deg;F</p>
+                    </span>
                     <p>{description}</p>
                 </div>
                 <div className={clsx(

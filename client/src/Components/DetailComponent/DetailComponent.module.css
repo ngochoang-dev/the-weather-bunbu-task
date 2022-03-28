@@ -4,70 +4,15 @@
     justify-content: center
 }
 
-.wrapper_select {
-    padding: 6px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.your_city {
+    text-align: center;
+    font-weight: 400;
 }
 
-.select_label {
-    margin-right: 4px;
-}
-
-.select {
-    user-select: none;
-    position: relative;
-    cursor: pointer;
-    border: 1px solid #E0E0E0;
-    width: 160px;
-    padding: 6px 8px;
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-}   
-
-.list_city {
-    z-index: 99;
-    margin-top: 4px;
-    padding: 4px;
-    position: absolute;
-    left: 0;
-    top: 100%;
-    width: 100%;
-    border: 1px solid #E0E0E0;
-    background-color: var(--white-color);
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-}
-
-.list_city>li {
-    margin: 2px 0;
-    padding: 4px;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -o-border-radius: 2px;
-    transition: .25s    ;
-    -webkit-transition: .25s    ;
-    -moz-transition: .25s    ;
-    -ms-transition: .25s    ;
-    -o-transition: .25s    ;
-}
-
-.active_city {
-    color: var(--primary-color)
-}
-
-.list_city>li:hover {
-    background-color: var(--primary-color);
-    color: var(--white-color);
+.your_city>span:last-child {
+    display: inline-block;
+    margin-left: 8px;
+    font-weight: 500;
 }
 
 .wrapper_date {
@@ -91,14 +36,14 @@
     font-size: 8rem;
 }
 
-.temperature>p {
+.temperature>p, .status>span {
     position: relative;
     display: inline-block;
     font-size: 3rem;
     font-weight: 600;
 }
 
-.temperature>p>span {
+.temperature>p>span, .status>span>p {
     font-size: 1.1rem;
     position: absolute;
     top: 0;
