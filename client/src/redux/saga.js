@@ -8,7 +8,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 
 
 const handlePostForecast = (payload) => {
-    return fetch(`http://localhost:5000/create-new-forecast`, {
+    return fetch(`${process.env.REACT_APP_URL}/create-new-forecast`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ const handlePostForecast = (payload) => {
 }
 
 const handleGetAllCity = () => {
-    return fetch(`http://localhost:5000/get-all-city`).then(response => response.json());
+    return fetch(`${process.env.REACT_APP_URL}/get-all-city`).then(response => response.json());
 }
 
 function* createForecast(action) {
