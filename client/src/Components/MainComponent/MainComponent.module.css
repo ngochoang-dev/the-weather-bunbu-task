@@ -89,8 +89,9 @@
 }
 
 @media (max-width: 1023px) {
-    .main_header {
+    .header {
         margin-left: 6px;
+        margin-top: 10px;
     } 
 
     .wrapper_chart  {
@@ -99,31 +100,23 @@
 }
 
 @media (max-width: 644px) {
-    .main_container {
-        overflow-x: auto !important;
-        width: 100%;
-    } 
-
-    .main_header {
-        position: sticky;
-        position: -webkit-sticky;
-        left: 6px;
-    } 
-
     .wrapper_forecast {
-        width: 784px;
+        display: block;
     } 
 
-    .wrapper_main {
-        width: 784px;       
-        overflow: hidden;
-        position: relative;
-    } 
-
-    .wrapper_chart {
-        width: 878px !important;
-        height: 120px
+    .box_forecast {
+        width: 100%;
+        flex-direction: row;
+        height: 46px;
+        justify-content: space-around;
     }
 
+    .box_forecast>span .icon {
+        font-size: 3rem;
+    }
+
+    .humidity>span {
+        margin-top: 4px;
+    }
 }
 

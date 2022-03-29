@@ -43,19 +43,11 @@ function Container({
 
     const handleChangeUnit = (e, id, time) => {
         const date = day ? day : time
-        if (e.target.checked) {
-            dispatch(changeUnit({
-                isCelsius: e.target.checked,
-                id,
-                date
-            }));
-        } else {
-            dispatch(changeUnit({
-                isCelsius: e.target.checked,
-                id,
-                date
-            }));
-        }
+        dispatch(changeUnit({
+            isCelsius: e.target.checked,
+            id,
+            date
+        }));
         setIsCelsius(e.target.checked);
     }
 

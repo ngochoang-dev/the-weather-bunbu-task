@@ -4,7 +4,7 @@ import { IconContext } from 'react-icons';
 import { CgCloseR } from 'react-icons/cg';
 import { IoMdTrash } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import styles from './Select.module.css';
@@ -20,14 +20,29 @@ function ModalSelect({
 
     const [id, setId] = useState(null)
     const [showModalDelete, setShowModalDelete] = useState(false);
+    const [idSelect, setIdSelect] = useState(select)
 
     const handleChooseCity = (cityId) => {
-        if (select.includes(cityId)) {
-            const newSelect = select.filter(item => item !== cityId);
-            return setSelect(newSelect)
+        if (idSelect.includes(cityId)) {
+            const newSelect = idSelect.filter(item => item !== cityId);
+            return setIdSelect(newSelect)
         }
-        setSelect(prev => {
-            return prev.length < 3 ? [...prev, cityId] : prev
+        setIdSelect(prev => {
+            if (prev.length < 3) {
+                return [...prev, cityId]
+            } else {
+                toast.error('Select up to 3 locations', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    toastId: 'error',
+                })
+                return prev
+            }
         })
     };
 
@@ -47,6 +62,9 @@ function ModalSelect({
             setSelect(prev => {
                 return prev.filter(i => i !== id)
             })
+            setIdSelect(prev => {
+                return prev.filter(i => i !== id)
+            })
         }
         return () => {
             dispatch(resetLoading())
@@ -55,7 +73,12 @@ function ModalSelect({
 
     useEffect(() => {
         return () => document.querySelector('body').classList.remove('Open_modal')
-    }, [])
+    }, []);
+
+    const handleSubmit = () => {
+        setSelect(idSelect);
+        setShowModal(false);
+    }
 
     return (
         <div className={clsx(
@@ -72,6 +95,9 @@ function ModalSelect({
                         <CgCloseR />
                     </IconContext.Provider>
                 </span>
+                <h4 className={clsx(
+                    styles.header
+                )}>All City</h4>
                 <ul className={clsx(
                     styles.list_city
                 )}>
@@ -83,7 +109,7 @@ function ModalSelect({
                                         styles.checkbox
                                     )}>
                                         <input type="checkbox"
-                                            checked={select.includes(id)}
+                                            checked={idSelect.includes(id)}
                                             onChange={() => handleChooseCity(id)} />
                                         <span className={clsx(
                                             styles.name_city
@@ -100,6 +126,13 @@ function ModalSelect({
                         })
                     }
                 </ul>
+                <button className={clsx(
+                    styles.btn_submit
+                )}
+                    onClick={handleSubmit}
+                >
+                    Save
+                </button>
                 {
                     showModalDelete && (
                         <div className={clsx(

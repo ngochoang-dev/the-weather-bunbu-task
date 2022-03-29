@@ -5,6 +5,8 @@ import { TiPlus } from 'react-icons/ti';
 import { WiCloudy, WiDaySunny } from 'react-icons/wi';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import './css/App.css';
 import styles from './App.module.css';
@@ -64,11 +66,11 @@ function App() {
     if (cityId || cityId === 0) {
       setSelectId(prev => {
         if (prev.length === 3 || prev.length > 3) {
-          const dummy = [...prev, cityId]
+          const dummy = [cityId, ...prev]
           const result = dummy.filter(i => i !== prev[prev.length - 1]);
           return result
         }
-        return cityId === 1 ? prev : [...prev, cityId]
+        return cityId === 1 ? prev : [cityId, ...prev]
       });
     }
   }, [cityId]);
@@ -77,6 +79,7 @@ function App() {
     <div className={clsx(
       styles.container
     )}>
+      <ToastContainer />
       <div
         className={clsx(
           styles.options,

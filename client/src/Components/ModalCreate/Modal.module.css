@@ -72,7 +72,7 @@
 }
 
 .btn_create {
-    margin-top: 30px;
+    margin-top: 20px;
     width: 100%;
     padding: 6px 8px;
     border-radius: 6px;
@@ -90,6 +90,23 @@
 
 .btn_create:hover {
     opacity: .8;
+}
+
+.label_valid {
+    display: inline-block;
+    font-size: .84rem;
+    color: red;
+    padding: 4px 0;
+    opacity: 0;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    -moz-transition: all 0.25s;
+    -ms-transition: all 0.25s;
+    -o-transition: all 0.25s;
+}
+
+.label_valid.active {
+    opacity: 1;
 }
 
 @media (max-width: 468px) {

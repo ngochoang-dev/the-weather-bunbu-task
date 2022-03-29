@@ -1,10 +1,7 @@
 import React, { useState, memo, useEffect } from 'react';
-
 import clsx from 'clsx';
 import { IconContext } from 'react-icons';
 import { CgCloseR } from 'react-icons/cg';
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Modal.module.css';
@@ -17,23 +14,36 @@ function ModalCreate({
     const dispatch = useDispatch();
     const loading = useSelector(state => state.forecastData.loading);
     const [cityName, setCityName] = useState('');
+    const [isValid, setIsValid] = useState(false);
 
     const handleCreate = () => {
-        if (cityName)
+        if (cityName && !isValid) {
             dispatch(createForecast({ cityName: cityName }))
-        setCityName('')
+            setCityName('')
+        }
     }
 
     useEffect(() => {
         return document.querySelector('body').classList.remove('Open_modal')
-    }, [])
+    }, []);
 
+    useEffect(() => {
+        if (loading)
+            setShowModal(false)
+    }, [loading, setShowModal]);
+
+    const handleInputChange = (e) => {
+        const regex = /^[a-zA-Z0-9 ]*$/;
+        (!regex.test(e.target.value) || e.target.value.length === 20) ?
+            setIsValid(true) :
+            setIsValid(false)
+        setCityName(e.target.value)
+    }
 
     return (
         <div className={clsx(
             styles.overlay
         )}>
-            <ToastContainer />
             <div className={clsx(
                 styles.modal,
             )}>
@@ -51,7 +61,13 @@ function ModalCreate({
                     <input type="text"
                         ref={e => e ? e.focus() : null}
                         value={cityName}
-                        onChange={(e) => setCityName(e.target.value)} />
+                        onChange={(e) => handleInputChange(e)}
+                        maxLength="20"
+                    />
+                    <span className={clsx(
+                        styles.label_valid,
+                        isValid && styles.active
+                    )}>Tên chỉ chứa chữ cái và số, tối đa 20 ký tự</span>
                 </div>
                 <button
                     className={clsx(
