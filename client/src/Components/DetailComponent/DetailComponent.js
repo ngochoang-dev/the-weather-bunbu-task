@@ -22,18 +22,18 @@ function DetailComponent({
     })
 
     const {
+        cityId,
         cityName,
         description,
         humidity,
         temperature,
         windSpeed,
-        date
+        date,
     } = data;
 
     useEffect(() => {
         detailForecast && setData(detailForecast)
     }, [detailForecast]);
-
 
     return (
         <div className={clsx(
@@ -42,7 +42,6 @@ function DetailComponent({
         )}>
             <div className={clsx(
                 styles.wrapper_title_detail
-
             )}>
                 <h4 className={clsx(
                     styles.your_city
@@ -60,7 +59,6 @@ function DetailComponent({
                         </label>
                         <span>&deg;{isCelsius ? 'C' : 'F'}</span>
                     </div>
-
                 </h4>
                 <div className={clsx(
                     styles.wrapper_date
@@ -69,7 +67,7 @@ function DetailComponent({
                 </div>
             </div>
             <div className={clsx(
-                'Wrapper_detail'
+                styles.wrapper_detail
             )}>
                 <div className={clsx(
                     styles.temperature
@@ -78,7 +76,6 @@ function DetailComponent({
                         className: clsx(
                             styles.icon,
                             styles.icon_status
-
                         )
                     }}>
                         {
@@ -92,7 +89,6 @@ function DetailComponent({
                     </IconContext.Provider>
                     <p className={clsx(
                         styles.temperature
-
                     )}>
                         {temperature}
                         <span>&deg;{isCelsius ? 'C' : 'F'}</span>
@@ -106,7 +102,6 @@ function DetailComponent({
                     )}>
                         {temperature}
                         <p>&deg;{isCelsius ? 'C' : 'F'}</p>
-
                     </span>
                     <p>{description}</p>
                 </div>

@@ -71,45 +71,10 @@ const forecastData = (state = initialState, action) => {
                 detailForecast: action.data
             }
         case GET_ALL_FORECAST_SUCCESS:
-
             return {
                 ...state,
-                loading: true
-            }
-        case GET_ALL_CITY_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                allCity: [...action.data]
-            }
-        case POST_FORECAST_SUCCESS:
-            toast.success('Tạo thành công', {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            return {
-                ...state,
-                loading: false,
-                cityId: action.data
-            }
-        case POST_FORECAST_FAIL:
-            toast.error('Tên thành phố đã tồn tại', {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            return {
-                ...state,
-                loading: false,
+                loading: true,
+                allForecast: action.data
             }
         case DELETE_CITY_SUCCESS:
             toast.success('Xóa thành công', {
@@ -135,7 +100,6 @@ const forecastData = (state = initialState, action) => {
             const { isCelsius, id, date } = action.payload;
             const { allForecast, detailForecast } = state;
             const forecasts = [...state.allForecast];
-
             if (isCelsius) {
                 const newDetailForecast = detailForecast.map(detail => {
                     if (detail.cityId === id) {

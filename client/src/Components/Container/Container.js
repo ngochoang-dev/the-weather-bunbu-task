@@ -57,6 +57,8 @@ function Container({
         setIsCelsius(e.target.checked)
     }
 
+    console.log(dataForecast);
+
     return (
         <div className={clsx(
             styles.container
@@ -89,7 +91,6 @@ function Container({
                 onClick={() => setSelect(prev => prev.filter(i => i !== id))}
             >
                 <IconContext.Provider value={{ className: styles.icon_close }}>
-
                     <CgClose />
                 </IconContext.Provider>
             </button>

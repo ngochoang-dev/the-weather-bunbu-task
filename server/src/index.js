@@ -147,7 +147,6 @@ app.post('/create-new-forecast', (req, res) => {
             })
             const idOfCity = response.length > 0 ? Number(response[response.length - 1].cityId) : 0;
 
-
             data.forEach(item => {
                 new Weather({
                     cityId: idOfCity + 1,

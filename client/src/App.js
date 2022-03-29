@@ -73,6 +73,8 @@ function App() {
     }
   }, [cityId]);
 
+  console.log(allForecast);
+
   return (
     <div className={clsx(
       styles.container
