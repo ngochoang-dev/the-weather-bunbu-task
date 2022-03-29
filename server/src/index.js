@@ -48,6 +48,7 @@ app.get('/forecast', (req, res) => {
                     data: arr
                 })
             })
+
             res.json({
                 data: data
             })
@@ -62,7 +63,7 @@ app.get('/forecast', (req, res) => {
 });
 
 app.get('/forecast-detail', (req, res) => {
-    const { today, cityId, unit } = req.query;
+    const { today, cityId } = req.query;
     Weather.find({
         "cityId": {
             $in: JSON.parse(cityId)
@@ -131,6 +132,7 @@ app.post('/create-new-forecast', (req, res) => {
 
     Promise.all([
         Weather.find(),
+
         Weather.findOne({ cityName }),
     ])
         .then(([allForecast, currentForecast]) => {
@@ -140,11 +142,11 @@ app.post('/create-new-forecast', (req, res) => {
                     message: "City name exsisted"
                 })
             }
-
             const response = allForecast.sort((a, b) => {
                 return Number(a.cityId) - Number(b.cityId)
             })
             const idOfCity = response.length > 0 ? Number(response[response.length - 1].cityId) : 0;
+
 
             data.forEach(item => {
                 new Weather({
@@ -208,6 +210,7 @@ app.delete('/delete-city', (req, res) => {
             })
         })
 })
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

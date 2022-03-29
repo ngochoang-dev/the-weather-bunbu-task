@@ -4,6 +4,7 @@ async function connect() {
     try {
         await mongoose.connect('mongodb+srv://ngochoangdev:ngochoangdev@cluster0.qqqo7.mongodb.net/weather_clone?retryWrites=true&w=majority', {
             // await mongoose.connect('mongodb://localhost:27017/weather_clone', {
+
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })

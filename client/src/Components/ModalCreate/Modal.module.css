@@ -92,7 +92,6 @@
     opacity: .8;
 }
 
-
 @media (max-width: 468px) {
     .modal {
         width: 100% !important;

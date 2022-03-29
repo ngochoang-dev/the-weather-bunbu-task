@@ -18,12 +18,14 @@
     background-color: var(--white-color);
 }   
 
+
 .current_city{
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
+
 
 .wrapper_list_city {
     margin-left: 10px;
@@ -263,3 +265,4 @@
         margin-left: -6px;
     }
 }
+

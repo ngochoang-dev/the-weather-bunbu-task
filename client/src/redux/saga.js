@@ -89,6 +89,7 @@ function* deleteCity(payload) {
     })
 }
 
+
 function* rootSaga() {
     yield takeEvery(POST_FORECAST, createForecast);
     yield takeEvery(GET_ALL_CITY, getAllCity);

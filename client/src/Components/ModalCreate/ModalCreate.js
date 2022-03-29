@@ -1,4 +1,5 @@
 import React, { useState, memo, useEffect } from 'react';
+
 import clsx from 'clsx';
 import { IconContext } from 'react-icons';
 import { CgCloseR } from 'react-icons/cg';
@@ -26,6 +27,7 @@ function ModalCreate({
     useEffect(() => {
         return document.querySelector('body').classList.remove('Open_modal')
     }, [])
+
 
     return (
         <div className={clsx(

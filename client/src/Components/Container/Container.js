@@ -10,7 +10,6 @@ import DetailComponent from '../DetailComponent/DetailComponent';
 import MainComponent from '../MainComponent/MainComponent';
 import { changeUnit } from '../../redux/actions';
 
-
 function Container({
     typeForecast,
     id,
@@ -24,6 +23,7 @@ function Container({
     const [detailData, setDetailDate] = useState([]);
     const [dataForecast, setDataForecast] = useState([]);
     const [isCelsius, setIsCelsius] = useState(false);
+
 
     useMemo(() => {
         const result = detailForecast.find(item => Number(item.cityId) === id)
@@ -89,6 +89,7 @@ function Container({
                 onClick={() => setSelect(prev => prev.filter(i => i !== id))}
             >
                 <IconContext.Provider value={{ className: styles.icon_close }}>
+
                     <CgClose />
                 </IconContext.Provider>
             </button>

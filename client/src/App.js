@@ -34,12 +34,14 @@ function App() {
     allForecast,
     cityId } = useSelector(state => state.forecastData);
 
+
   function handleOnDragEnd(result) {
     if (!result.destination) return;
     const items = Array.from(selectId);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     setSelectId(items);
+
   }
 
   const handleGetDetail = useCallback(() => {

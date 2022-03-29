@@ -10,6 +10,7 @@ import {
     DELETE_CITY_SUCCESS,
     SET_LOADING,
     CHANGE_UNITS
+
 } from './actions';
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
     detailForecast: [],
     allForecast: [],
     isDeleted: false,
+
 };
 
 const forecastData = (state = initialState, action) => {
@@ -69,9 +71,45 @@ const forecastData = (state = initialState, action) => {
                 detailForecast: action.data
             }
         case GET_ALL_FORECAST_SUCCESS:
+
             return {
                 ...state,
-                allForecast: action.data
+                loading: true
+            }
+        case GET_ALL_CITY_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                allCity: [...action.data]
+            }
+        case POST_FORECAST_SUCCESS:
+            toast.success('Tạo thành công', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return {
+                ...state,
+                loading: false,
+                cityId: action.data
+            }
+        case POST_FORECAST_FAIL:
+            toast.error('Tên thành phố đã tồn tại', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return {
+                ...state,
+                loading: false,
             }
         case DELETE_CITY_SUCCESS:
             toast.success('Xóa thành công', {

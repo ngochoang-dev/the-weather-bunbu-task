@@ -12,6 +12,7 @@ function MainComponent({
     handleGetDetail,
     allForecast,
     isCelsius
+
 }) {
     const [dataForecast, setDataForecast] = useState([]);
     const [currentForecast, setCurrentForecast] = useState(0);
@@ -44,6 +45,7 @@ function MainComponent({
     }, [idOfCity]);
 
     useMemo(() => {
+
         allForecast && setData(allForecast.data)
     }, [allForecast]);
 
@@ -61,6 +63,7 @@ function MainComponent({
             )}>
                 <LineChart
                     isCelsius={isCelsius}
+
                     typeForecast={typeForecast}
                     currentForecast={currentForecast}
                     temperature={temperature}
@@ -69,6 +72,7 @@ function MainComponent({
                 <div className={clsx(
                     styles.wrapper_forecast,
                     styles.wrapper_forecast
+
                 )}>
                     {
                         dataForecast && dataForecast.map((data, i) => {
