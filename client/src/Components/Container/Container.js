@@ -23,7 +23,7 @@ function Container({
     const [detailData, setDetailDate] = useState([]);
     const [dataForecast, setDataForecast] = useState([]);
     const [isCelsius, setIsCelsius] = useState(false);
-
+    const [day, setDay] = useState(null)
 
     useMemo(() => {
         const result = detailForecast.find(item => Number(item.cityId) === id)
@@ -36,25 +36,27 @@ function Container({
     }, [allForecast, id]);
 
     const handleGetDetail = (date) => {
+        setDay(date)
         const newData = dataForecast.data.find(item => item.date === date);
         setDetailDate(newData)
     };
 
-    const handleChangeUnit = (e, id, date) => {
+    const handleChangeUnit = (e, id, time) => {
+        const date = day ? day : time
         if (e.target.checked) {
             dispatch(changeUnit({
                 isCelsius: e.target.checked,
                 id,
                 date
-            }))
+            }));
         } else {
             dispatch(changeUnit({
                 isCelsius: e.target.checked,
                 id,
                 date
-            }))
+            }));
         }
-        setIsCelsius(e.target.checked)
+        setIsCelsius(e.target.checked);
     }
 
     return (
@@ -82,6 +84,7 @@ function Container({
                 allForecast={dataForecast}
                 handleGetDetail={handleGetDetail}
                 isCelsius={isCelsius}
+                setDay={setDay}
             />
             <button className={clsx(
                 styles.btn_close

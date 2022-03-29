@@ -99,6 +99,7 @@ const forecastData = (state = initialState, action) => {
             const { isCelsius, id, date } = action.payload;
             const { allForecast, detailForecast } = state;
             const forecasts = [...state.allForecast];
+            console.log(date);
             if (isCelsius) {
                 const newDetailForecast = detailForecast.map(detail => {
                     if (detail.cityId === id) {
