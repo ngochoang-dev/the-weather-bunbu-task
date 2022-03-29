@@ -48,7 +48,6 @@ app.get('/forecast', (req, res) => {
                     data: arr
                 })
             })
-
             res.json({
                 data: data
             })
@@ -63,7 +62,7 @@ app.get('/forecast', (req, res) => {
 });
 
 app.get('/forecast-detail', (req, res) => {
-    const { today, cityId } = req.query;
+    const { today, cityId, unit } = req.query;
     Weather.find({
         "cityId": {
             $in: JSON.parse(cityId)
@@ -82,7 +81,6 @@ app.get('/forecast-detail', (req, res) => {
                 message: 'Có lỗi xảy ra'
             })
         })
-
 })
 
 app.post('/create-new-forecast', (req, res) => {
@@ -132,7 +130,7 @@ app.post('/create-new-forecast', (req, res) => {
     });
 
     Promise.all([
-        Weather.find().sort({ cityId: 1 }),
+        Weather.find(),
         Weather.findOne({ cityName }),
     ])
         .then(([allForecast, currentForecast]) => {
@@ -142,7 +140,11 @@ app.post('/create-new-forecast', (req, res) => {
                     message: "City name exsisted"
                 })
             }
-            const idOfCity = allForecast.length > 0 ? Number(allForecast[allForecast.length - 1].cityId) : 0;
+
+            const response = allForecast.sort((a, b) => {
+                return Number(a.cityId) - Number(b.cityId)
+            })
+            const idOfCity = response.length > 0 ? Number(response[response.length - 1].cityId) : 0;
 
             data.forEach(item => {
                 new Weather({
@@ -182,6 +184,22 @@ app.get('/get-all-city', (req, res) => {
                 data: [...new Set(result.map(JSON.stringify))].map(JSON.parse)
             })
         })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                success: false,
+                message: 'Có lỗi xảy ra'
+            })
+        })
+})
+
+app.delete('/delete-city', (req, res) => {
+    const { id } = req.query;
+    Weather.deleteMany({ cityId: id })
+        .then(() => res.status(200).json({
+            success: true,
+            message: 'deleted'
+        }))
         .catch(err => {
             console.log(err);
             res.status(500).json({

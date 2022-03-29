@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import clsx from 'clsx';
 import { IconContext } from 'react-icons';
 import { CgCloseR } from 'react-icons/cg';
@@ -23,6 +23,10 @@ function ModalCreate({
         setCityName('')
     }
 
+    useEffect(() => {
+        return document.querySelector('body').classList.remove('Open_modal')
+    }, [])
+
     return (
         <div className={clsx(
             styles.overlay
@@ -30,7 +34,6 @@ function ModalCreate({
             <ToastContainer />
             <div className={clsx(
                 styles.modal,
-                "Modal"
             )}>
                 <span className={clsx(styles.btn_close)}
                     onClick={() => setShowModal(false)}

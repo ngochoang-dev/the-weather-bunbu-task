@@ -7,7 +7,8 @@
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(4px);
     display: flex;
-    justify-content: center
+    justify-content: center;
+    z-index: 99;
 }
 
 .modal {
@@ -89,4 +90,12 @@
 
 .btn_create:hover {
     opacity: .8;
+}
+
+
+@media (max-width: 468px) {
+    .modal {
+        width: 100% !important;
+        margin: 200px 6px 0 6px;
+    }   
 }

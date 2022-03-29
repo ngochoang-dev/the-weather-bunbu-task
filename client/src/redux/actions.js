@@ -7,6 +7,10 @@ export const GET_DETAIL_FORECAST = 'GET_DETAIL_FORECAST';
 export const GET_DETAIL_FORECAST_SUCCESS = 'GET_DETAIL_FORECAST_SUCCESS';
 export const GET_ALL_FORECAST = 'GET_ALL_FORECAST';
 export const GET_ALL_FORECAST_SUCCESS = 'GET_ALL_FORECAST_SUCCESS';
+export const DELETE_CITY = 'DELETE_CITY';
+export const DELETE_CITY_SUCCESS = 'DELETE_CITY_SUCCESS';
+export const SET_LOADING = 'SET_LOADING';
+export const CHANGE_UNITS = 'CHANGE_UNITS';
 
 
 export const createForecast = (data) => {
@@ -36,3 +40,22 @@ export const getAllForecast = (payload) => {
     }
 }
 
+export const deleteCity = (payload) => {
+    return {
+        type: DELETE_CITY,
+        payload
+    }
+}
+
+export const resetLoading = () => {
+    return {
+        type: SET_LOADING
+    }
+}
+
+export const changeUnit = (payload) => {
+    return {
+        type: CHANGE_UNITS,
+        payload,
+    }
+}

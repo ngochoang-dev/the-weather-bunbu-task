@@ -7,7 +7,9 @@ import {
     GET_DETAIL_FORECAST,
     GET_DETAIL_FORECAST_SUCCESS,
     GET_ALL_FORECAST,
-    GET_ALL_FORECAST_SUCCESS
+    GET_ALL_FORECAST_SUCCESS,
+    DELETE_CITY,
+    DELETE_CITY_SUCCESS,
 } from './actions';
 import dayjs from 'dayjs';
 import { call, put, takeEvery } from 'redux-saga/effects';
@@ -48,6 +50,13 @@ const handleGetAllForecast = ({ payload }) => {
         .then(response => response.json())
 }
 
+const handleDeleteCity = ({ payload }) => {
+    return fetch(`${process.env.REACT_APP_URL}/delete-city?id=${payload}`, {
+        method: 'DELETE',
+    })
+        .then(response => response.json())
+}
+
 
 function* createForecast(action) {
     try {
@@ -73,12 +82,19 @@ function* getAllForecast(payload) {
     yield put({ type: GET_ALL_FORECAST_SUCCESS, data: data.data })
 }
 
+function* deleteCity(payload) {
+    const data = yield call(handleDeleteCity, payload);
+    yield put({
+        type: DELETE_CITY_SUCCESS, data: data.data
+    })
+}
 
 function* rootSaga() {
     yield takeEvery(POST_FORECAST, createForecast);
     yield takeEvery(GET_ALL_CITY, getAllCity);
     yield takeEvery(GET_DETAIL_FORECAST, getDetailForecast);
     yield takeEvery(GET_ALL_FORECAST, getAllForecast);
+    yield takeEvery(DELETE_CITY, deleteCity);
 }
 
 export default rootSaga;

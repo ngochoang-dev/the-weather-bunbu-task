@@ -10,7 +10,8 @@ function MainComponent({
     idOfCity,
     typeForecast,
     handleGetDetail,
-    allForecast
+    allForecast,
+    isCelsius
 }) {
     const [dataForecast, setDataForecast] = useState([]);
     const [currentForecast, setCurrentForecast] = useState(0);
@@ -42,23 +43,24 @@ function MainComponent({
         setCurrentForecast(0)
     }, [idOfCity]);
 
-    useEffect(() => {
+    useMemo(() => {
         allForecast && setData(allForecast.data)
     }, [allForecast]);
 
     return (
         <div className={clsx(
             styles.container,
-            "Main_container"
+            styles.main_container
         )}>
             <h4 className={clsx(
                 styles.header,
-                "Main_header"
+                styles.main_header
             )}>Temperature</h4>
             <div className={clsx(
-                "Wrapper_main"
+                styles.wrapper_main,
             )}>
                 <LineChart
+                    isCelsius={isCelsius}
                     typeForecast={typeForecast}
                     currentForecast={currentForecast}
                     temperature={temperature}
@@ -66,7 +68,7 @@ function MainComponent({
                 />
                 <div className={clsx(
                     styles.wrapper_forecast,
-                    "Wrapper_forecast"
+                    styles.wrapper_forecast
                 )}>
                     {
                         dataForecast && dataForecast.map((data, i) => {

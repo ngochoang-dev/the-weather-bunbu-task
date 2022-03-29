@@ -17,7 +17,8 @@ import styles from './MainComponent.module.css';
 function Chart({
     temperature,
     humidityArr,
-    currentForecast
+    currentForecast,
+    isCelsius
 }) {
     ChartJS.register(
         CategoryScale,
@@ -102,7 +103,7 @@ function Chart({
     const tracker = {
         afterDatasetsDraw(chart) {
             const { ctx } = chart;
-            text(`${temperature}°F`, currentForecast + 1, currentForecast + 1)
+            text(`${temperature} ${isCelsius ? '°C' : '°F'}`, currentForecast + 1, currentForecast + 1)
             circle(currentForecast + 1, currentForecast + 1);
             // text
             function text(text, x, y) {
@@ -139,7 +140,7 @@ function Chart({
     return (
         <div className={clsx(
             styles.wrapper_chart,
-            "Wrapper_chart"
+            styles.rapper_chart
         )}>
             <Line
                 key={Math.random()}

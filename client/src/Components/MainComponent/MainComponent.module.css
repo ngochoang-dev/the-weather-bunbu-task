@@ -2,8 +2,12 @@
     display: flex;
     flex-direction: column; 
     justify-content: flex-end;   
-    /* max-width: 560px; */
     overflow: hidden;
+}
+
+.main_container::-webkit-scrollbar {
+    display: none;
+    position: relative;
 }
 
 .header {
@@ -38,7 +42,6 @@
     -o-transition: all 0.5s;
 }
 
-
 .box_forecast.current {
     background-color: var(--primary-color);
     color: var(--white-color);
@@ -65,7 +68,6 @@
     color: #9E9E9E;  
 }
 
-
 .box_forecast.current .humidity>p {
     color: var(--white-color);
 }
@@ -77,10 +79,49 @@
 
 .wrapper_chart {
     width: 830px;
-    /* border: 1px solid red; */
     transform: translateX(-45px);
     -webkit-transform: translateX(-45px);
     -moz-transform: translateX(-45px);
     -ms-transform: translateX(-45px);
     -o-transform: translateX(-45px);
 }
+
+@media (max-width: 1023px) {
+    .main_header {
+        margin-left: 6px;
+    } 
+
+    .wrapper_chart  {
+        width: 735px !important;
+    }
+}
+
+@media (max-width: 644px) {
+    .main_container {
+        overflow-x: auto !important;
+        width: 100%;
+    } 
+
+    .main_header {
+        position: sticky;
+        position: -webkit-sticky;
+        left: 6px;
+    } 
+
+    .wrapper_forecast {
+        width: 784px;
+    } 
+
+    .wrapper_main {
+        width: 784px;       
+        overflow: hidden;
+        position: relative;
+    } 
+
+    .wrapper_chart {
+        width: 878px !important;
+        height: 120px
+    }
+
+}
+

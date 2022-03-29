@@ -1,10 +1,14 @@
 import React, { useState, useMemo, memo } from 'react';
+import clsx from 'clsx';
+import { useDispatch } from 'react-redux';
 import { IconContext } from 'react-icons';
 import { CgClose } from 'react-icons/cg';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
+import styles from './Container.module.css';
 import DetailComponent from '../DetailComponent/DetailComponent';
 import MainComponent from '../MainComponent/MainComponent';
+import { changeUnit } from '../../redux/actions';
 
 
 function Container({
@@ -13,50 +17,78 @@ function Container({
     setSelect,
     provided,
     detailForecast,
-    allForecast }) {
-
+    allForecast
+}) {
+    const dispatch = useDispatch();
     const [idOfCity, setIdOfCity] = useState(id);
-    const [detailData, setDetailDate] = useState([])
+    const [detailData, setDetailDate] = useState([]);
+    const [dataForecast, setDataForecast] = useState([]);
+    const [isCelsius, setIsCelsius] = useState(false);
 
     useMemo(() => {
         const result = detailForecast.find(item => Number(item.cityId) === id)
         setDetailDate(result)
     }, [detailForecast, id]);
 
-    const forecast = useMemo(() => {
-        return allForecast.find(item => Number(item.cityId) === id)
+    useMemo(() => {
+        const result = allForecast.find(item => Number(item.cityId) === id)
+        setDataForecast(result)
     }, [allForecast, id]);
 
     const handleGetDetail = (date) => {
-        const data = forecast.data.find(item => item.date === date);
-        setDetailDate(data)
+        const newData = dataForecast.data.find(item => item.date === date);
+        setDetailDate(newData)
     };
 
+    const handleChangeUnit = (e, id, date) => {
+        if (e.target.checked) {
+            dispatch(changeUnit({
+                isCelsius: e.target.checked,
+                id,
+                date
+            }))
+        } else {
+            dispatch(changeUnit({
+                isCelsius: e.target.checked,
+                id,
+                date
+            }))
+        }
+        setIsCelsius(e.target.checked)
+    }
+
     return (
-        <div className="Container" >
-            <button className="Btn_menu"
+        <div className={clsx(
+            styles.container
+        )} >
+            <button className={clsx(styles.btn_menu)}
                 {...provided.dragHandleProps}
             >
-                <IconContext.Provider value={{ className: 'icon_menu' }}>
+                <IconContext.Provider value={{ className: clsx(styles.icon_menu) }}>
                     <GiHamburgerMenu />
                 </IconContext.Provider>
             </button>
             <DetailComponent
+                isCelsius={isCelsius}
                 detailForecast={detailData}
                 idOfCity={idOfCity}
-                setIdOfCity={setIdOfCity}
                 typeForecast={typeForecast}
+                setIdOfCity={setIdOfCity}
+                handleChangeUnit={handleChangeUnit}
             />
             <MainComponent
                 idOfCity={idOfCity}
                 typeForecast={typeForecast}
-                allForecast={forecast}
+                allForecast={dataForecast}
                 handleGetDetail={handleGetDetail}
+                isCelsius={isCelsius}
             />
-            <button className="Btn_close"
+            <button className={clsx(
+                styles.btn_close
+            )}
                 onClick={() => setSelect(prev => prev.filter(i => i !== id))}
             >
-                <IconContext.Provider value={{ className: 'icon_close' }}>
+                <IconContext.Provider value={{ className: styles.icon_close }}>
                     <CgClose />
                 </IconContext.Provider>
             </button>
