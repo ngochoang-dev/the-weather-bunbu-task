@@ -73,7 +73,6 @@ const forecastData = (state = initialState, action) => {
         case GET_ALL_FORECAST_SUCCESS:
             return {
                 ...state,
-                loading: true,
                 allForecast: action.data
             }
         case DELETE_CITY_SUCCESS:
@@ -129,7 +128,6 @@ const forecastData = (state = initialState, action) => {
                     allForecast: newAllForecast,
                 }
             } else {
-                console.log(forecasts);
                 const newDetailForecast = forecasts.map(item => {
                     if (item.cityId === Number(id)) {
                         const newData = item.data.find(data => data.date === date);

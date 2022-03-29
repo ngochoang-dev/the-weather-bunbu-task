@@ -57,8 +57,6 @@ function Container({
         setIsCelsius(e.target.checked)
     }
 
-    console.log(dataForecast);
-
     return (
         <div className={clsx(
             styles.container
