@@ -11,7 +11,6 @@ import {
     SET_LOADING,
     CHANGE_UNITS,
     GET_HOURLY_FORECAST_SUCCESS
-
 } from './actions';
 
 const initialState = {
@@ -161,6 +160,7 @@ const forecastData = (state = initialState, action) => {
                 ...state,
                 hourlyData: action.data
             }
+
         default:
             return state
     }

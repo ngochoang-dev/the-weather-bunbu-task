@@ -12,6 +12,7 @@ import {
     DELETE_CITY_SUCCESS,
     GET_HOURLY_FORECAST,
     GET_HOURLY_FORECAST_SUCCESS
+
 } from './actions';
 import {
     handlePostForecast,
@@ -20,6 +21,7 @@ import {
     handleGetAllForecast,
     handleDeleteCity,
     handleGetHourlyForecast
+
 } from './getApi';
 import { call, put, takeEvery } from 'redux-saga/effects';
 
@@ -61,6 +63,7 @@ function* getHourlyForecast(payload) {
         type: GET_HOURLY_FORECAST_SUCCESS, data: data.data
     })
 }
+
 
 function* rootSaga() {
     yield takeEvery(POST_FORECAST, createForecast);

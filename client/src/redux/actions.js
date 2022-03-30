@@ -14,6 +14,7 @@ export const CHANGE_UNITS = 'CHANGE_UNITS';
 export const GET_HOURLY_FORECAST = 'GET_HOURLY_FORECAST';
 export const GET_HOURLY_FORECAST_SUCCESS = 'GET_HOURLY_FORECAST_SUCCESS';
 
+
 export const createForecast = (data) => {
     return {
         type: POST_FORECAST,
@@ -67,4 +68,3 @@ export const getHourlyForecast = (payload) => {
         payload
     }
 }
-

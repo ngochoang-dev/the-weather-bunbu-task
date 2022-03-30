@@ -9,6 +9,7 @@ import TodayComponent from './Components/TodayComponent/TodayComponent';
 import HourlyComponent from './Components/HourlyComponent/HourlyComponent';
 import MultiDayForecast from './Components/MultiDayForecast/MultiDayForecast';
 
+
 const typeForecast = [
   {
     description: 'Cloudy',
