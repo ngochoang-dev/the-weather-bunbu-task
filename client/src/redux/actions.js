@@ -11,6 +11,8 @@ export const DELETE_CITY = 'DELETE_CITY';
 export const DELETE_CITY_SUCCESS = 'DELETE_CITY_SUCCESS';
 export const SET_LOADING = 'SET_LOADING';
 export const CHANGE_UNITS = 'CHANGE_UNITS';
+export const GET_HOURLY_FORECAST = 'GET_HOURLY_FORECAST';
+export const GET_HOURLY_FORECAST_SUCCESS = 'GET_HOURLY_FORECAST_SUCCESS';
 
 export const createForecast = (data) => {
     return {
@@ -56,6 +58,13 @@ export const changeUnit = (payload) => {
     return {
         type: CHANGE_UNITS,
         payload,
+    }
+}
+
+export const getHourlyForecast = (payload) => {
+    return {
+        type: GET_HOURLY_FORECAST,
+        payload
     }
 }
 

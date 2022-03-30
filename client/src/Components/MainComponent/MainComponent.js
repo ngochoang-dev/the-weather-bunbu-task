@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs'
+import { useNavigate } from "react-router-dom";
 import { IconContext } from 'react-icons';
+import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 
 import styles from './MainComponent.module.css';
 import LineChart from './LineChart';
@@ -12,8 +14,8 @@ function MainComponent({
     handleGetDetail,
     allForecast,
     isCelsius,
-    setDay
 }) {
+    let navigate = useNavigate();
     const [dataForecast, setDataForecast] = useState([]);
     const [currentForecast, setCurrentForecast] = useState(0);
     const [data, setData] = useState([]);
@@ -133,6 +135,15 @@ function MainComponent({
                     }
                 </div>
             </div>
+            <button className={clsx(
+                styles.btn_redirect
+            )}
+                onClick={() => navigate("/tenday")}
+            >
+                <IconContext.Provider value={{ className: clsx(styles.icon_arrow) }}>
+                    <BsFillArrowRightSquareFill />
+                </IconContext.Provider>
+            </button>
         </div>
     )
 }

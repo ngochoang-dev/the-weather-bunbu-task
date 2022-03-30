@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { IconContext } from "react-icons";
+import { useNavigate } from "react-router-dom";
+
 
 import styles from './DetailComponent.module.css';
 
@@ -11,6 +13,8 @@ function DetailComponent({
     typeForecast,
     handleChangeUnit,
 }) {
+    let navigate = useNavigate();
+
     const [data, setData] = useState({
         cityId: "",
         cityName: "",
@@ -68,7 +72,9 @@ function DetailComponent({
             </div>
             <div className={clsx(
                 styles.wrapper_detail
-            )}>
+            )}
+                onClick={() => navigate(`/today/hourly?id=${cityId}`)}
+            >
                 <div className={clsx(
                     styles.temperature
                 )}>

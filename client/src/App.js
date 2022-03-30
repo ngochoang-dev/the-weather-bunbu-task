@@ -1,19 +1,13 @@
-import { useState, useEffect, useCallback } from 'react';
-import clsx from 'clsx';
-import { IconContext } from 'react-icons';
-import { TiPlus } from 'react-icons/ti';
+import React, { useState } from 'react';
 import { WiCloudy, WiDaySunny } from 'react-icons/wi';
-import { useDispatch, useSelector } from 'react-redux';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Routes, Route } from "react-router-dom";
 
 import './css/App.css';
-import styles from './App.module.css';
-import Container from './Components/Container/Container'
-import SelectCity from './Components/SelectCity/SelectCity';
-import ModalCreate from './Components/ModalCreate/ModalCreate';
-import { getAllCity, handleGetDetailForecast, getAllForecast } from './redux/actions';
+import SideBar from './Components/SideBar/SideBar';
+import ToolComponent from './Components/ToolComponent/ToolComponent';
+import TodayComponent from './Components/TodayComponent/TodayComponent';
+import HourlyComponent from './Components/HourlyComponent/HourlyComponent';
+import MultiDayForecast from './Components/MultiDayForecast/MultiDayForecast';
 
 const typeForecast = [
   {
@@ -27,123 +21,41 @@ const typeForecast = [
 ];
 
 function App() {
-  const dispatch = useDispatch();
   const [selectId, setSelectId] = useState([1]);
   const [showModal, setShowModal] = useState(false);
 
-  const { allCity,
-    detailForecast,
-    allForecast,
-    cityId } = useSelector(state => state.forecastData);
-
-
-  function handleOnDragEnd(result) {
-    if (!result.destination) return;
-    const items = Array.from(selectId);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    setSelectId(items);
-
-  }
-
-  const handleGetDetail = useCallback(() => {
-    dispatch(handleGetDetailForecast({ selectId }))
-  }, [selectId, dispatch]);
-
-  useEffect(() => {
-    dispatch(getAllCity())
-  }, [dispatch, cityId, selectId]);
-
-  useEffect(() => {
-    handleGetDetail()
-  }, [handleGetDetail, cityId, selectId]);
-
-  useEffect(() => {
-    dispatch(getAllForecast(selectId))
-  }, [selectId, dispatch, cityId]);
-
-  useEffect(() => {
-    if (cityId || cityId === 0) {
-      setSelectId(prev => {
-        if (prev.length === 3 || prev.length > 3) {
-          const dummy = [cityId, ...prev]
-          const result = dummy.filter(i => i !== prev[prev.length - 1]);
-          return result
-        }
-        return cityId === 1 ? prev : [cityId, ...prev]
-      });
-    }
-  }, [cityId]);
 
   return (
-    <div className={clsx(
-      styles.container
-    )}>
-      <ToastContainer />
-      <div
-        className={clsx(
-          styles.options,
-          selectId.length === 3 ? styles.options_unset : ""
-        )}
-      >
-        <SelectCity
-          select={selectId}
-          setSelect={setSelectId}
-          selectArr={allCity}
+    <div className="App">
+      <ToolComponent
+        showModal={showModal}
+        selectId={selectId}
+        setSelectId={setSelectId}
+        setShowModal={setShowModal}
+      />
+      <SideBar />
+      <Routes>
+        <Route path="/"
+          element={
+            <TodayComponent
+              typeForecast={typeForecast}
+              selectId={selectId}
+              setSelectId={setSelectId}
+            />}
         />
-        <button
-          className={clsx(
-            styles.btn_create
-          )}
-          onClick={() => {
-            setShowModal(true)
-            document.querySelector('body').classList.add('Open_modal')
-          }}
-        >
-          <span>New Forecast</span>
-          <IconContext.Provider value={{ className: clsx(styles.icon_new_forecast) }}>
-            <TiPlus />
-          </IconContext.Provider>
-        </button>
-      </div>
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="weather">
-          {(provided) => (
-            <div  {...provided.droppableProps}
-              ref={provided.innerRef}>
-              {
-                selectId.map((id, index) => {
-                  return (
-                    <Draggable key={id} draggableId={`dragableId-${id}`} index={index}>
-                      {(provided) => (
-                        <div ref={provided.innerRef}
-                          {...provided.draggableProps}>
-                          <Container
-                            id={id}
-                            typeForecast={typeForecast}
-                            setSelect={setSelectId}
-                            provided={provided}
-                            detailForecast={detailForecast}
-                            allForecast={allForecast}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  )
-                })
-              }
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-      {
-        showModal && (
-          <ModalCreate
-            setShowModal={setShowModal}
-          />
-        )
-      }
+        <Route path="today/hourly"
+          element={<HourlyComponent
+            selectId={selectId}
+            typeForecast={typeForecast}
+          />}
+        />
+        <Route path="tenday"
+          element={<MultiDayForecast
+            selectId={selectId}
+            typeForecast={typeForecast}
+          />}
+        />
+      </Routes>
     </div>
   );
 }

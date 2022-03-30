@@ -9,7 +9,8 @@ import {
     GET_ALL_FORECAST_SUCCESS,
     DELETE_CITY_SUCCESS,
     SET_LOADING,
-    CHANGE_UNITS
+    CHANGE_UNITS,
+    GET_HOURLY_FORECAST_SUCCESS
 
 } from './actions';
 
@@ -20,7 +21,7 @@ const initialState = {
     detailForecast: [],
     allForecast: [],
     isDeleted: false,
-
+    hourlyData: [],
 };
 
 const forecastData = (state = initialState, action) => {
@@ -154,6 +155,11 @@ const forecastData = (state = initialState, action) => {
                     detailForecast: newDetailForecast,
                     allForecast: newAllForecast,
                 }
+            }
+        case GET_HOURLY_FORECAST_SUCCESS:
+            return {
+                ...state,
+                hourlyData: action.data
             }
         default:
             return state

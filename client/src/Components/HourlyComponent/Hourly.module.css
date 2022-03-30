@@ -1,0 +1,33 @@
+.container {
+    background-color: var(--white-color);
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    min-height: 100px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.header {
+    padding: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.header h3 {
+    font-size: 1.3rem;
+}
+
+.header h3 span {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.header span {
+    margin-top: 8px;
+    display: inline-block;
+}
+
+

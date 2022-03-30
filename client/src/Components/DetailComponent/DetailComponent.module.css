@@ -29,6 +29,10 @@
     color: #9E9E9E;
 }
 
+.wrapper_detail {
+    cursor: pointer;
+}
+
 .temperature {
     display: flex;
     align-items: center;

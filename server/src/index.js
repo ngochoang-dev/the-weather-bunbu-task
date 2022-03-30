@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/forecast', (req, res) => {
-    const { today, cityId } = req.query;
+    const { today, cityId, day } = req.query;
     const ids = JSON.parse(cityId)
     Weather.find({
         "cityId": {
@@ -38,7 +38,7 @@ app.get('/forecast', (req, res) => {
                 let arr = [];
                 result.forEach((item, i) => {
                     if (id === Number(item.cityId)) {
-                        if (i >= index - 1 && i < index + 8 && id === Number(item.cityId)) {
+                        if (i >= index - 1 && i < index + (Number(day) + 1) && id === Number(item.cityId)) {
                             arr.push(item);
                         }
                     }
@@ -48,7 +48,6 @@ app.get('/forecast', (req, res) => {
                     data: arr
                 })
             })
-
             res.json({
                 data: data
             })
@@ -86,8 +85,10 @@ app.get('/forecast-detail', (req, res) => {
 
 app.post('/create-new-forecast', (req, res) => {
     const { cityName } = req.body;
-    const dateArr = [1, 2, 3, 4, 5, 6, 7];
-    const status = ['Cloudy', 'Clear sky']
+    const dateArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const uvArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    const status = ['Cloudy', 'Clear sky'];
+    const restHour = 25 - dayjs().hour();
 
     const days = dateArr.map(item => {
         const date = new Date();
@@ -95,12 +96,29 @@ app.post('/create-new-forecast', (req, res) => {
         return dayjs(date).format('DD/M/YYYY')
     });
     const allData = days.map(day => {
+        const dataHourly = [];
+        for (let i = 0; i < restHour; i++) {
+            const currentHour = Number(dayjs().format('h'));
+            const p = dayjs().format('a')
+            const houryForecast = {
+                temperature: Math.round(Math.random() * 70),
+                humidity: Math.floor(Math.random() * (45 - 20 + 1) + 20),
+                windSpeed: (Math.random() * 30).toFixed(2),
+                description: status[Math.round(Math.random() * 1)],
+                date: day,
+                hour: `${currentHour + i} ${p}`,
+                uv: uvArr[Math.round(Math.random() * 10)],
+                cloudCover: Math.floor(Math.random() * (100 - 20 + 1) + 20),
+            }
+            dataHourly.push(houryForecast)
+        }
         return {
             temperature: Math.round(Math.random() * 70),
             humidity: Math.floor(Math.random() * (45 - 20 + 1) + 20),
             windSpeed: (Math.random() * 30).toFixed(2),
             description: status[Math.round(Math.random() * 1)],
             date: day,
+            hourly: dataHourly
         }
     });
 
@@ -132,7 +150,6 @@ app.post('/create-new-forecast', (req, res) => {
 
     Promise.all([
         Weather.find(),
-
         Weather.findOne({ cityName }),
     ])
         .then(([allForecast, currentForecast]) => {
@@ -167,8 +184,6 @@ app.post('/create-new-forecast', (req, res) => {
                 message: 'Có lỗi xảy ra'
             })
         })
-
-
 });
 
 app.get('/get-all-city', (req, res) => {
@@ -201,6 +216,37 @@ app.delete('/delete-city', (req, res) => {
             success: true,
             message: 'deleted'
         }))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                success: false,
+                message: 'Có lỗi xảy ra'
+            })
+        })
+})
+
+app.get('/today/hourly', (req, res) => {
+    const { cityId, date } = req.query;
+    const ids = JSON.parse(cityId)
+    Weather.find({
+        "cityId": {
+            $in: ids
+        },
+        date
+    })
+        .then(data => {
+            const newData = data.map(item => {
+                let index = item.hourly.findIndex(x => x.hour === dayjs().format('h a'));
+                return {
+                    cityId: item.cityId,
+                    cityName: item.cityName,
+                    data: item.hourly.slice(index)
+                }
+            });
+            res.json({
+                data: newData
+            })
+        })
         .catch(err => {
             console.log(err);
             res.status(500).json({

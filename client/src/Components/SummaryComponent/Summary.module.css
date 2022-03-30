@@ -1,0 +1,135 @@
+.container {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.btn_extend {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.25;
+    -webkit-transition: all 0.25;
+    -moz-transition: all 0.25;
+    -ms-transition: all 0.25;
+    -o-transition: all 0.25;
+}
+
+.btn_extend_rotate {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+.icon_arrow {
+    font-size: 1.4rem;
+    color: var(--primary-color)
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0 10px;
+    margin: 4px 0;
+}
+
+
+.box {
+    width: 100%;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.day_name {
+    flex: 0 0 90px;
+}
+
+.day_name>p {
+    font-weight: 500;
+}
+
+.temperature {
+    flex: 0 0 100px;
+}
+
+.temperature>p {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.description {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+}
+
+.description span {
+    margin-left: 10px;
+}
+
+.icon_description {
+    font-size: 3rem;
+}
+
+.humidity {
+    flex: 0 0 125px;
+    display: flex;
+    min-width: 125px;
+}
+
+.wind_speed {
+    flex: 0 0 165px;
+    display: flex;
+    min-width: 165px;
+}
+
+.wrapper_detail {
+    padding: 6px 20px;
+    margin: 0 20px 15px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+.list_details {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.list_details li {
+    margin: 10px 0;
+    width: 33%;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+}
+
+.list_details li:nth-child(4),
+.list_details li:nth-child(5),
+.list_details li:nth-child(6) {
+    padding-top: 10px;
+}
+
+.list_details li:nth-child(-n+3) {
+    border-top: none !important;
+}
+
+.icon_detail {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.field_detail {
+    margin-left: 10px;
+}
+
+.field_detail p{
+    font-weight: 600;
+    margin-top: 6px;
+}
