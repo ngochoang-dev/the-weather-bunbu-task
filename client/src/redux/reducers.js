@@ -7,6 +7,10 @@ import {
     POST_FORECAST_FAIL,
     GET_DETAIL_FORECAST_SUCCESS,
     GET_ALL_FORECAST_SUCCESS,
+    DELETE_CITY_SUCCESS,
+    SET_LOADING,
+    CHANGE_UNITS
+
 } from './actions';
 
 const initialState = {
@@ -15,6 +19,8 @@ const initialState = {
     allCity: [],
     detailForecast: [],
     allForecast: [],
+    isDeleted: false,
+
 };
 
 const forecastData = (state = initialState, action) => {
@@ -34,7 +40,7 @@ const forecastData = (state = initialState, action) => {
             toast.success('Tạo thành công', {
                 position: "top-right",
                 autoClose: 2000,
-                hideProgressBar: false,
+                hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
@@ -49,7 +55,7 @@ const forecastData = (state = initialState, action) => {
             toast.error('Tên thành phố đã tồn tại', {
                 position: "top-right",
                 autoClose: 2000,
-                hideProgressBar: false,
+                hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
@@ -68,6 +74,86 @@ const forecastData = (state = initialState, action) => {
             return {
                 ...state,
                 allForecast: action.data
+            }
+        case DELETE_CITY_SUCCESS:
+            toast.success('Xóa thành công', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return {
+                ...state,
+                isDeleted: true
+            };
+        case SET_LOADING:
+            return {
+                ...state,
+                loading: false,
+                isDeleted: false
+            }
+        case CHANGE_UNITS:
+            const { isCelsius, id, date } = action.payload;
+            const { allForecast, detailForecast } = state;
+            const forecasts = [...state.allForecast];
+            console.log(date);
+            if (isCelsius) {
+                const newDetailForecast = detailForecast.map(detail => {
+                    if (detail.cityId === id) {
+                        detail = {
+                            ...detail,
+                            temperature: Math.round((detail.temperature - 32) / 1.8)
+                        }
+                    }
+                    return detail
+                })
+                const newAllForecast = allForecast.map(item => {
+                    if (item.cityId === Number(id)) {
+                        const newData = item.data.map(forecast => {
+                            forecast.temperature = Math.round((forecast.temperature - 32) / 1.8)
+                            return forecast
+                        })
+                        return {
+                            cityId: Number(id),
+                            data: newData
+                        };
+                    }
+                    return item;
+                });
+                return {
+                    ...state,
+                    detailForecast: newDetailForecast,
+                    allForecast: newAllForecast,
+                }
+            } else {
+                const newDetailForecast = forecasts.map(item => {
+                    if (item.cityId === Number(id)) {
+                        const newData = item.data.find(data => data.date === date);
+                        return newData
+                    }
+                    return []
+                })
+                const newAllForecast = allForecast.map(item => {
+                    if (item.cityId === Number(id)) {
+                        const newData = item.data.map(forecast => {
+                            forecast.temperature = Math.round((forecast.temperature * 1.8) + 32)
+                            return forecast
+                        })
+                        return {
+                            cityId: Number(id),
+                            data: newData
+                        }
+                    }
+                    return item;
+                })
+                return {
+                    ...state,
+                    detailForecast: newDetailForecast,
+                    allForecast: newAllForecast,
+                }
             }
         default:
             return state

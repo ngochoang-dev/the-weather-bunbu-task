@@ -1,12 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
+import clsx from 'clsx';
 import { IconContext } from 'react-icons';
 import { TiPlus } from 'react-icons/ti';
 import { WiCloudy, WiDaySunny } from 'react-icons/wi';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import './css/App.css';
-import './css/Responsive.css';
+import styles from './App.module.css';
 import Container from './Components/Container/Container'
 import SelectCity from './Components/SelectCity/SelectCity';
 import ModalCreate from './Components/ModalCreate/ModalCreate';
@@ -25,27 +28,22 @@ const typeForecast = [
 
 function App() {
   const dispatch = useDispatch();
-  const [selectId, setSelect] = useState([1, 2]);
+  const [selectId, setSelectId] = useState([1]);
   const [showModal, setShowModal] = useState(false);
 
-  const { allCity, detailForecast, allForecast } = useSelector(state => state.forecastData);
-  const id = useSelector(state => state.forecastData.cityId);
+  const { allCity,
+    detailForecast,
+    allForecast,
+    cityId } = useSelector(state => state.forecastData);
 
-  useEffect(() => {
-    dispatch(getAllCity())
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (id || id === 0)
-      setSelect([id]);
-  }, [id]);
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
     const items = Array.from(selectId);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-    setSelect(items);
+    setSelectId(items);
+
   }
 
   const handleGetDetail = useCallback(() => {
@@ -53,28 +51,57 @@ function App() {
   }, [selectId, dispatch]);
 
   useEffect(() => {
+    dispatch(getAllCity())
+  }, [dispatch, cityId, selectId]);
+
+  useEffect(() => {
     handleGetDetail()
-  }, [handleGetDetail, id]);
+  }, [handleGetDetail, cityId, selectId]);
 
   useEffect(() => {
     dispatch(getAllForecast(selectId))
-  }, [selectId, dispatch]);
+  }, [selectId, dispatch, cityId]);
 
+  useEffect(() => {
+    if (cityId || cityId === 0) {
+      setSelectId(prev => {
+        if (prev.length === 3 || prev.length > 3) {
+          const dummy = [cityId, ...prev]
+          const result = dummy.filter(i => i !== prev[prev.length - 1]);
+          return result
+        }
+        return cityId === 1 ? prev : [cityId, ...prev]
+      });
+    }
+  }, [cityId]);
 
   return (
-    <div className="App">
-      <div className={`Options ${selectId.length === 3 ? "Option_unset" : ""}`}>
+    <div className={clsx(
+      styles.container
+    )}>
+      <ToastContainer />
+      <div
+        className={clsx(
+          styles.options,
+          selectId.length === 3 ? styles.options_unset : ""
+        )}
+      >
         <SelectCity
           select={selectId}
-          setSelect={setSelect}
+          setSelect={setSelectId}
           selectArr={allCity}
         />
         <button
-          className='Btn_create'
-          onClick={() => setShowModal(true)}
+          className={clsx(
+            styles.btn_create
+          )}
+          onClick={() => {
+            setShowModal(true)
+            document.querySelector('body').classList.add('Open_modal')
+          }}
         >
           <span>New Forecast</span>
-          <IconContext.Provider value={{ className: 'icon_new_forecast' }}>
+          <IconContext.Provider value={{ className: clsx(styles.icon_new_forecast) }}>
             <TiPlus />
           </IconContext.Provider>
         </button>
@@ -94,7 +121,7 @@ function App() {
                           <Container
                             id={id}
                             typeForecast={typeForecast}
-                            setSelect={setSelect}
+                            setSelect={setSelectId}
                             provided={provided}
                             detailForecast={detailForecast}
                             allForecast={allForecast}

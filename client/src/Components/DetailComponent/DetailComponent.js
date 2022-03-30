@@ -6,42 +6,59 @@ import { IconContext } from "react-icons";
 import styles from './DetailComponent.module.css';
 
 function DetailComponent({
+    isCelsius,
     detailForecast,
     typeForecast,
+    handleChangeUnit,
 }) {
     const [data, setData] = useState({
+        cityId: "",
         cityName: "",
         description: "",
         humidity: "",
         temperature: "",
         windSpeed: "",
+        date: "",
     })
 
     const {
+        cityId,
         cityName,
         description,
         humidity,
         temperature,
         windSpeed,
+        date,
     } = data;
 
     useEffect(() => {
         detailForecast && setData(detailForecast)
-    }, [detailForecast])
+    }, [detailForecast]);
 
     return (
         <div className={clsx(
             styles.container,
-            'Detail_container'
+            styles.detail_container
         )}>
             <div className={clsx(
-                "Wrapper_title_detail"
+                styles.wrapper_title_detail
             )}>
                 <h4 className={clsx(
                     styles.your_city
                 )}>
-                    <span>Your city</span>
                     <span>{cityName}</span>
+                    <div className={clsx(
+                        styles.wrapper_switch
+                    )}>
+                        <label className={clsx(
+                            styles.switch
+                        )}>
+                            <input type="checkbox"
+                                onChange={(e) => handleChangeUnit(e, cityId, date)} />
+                            <span></span>
+                        </label>
+                        <span>&deg;{isCelsius ? 'C' : 'F'}</span>
+                    </div>
                 </h4>
                 <div className={clsx(
                     styles.wrapper_date
@@ -50,7 +67,7 @@ function DetailComponent({
                 </div>
             </div>
             <div className={clsx(
-                'Wrapper_detail'
+                styles.wrapper_detail
             )}>
                 <div className={clsx(
                     styles.temperature
@@ -58,7 +75,7 @@ function DetailComponent({
                     <IconContext.Provider value={{
                         className: clsx(
                             styles.icon,
-                            'icon_status'
+                            styles.icon_status
                         )
                     }}>
                         {
@@ -71,20 +88,20 @@ function DetailComponent({
                         }
                     </IconContext.Provider>
                     <p className={clsx(
-                        "Temperature"
+                        styles.temperature
                     )}>
                         {temperature}
-                        <span>&deg;F</span>
+                        <span>&deg;{isCelsius ? 'C' : 'F'}</span>
                     </p>
                 </div>
                 <div className={clsx(
                     styles.status
                 )}>
                     <span className={clsx(
-                        "Temperature_status"
+                        styles.temperature_status
                     )}>
                         {temperature}
-                        <p>&deg;F</p>
+                        <p>&deg;{isCelsius ? 'C' : 'F'}</p>
                     </span>
                     <p>{description}</p>
                 </div>

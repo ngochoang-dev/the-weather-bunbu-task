@@ -1,32 +1,13 @@
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import clsx from 'clsx';
 import { IconContext } from 'react-icons';
 import { CgClose } from 'react-icons/cg';
 
 import styles from './Select.module.css';
-import useClickOutSide from '../../customHook/useClickOutSide';
+import ModalSelect from './ModalSelect';
 
 function SelectCity({ select, setSelect, selectArr }) {
-    const selectRef = useRef();
-    const [showSelect, setShowSelect] = useState(false);
-
-    useClickOutSide(e => {
-        if (selectRef.current) {
-            if (!selectRef.current.contains(e.target)) {
-                setShowSelect(false)
-            }
-        }
-    });
-
-    const handleChooseCity = (cityId) => {
-        if (select.includes(cityId)) {
-            const newSelect = select.filter(item => item !== cityId);
-            return setSelect(newSelect)
-        }
-        setSelect(prev => {
-            return prev.length < 3 ? [...prev, cityId] : prev
-        })
-    };
+    const [showModal, setShowModal] = useState(false);
 
     const handleRemoveCity = (id) => {
         setSelect(prev => {
@@ -48,50 +29,30 @@ function SelectCity({ select, setSelect, selectArr }) {
     return (
         <div className={clsx(
             styles.wrapper_select,
-            "Wrapper_select_city_width",
-            select.length === 3 && "Wrapper_select_city"
+            styles.wrapper_select_city_width,
+            select.length === 3 && styles.wrapper_select_city
         )}>
             <div className={clsx(
                 styles.select
-            )}
-                ref={selectRef}
-            >
+            )}>
                 <div className={clsx(
                     styles.current_city
                 )}
-                    onClick={() => setShowSelect(!showSelect)}
-                >
+                    onClick={() => {
+                        document.querySelector('body').classList.add('Open_modal')
+                        setShowModal(true)
+                    }}>
                     <span>
                         Choose City
                     </span>
                 </div>
-                {
-                    showSelect && showSelect && (
-                        <ul className={clsx(
-                            styles.list_city
-                        )}>
-                            {
-                                selectArr.map(item => {
-                                    return (
-                                        <li
-                                            style={
-                                                select.includes(item.id) ? {
-                                                    color: '#039BE5'
-                                                }
-                                                    : {}
-                                            }
-                                            key={item.id}
-                                            onClick={() => handleChooseCity(item.id)}
-                                        >
-                                            {item.name}
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
-                    )
-                }
             </div>
+            {showModal && <ModalSelect
+                select={select}
+                selectArr={selectArr}
+                setShowModal={setShowModal}
+                setSelect={setSelect}
+            />}
             <div className={clsx(
                 styles.wrapper_list_city
             )}>

@@ -5,14 +5,19 @@
 }
 
 .your_city {
-    text-align: center;
+    display: flex;
+    align-items: center;
     font-weight: 400;
+    justify-content: center;
+    position: relative;
 }
 
-.your_city>span:last-child {
+.your_city>span {
     display: inline-block;
     margin-left: 8px;
     font-weight: 500;
+    font-size: 1.24rem;
+
 }
 
 .wrapper_date {
@@ -50,6 +55,11 @@
     right: -16px;
 }
 
+.temperature_status {
+    display: none !important;
+    font-size: 2rem !important; 
+}
+
 .status {
     text-align: center;
 }
@@ -83,3 +93,216 @@
     font-size: 1.12rem;
     font-weight: 600;
 }
+
+/* switch */
+
+.wrapper_switch {
+    display:flex;
+    align-items: center;
+    width: 75px;
+    position: absolute;
+    right: 14px;
+}
+
+.wrapper_switch>span {
+    margin-left: 10px;
+}
+
+label.switch {
+    text-align: left;
+    width: 38px;
+    height: calc(38px / 2);
+    background-color: var(--primary-color);
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 60px;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    -ms-border-radius: 60px;
+    -o-border-radius: 60px;
+}
+label.switch > span {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+label.switch > input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+} 
+label.switch > span:before, label.switch > span:after {
+    content: "";
+    cursor: pointer;
+    position: absolute;
+}
+label.switch > input[type="checkbox"]:focus ~ span {
+    box-shadow: 0 0 0 2px var(--primary-color); 
+}
+label.switch > input[type="checkbox"]:checked:focus ~ span {
+    box-shadow: 0 0 0 4px #fff;
+}
+label.switch > span {
+    border-radius: 60px;    
+}
+label.switch > span:before {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #f1f1f1;
+    border-radius: 60px;
+    transition: opacity .2s ease-out .1s, transform .2s ease-out .1s;
+    transform: scale(1);
+    opacity: 1;
+}
+label.switch > span:after{
+    top: 50%;
+    z-index: 3;
+    transition: transform .4s cubic-bezier(0.44,-0.12, 0.07, 1.15);
+    width: calc(38px / 2);
+    height: calc(38px / 2);
+    transform: translate3d(0, -50%, 0);
+    background-color: #fff;
+    border-radius: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);  
+}
+
+label.switch > input[type="checkbox"]:checked ~ span:before {
+    transform: scale(0);
+    opacity: .7;
+}
+label.switch > input[type="checkbox"]:checked ~ span:after {
+    transform: translate3d(100%, -50%, 0);
+}
+
+
+@media (max-width: 1023px) {
+    .detail_container {
+        flex-direction: row !important;
+        margin: 45px 0 10px 0;
+        justify-content: flex-start !important;
+    } 
+
+    .wrapper_detail {
+        margin: 0 6px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 0 1px 0 rgba(0, 0, 0, .5);
+        width: 100%;
+        border-radius: 12px;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        -ms-border-radius: 12px;
+        -o-border-radius: 12px;
+    }
+
+    .wrapper_detail>div {
+        margin-right: 26px;
+    }
+
+    .wrapper_detail>div:first-child {
+        margin-left: 42px;
+    }
+
+    .wrapper_detail>div:last-child {
+        margin-top: 0 ;
+        margin-right: 0;
+    }
+
+    .wrapper_detail .icon_status {
+        font-size: 5rem !important;
+    }
+
+    .wrapper_detail .temperature {
+        font-size: 2rem;
+    } 
+
+    .wrapper_title_detail {
+        position: absolute;
+        top: 16px;
+        left: 60px;
+        display: flex;
+        align-items: center;
+    }
+
+    .wrapper_title_detail>div {
+        margin: 0 0 0 10px;
+    } 
+
+    .wrapper_switch {
+        position: unset;
+    }
+}
+
+@media (max-width: 578px) {
+    .wrapper_detail {
+        justify-content: center;
+    }
+
+    .wrapper_detail>div:first-child {
+        margin-left: 0;
+    } 
+
+    .temperature>p {
+        display: none !important; 
+    }
+
+    .temperature_status {
+        display: unset !important;
+    }
+    
+    .wrapper_detail>div:nth-child(2)>p {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 468px) {
+
+    .wrapper_title_detail  {
+        left: 44px;
+    }
+
+    .wrapper_detail .temperature {
+        font-size: 1.6rem ;
+    }
+
+    .wrapper_detail .icon_status {
+        font-size: 4rem !important;
+    }
+
+    .wrapper_detail>div:nth-child(2) {
+        margin-right: 0;
+    }    
+
+    .wrapper_detail>div:nth-child(2)>p {
+        font-size: 1.6rem;
+    }
+
+    .temperature_status {
+        font-size: 1.4rem !important;
+    }
+
+    .temperature_status>p {
+        font-size: 1rem !important;
+    }
+
+    .wrapper_detail>div:nth-child(2)>p {
+        font-size: 1.1rem;
+    }
+    
+    .your_city {
+        margin-left: 16px;
+    }
+
+    .wrapper_date {
+        display: none ;
+    }
+}
+
+@media (max-width: 468px) {
+    .wrapper_detail>div {
+        margin-right: 0;
+    }
+}
+

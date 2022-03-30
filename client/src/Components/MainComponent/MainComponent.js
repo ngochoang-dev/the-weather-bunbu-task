@@ -10,11 +10,14 @@ function MainComponent({
     idOfCity,
     typeForecast,
     handleGetDetail,
-    allForecast
+    allForecast,
+    isCelsius,
+    setDay
 }) {
     const [dataForecast, setDataForecast] = useState([]);
     const [currentForecast, setCurrentForecast] = useState(0);
-    const [data, setData] = useState([])
+    const [data, setData] = useState([]);
+    const [isMobile, setIsMobile] = useState(false);
 
     const humidityArr = useMemo(() => {
         return data.map(item => {
@@ -42,31 +45,47 @@ function MainComponent({
         setCurrentForecast(0)
     }, [idOfCity]);
 
-    useEffect(() => {
+    useMemo(() => {
         allForecast && setData(allForecast.data)
     }, [allForecast]);
+
+    const handleReSize = () => {
+        setIsMobile(window.screen.width < 644)
+    }
+
+    useEffect(() => {
+        setIsMobile(window.screen.width < 644)
+        window.addEventListener("resize", handleReSize)
+        return () => {
+            setIsMobile(false)
+            window.removeEventListener("resize", handleReSize)
+        }
+    }, []);
 
     return (
         <div className={clsx(
             styles.container,
-            "Main_container"
+            styles.main_container
         )}>
             <h4 className={clsx(
                 styles.header,
-                "Main_header"
-            )}>Temperature</h4>
+            )}> {isMobile ? "7 day forecast" : "Temperature"}</h4>
             <div className={clsx(
-                "Wrapper_main"
+                styles.wrapper_main,
             )}>
-                <LineChart
-                    typeForecast={typeForecast}
-                    currentForecast={currentForecast}
-                    temperature={temperature}
-                    humidityArr={humidityArr}
-                />
+                {
+                    !isMobile && (
+                        <LineChart
+                            isCelsius={isCelsius}
+                            typeForecast={typeForecast}
+                            currentForecast={currentForecast}
+                            temperature={temperature}
+                            humidityArr={humidityArr}
+                        />
+                    )
+                }
                 <div className={clsx(
                     styles.wrapper_forecast,
-                    "Wrapper_forecast"
                 )}>
                     {
                         dataForecast && dataForecast.map((data, i) => {
