@@ -118,6 +118,9 @@ app.post('/create-new-forecast', (req, res) => {
             windSpeed: (Math.random() * 30).toFixed(2),
             description: status[Math.round(Math.random() * 1)],
             date: day,
+            uv: uvArr[Math.round(Math.random() * 10)],
+            rain: Math.round(Math.random() * 70),
+            cloudCover: Math.floor(Math.random() * (100 - 20 + 1) + 20),
             hourly: dataHourly
         }
     });

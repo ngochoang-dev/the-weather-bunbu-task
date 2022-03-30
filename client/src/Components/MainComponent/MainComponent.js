@@ -138,7 +138,7 @@ function MainComponent({
             <button className={clsx(
                 styles.btn_redirect
             )}
-                onClick={() => navigate("/tenday")}
+                onClick={() => navigate(`/tenday?id=${dataForecast[0].cityId}`)}
             >
                 <IconContext.Provider value={{ className: clsx(styles.icon_arrow) }}>
                     <BsFillArrowRightSquareFill />

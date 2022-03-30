@@ -9,6 +9,9 @@ const Weather = new Schema({
     windSpeed: { type: String, require: true },
     description: { type: String, require: true },
     date: { type: String, require: true },
+    rain: { type: String, require: true },
+    uv: { type: String, require: true },
+    cloudCover: { type: String, require: true },
     hourly: { type: Array, require: true }
 }, {
     timestamps: true,

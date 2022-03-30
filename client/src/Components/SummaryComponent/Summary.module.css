@@ -22,6 +22,12 @@
     -o-transform: rotate(180deg);
 }
 
+.btn_extend_top {
+    position: absolute;
+    top: 0;
+    right: 16px;
+}
+
 .icon_arrow {
     font-size: 1.4rem;
     color: var(--primary-color)
@@ -33,6 +39,7 @@
     cursor: pointer;
     padding: 0 10px;
     margin: 4px 0;
+    position: relative;
 }
 
 
@@ -41,6 +48,7 @@
     padding: 4px 10px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .day_name {
@@ -97,6 +105,10 @@
     -o-border-radius: 8px;
 }
 
+.wrapper_detail_multiday {
+    margin: 0 0 15px 0;
+}
+
 .list_details {
     display: flex;
     flex-flow: row;
@@ -110,6 +122,10 @@
     display: flex;
 }
 
+.list_details .item_detail {
+    width: 50%;
+}
+
 .list_details li:nth-child(4),
 .list_details li:nth-child(5),
 .list_details li:nth-child(6) {
@@ -118,6 +134,15 @@
 
 .list_details li:nth-child(-n+3) {
     border-top: none !important;
+}
+
+.list_details_multiday li:nth-child(3) {
+    border-top: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+.list_details_multiday li:nth-child(3),
+.list_details_multiday li:nth-child(4) {
+    padding-top: 10px;
 }
 
 .icon_detail {
@@ -133,3 +158,57 @@
     font-weight: 600;
     margin-top: 6px;
 }
+
+.box_multi_day {
+    width: 100%;
+}
+
+.box_info_basic {
+    width: 100%;
+}
+
+.header_detail {
+    font-weight: 500;
+}
+
+.detail_basic {
+    margin-top: 10px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.detail_basic>h3 {
+    font-size: 3rem;
+    flex: 0 0 90px;
+}
+
+.icon_desc_multi_day {
+    font-size: 4rem;
+}
+
+.container_info_basic {
+    width: 50%;
+    margin-left: auto;
+}
+
+.wrappper_info_basic {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+}
+
+.wrappper_info_basic span {
+    display: block;
+    margin-left: 10px;
+}
+
+.icon_info_basic {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+}
+
+.sub_title {
+    display: block;
+    margin: 10px 0;
+}
+

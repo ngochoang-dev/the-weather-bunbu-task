@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs'
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,7 +38,6 @@ function HourlyComponent({ typeForecast, selectId }) {
 
 
 function Children({ typeForecast, cityName, data }) {
-
     return (
         <div className={clsx(
             styles.container

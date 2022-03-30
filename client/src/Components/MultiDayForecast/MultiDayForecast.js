@@ -7,7 +7,7 @@ import styles from './Multiday.module.css'
 import SummaryComponent from '../SummaryComponent/SummaryComponent';
 import { getAllForecast } from '../../redux/actions';
 
-function MultiDayForecast({ selectId }) {
+function MultiDayForecast({ selectId, typeForecast }) {
     const dispatch = useDispatch();
     const data = useSelector(state => state.forecastData.allForecast);
 
@@ -18,8 +18,28 @@ function MultiDayForecast({ selectId }) {
         }))
     }, [dispatch, selectId]);
 
-    console.log(data);
+    return (
+        <div className={clsx(
+            styles.main
+        )}>
+            {
+                data && data.map(({ data }, i) => {
+                    const newData = [...data];
+                    newData.pop();
+                    newData.shift();
+                    return <Children
+                        key={i}
+                        data={newData}
+                        typeForecast={typeForecast}
+                    />
+                })
+            }
+        </div>
+    )
+}
 
+
+function Children({ typeForecast, data }) {
     return (
         <div className={clsx(
             styles.container
@@ -27,9 +47,19 @@ function MultiDayForecast({ selectId }) {
             <div className={clsx(
                 styles.header
             )}>
-                <h3>10 Day Weather</h3>
+                <h3>10 Day Weather - <span>{data[0].cityName}</span></h3>
                 <span>As of {dayjs().format('h:m A')}</span>
             </div>
+            {
+                data && data.map((item, i) => {
+                    return <SummaryComponent
+                        key={i}
+                        {...item}
+                        isMultiDay
+                        typeForecast={typeForecast}
+                    />
+                })
+            }
         </div>
     )
 }

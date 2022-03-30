@@ -25,7 +25,6 @@ function App() {
   const [selectId, setSelectId] = useState([1]);
   const [showModal, setShowModal] = useState(false);
 
-
   return (
     <div className="App">
       <ToolComponent
