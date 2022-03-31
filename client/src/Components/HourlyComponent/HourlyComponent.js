@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './Hourly.module.css';
 import SummaryComponent from '../SummaryComponent/SummaryComponent';
 import { getHourlyForecast } from '../../redux/actions';
+import BarChart from '../BarChart/BarChart';
 
 function HourlyComponent({ typeForecast, selectId }) {
     const dispatch = useDispatch();
@@ -38,6 +39,11 @@ function HourlyComponent({ typeForecast, selectId }) {
 
 
 function Children({ typeForecast, cityName, data }) {
+
+    const handleChangeUnit = () => {
+
+    }
+
     return (
         <div className={clsx(
             styles.container
@@ -48,6 +54,18 @@ function Children({ typeForecast, cityName, data }) {
                 <h3>Hourly Weather <span>- {cityName}</span></h3>
                 <span>As of {dayjs().format('h:m A')}</span>
             </div>
+            <div className={clsx(
+                styles.btn_change_list
+            )}>
+                <label className={clsx(
+                    styles.switch
+                )}>
+                    <input type="checkbox"
+                        onChange={(e) => handleChangeUnit()} />
+                    <span></span>
+                </label>
+            </div>
+            {/* <BarChart /> */}
             {
                 data && data.map((item, i) => {
                     return <SummaryComponent

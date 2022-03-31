@@ -154,7 +154,7 @@
     margin-left: 10px;
 }
 
-.field_detail p{
+.field_detail p {
     font-weight: 600;
     margin-top: 6px;
 }
@@ -212,3 +212,75 @@
     margin: 10px 0;
 }
 
+.icon_h_w {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    display: none;
+}
+
+
+@media (max-width: 1023px) {
+
+    .humidity p>span:first-child,
+    .wind_speed p>span:first-child {
+        display: none;
+    }
+
+    .humidity,
+    .wind_speed {
+        flex: 0 0 50px;
+        min-width: 100px;
+    }
+
+    .humidity>p,
+    .wind_speed>p {
+        display: flex;
+        align-items: center
+    }
+
+    .icon_h_w {
+        display: unset;
+        margin-right: 6px;
+    }
+
+    .day_name,
+    .temperature {
+        flex: 0 0 60px;
+    }
+}
+
+@media (max-width: 644px) {
+    .wrapper {
+        padding: 0;
+    }
+
+    .wrapper_detail {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .box {
+        padding: 4px 0;
+    }
+
+    .humidity {
+        flex: 0 0 50px;
+        min-width: 65px;
+    }
+
+    .day_name,
+    .temperature {
+        flex: 0 0 40px;
+    }
+
+    .temperature>p {
+        font-size: 1.1rem;
+    }
+
+}
+
+@media (max-width: 468px) {
+    .description>span {
+        margin-left: 0;
+    }
+}

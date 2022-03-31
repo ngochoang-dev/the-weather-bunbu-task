@@ -10,6 +10,7 @@ import { RiWindyLine } from 'react-icons/ri';
 import { GiSunflower } from 'react-icons/gi';
 import { MdGrain } from 'react-icons/md'
 
+
 import styles from './Summary.module.css';
 import SummaryChildren from './SummaryChildren';
 
@@ -221,7 +222,7 @@ function SummaryComponent({
                         </li>
                         <li>
                             <IconContext.Provider value={{ className: clsx(styles.icon_detail) }}>
-                                <WiHumidity />
+                                <RiWindyLine />
                             </IconContext.Provider>
                             <div className={clsx(
                                 styles.field_detail
@@ -232,7 +233,7 @@ function SummaryComponent({
                         </li>
                         <li>
                             <IconContext.Provider value={{ className: clsx(styles.icon_detail) }}>
-                                <RiWindyLine />
+                                <WiHumidity />
                             </IconContext.Provider>
                             <div className={clsx(
                                 styles.field_detail

@@ -45,6 +45,11 @@ function MultiDayForecast({ selectId, typeForecast }) {
 
 
 function Children({ typeForecast, data }) {
+
+    const handleChangeUnit = () => {
+
+    }
+
     return (
         <div className={clsx(
             styles.container
@@ -54,6 +59,17 @@ function Children({ typeForecast, data }) {
             )}>
                 <h3>10 Day Weather - <span>{data[0].cityName}</span></h3>
                 <span>As of {dayjs().format('h:m A')}</span>
+            </div>
+            <div className={clsx(
+                styles.btn_change_list
+            )}>
+                <label className={clsx(
+                    styles.switch
+                )}>
+                    <input type="checkbox"
+                        onChange={(e) => handleChangeUnit()} />
+                    <span></span>
+                </label>
             </div>
             {
                 data && data.map((item, i) => {

@@ -2,6 +2,10 @@ import React from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { IconContext } from 'react-icons';
+import { RiCloudWindyLine } from 'react-icons/ri';
+import { WiHumidity } from 'react-icons/wi';
+
+
 
 import styles from './Summary.module.css';
 
@@ -52,12 +56,30 @@ function SummaryChildren({
             <div className={clsx(
                 styles.humidity
             )}>
-                <p>humidity: <span>{humidity}</span>%</p>
+                <p>
+                    <span>humidity:</span>
+                    <IconContext.Provider value={{
+                        className: clsx(
+                            styles.icon_h_w
+                        )
+                    }}>
+                        <WiHumidity />
+                    </IconContext.Provider>
+                    <span>{humidity}</span>%</p>
             </div>
             <div className={clsx(
                 styles.wind_speed
             )}>
-                <p>wind speed: <span>{windSpeed}</span>km/j</p>
+                <p>
+                    <span>wind speed: </span>
+                    <IconContext.Provider value={{
+                        className: clsx(
+                            styles.icon_h_w
+                        )
+                    }}>
+                        <RiCloudWindyLine />
+                    </IconContext.Provider>
+                    <span>{windSpeed}</span>km/j</p>
             </div>
         </div>
     )
