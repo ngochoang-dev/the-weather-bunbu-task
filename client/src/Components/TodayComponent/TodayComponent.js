@@ -2,12 +2,13 @@ import { useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import styles from './Today.module.css';
 import Container from '../Container/Container'
-import { getAllCity, handleGetDetailForecast, getAllForecast } from '../../redux/actions';
+import {
+    handleGetDetailForecast,
+    getAllForecast
+} from '../../redux/actions';
 
 function TodayComponent({
     typeForecast,
@@ -34,10 +35,6 @@ function TodayComponent({
     }, [selectId, dispatch]);
 
     useEffect(() => {
-        dispatch(getAllCity())
-    }, [dispatch, cityId, selectId]);
-
-    useEffect(() => {
         handleGetDetail()
     }, [handleGetDetail, cityId, selectId]);
 
@@ -48,24 +45,10 @@ function TodayComponent({
         }))
     }, [selectId, dispatch, cityId]);
 
-    useEffect(() => {
-        if (cityId || cityId === 0) {
-            setSelectId(prev => {
-                if (prev.length === 3 || prev.length > 3) {
-                    const dummy = [cityId, ...prev]
-                    const result = dummy.filter(i => i !== prev[prev.length - 1]);
-                    return result
-                }
-                return cityId === 1 ? prev : [cityId, ...prev]
-            });
-        }
-    }, [cityId, setSelectId]);
-
     return (
         <div className={clsx(
             styles.container
         )}>
-            <ToastContainer />
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="weather">
                     {(provided) => (

@@ -20,12 +20,13 @@ app.use(bodyParser.urlencoded({
 
 app.get('/forecast', (req, res) => {
     const { today, cityId, day } = req.query;
-    const ids = JSON.parse(cityId)
+    const ids = JSON.parse(cityId);
+
     Weather.find({
         "cityId": {
             $in: ids
         }
-    }).sort({ date: 1 })
+    }).sort({ createdAt: 1 })
         .then((allData) => {
             let data = [];
             const result = allData.sort((a, b) => {
@@ -61,6 +62,87 @@ app.get('/forecast', (req, res) => {
         })
 });
 
+
+app.get('/forecast-monthly', (req, res) => {
+    const { cityId } = req.query;
+    const ids = JSON.parse(cityId);
+    const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][new Date().getDay()];
+    const dummyArr = [
+        {
+            name: 'Sun',
+            number: 0,
+        },
+        {
+            name: 'Mon',
+            number: 1,
+        },
+        {
+            name: 'Tue',
+            number: 2,
+        },
+        {
+            name: 'Wed',
+            number: 3,
+        },
+        {
+            name: 'Thu',
+            number: 4,
+        },
+        {
+            name: 'Fri',
+            number: 5,
+        },
+        {
+            name: 'Sat',
+            number: 6,
+        }
+    ]
+    const number = dummyArr.find(item => item.name === weekday).number;
+    const month_year = dayjs().format('YYYY/M');
+
+    Weather.find({
+        "cityId": {
+            $in: ids
+        }
+    }).sort({ createdAt: 1 })
+        .then((allData) => {
+            let data = [];
+            const result = allData.sort((a, b) => {
+                return Number(a.cityId) - Number(b.cityId)
+            })
+            ids.forEach(id => {
+                let cityName;
+                let index = result.findIndex(x => {
+                    return x.date === `${month_year}/01` && Number(x.cityId) === id
+                });
+                let arr = [];
+                result.forEach((item, i) => {
+                    if (id === Number(item.cityId)) {
+                        if (i >= index - number && i < (35 + index - number) && id === Number(item.cityId)) {
+                            cityName = item.cityName
+                            arr.push(item);
+                        }
+                    }
+                })
+                data.push({
+                    cityId: id,
+                    cityName: cityName,
+                    data: arr
+                })
+            });
+            res.json({
+                data: data
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                success: false,
+                message: 'Có lỗi xảy ra'
+            })
+        })
+})
+
 app.get('/forecast-detail', (req, res) => {
     const { today, cityId } = req.query;
     Weather.find({
@@ -85,28 +167,33 @@ app.get('/forecast-detail', (req, res) => {
 
 app.post('/create-new-forecast', (req, res) => {
     const { cityName } = req.body;
-    const dateArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const uvArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const status = ['Cloudy', 'Clear sky'];
     const restHour = 25 - dayjs().hour();
+    const totalDays = dayjs().daysInMonth();
+    const days = [];
 
-    const days = dateArr.map(item => {
-        const date = new Date();
-        date.setDate(date.getDate() + item - 1);
-        return dayjs(date).format('DD/M/YYYY')
-    });
+    for (let i = 1; i < totalDays; i++) {
+        let day = i;
+        if (i < 10) {
+            day = `0${i}`
+        }
+        const date = `${day}/${dayjs().format('M/YYYY')}`
+        days.push(date)
+    }
+
     const allData = days.map(day => {
         const dataHourly = [];
         for (let i = 0; i < restHour; i++) {
-            const currentHour = Number(dayjs().format('h'));
-            const p = dayjs().format('a')
+            const currentHour = Number(dayjs().format('H'));
+            const hour = dayjs().hour(currentHour + i).format('h a');;
             const houryForecast = {
                 temperature: Math.round(Math.random() * 70),
                 humidity: Math.floor(Math.random() * (45 - 20 + 1) + 20),
                 windSpeed: (Math.random() * 30).toFixed(2),
                 description: status[Math.round(Math.random() * 1)],
                 date: day,
-                hour: `${currentHour + i} ${p}`,
+                hour: hour,
                 uv: uvArr[Math.round(Math.random() * 10)],
                 cloudCover: Math.floor(Math.random() * (100 - 20 + 1) + 20),
             }
@@ -132,24 +219,49 @@ app.post('/create-new-forecast', (req, res) => {
     // fake forecast
     const lastDay = new Date(dayjs(reverse(allData[allData.length - 1].date)));
     const fisrtDay = new Date(dayjs(reverse(allData[0].date)));
-    lastDay.setDate(lastDay.getDate() + 1);
-    fisrtDay.setDate(fisrtDay.getDate() - 1);
-    const data = [...allData]
+    const data = [...allData];
 
-    data.push({
-        temperature: '70',
-        humidity: '43',
-        windSpeed: '22',
-        description: 'Clear sky',
-        date: dayjs(lastDay).format('DD/M/YYYY'),
-    })
-    data.unshift({
-        temperature: '70',
-        humidity: '43',
-        windSpeed: '22',
-        description: 'Clear sky',
-        date: dayjs(fisrtDay).format('DD/M/YYYY'),
-    });
+    for (let i = 1; i <= 10; i++) {
+        const dataHourly = [];
+        for (let i = 0; i < restHour; i++) {
+            const currentHour = Number(dayjs().format('H'));
+            const hour = dayjs().hour(currentHour + i).format('h a');;
+            const houryForecast = {
+                temperature: Math.round(Math.random() * 70),
+                humidity: Math.floor(Math.random() * (45 - 20 + 1) + 20),
+                windSpeed: (Math.random() * 30).toFixed(2),
+                description: status[Math.round(Math.random() * 1)],
+                hour: hour,
+                uv: uvArr[Math.round(Math.random() * 10)],
+                cloudCover: Math.floor(Math.random() * (100 - 20 + 1) + 20),
+            }
+            dataHourly.push(houryForecast)
+        }
+        lastDay.setDate(lastDay.getDate() + 1);
+        fisrtDay.setDate(fisrtDay.getDate() - 1);
+        data.push({
+            temperature: Math.round(Math.random() * 70),
+            humidity: Math.floor(Math.random() * (45 - 20 + 1) + 20),
+            windSpeed: (Math.random() * 30).toFixed(2),
+            description: status[Math.round(Math.random() * 1)],
+            uv: uvArr[Math.round(Math.random() * 10)],
+            rain: Math.round(Math.random() * 70),
+            cloudCover: Math.floor(Math.random() * (100 - 20 + 1) + 20),
+            date: dayjs(lastDay).format('DD/M/YYYY'),
+            hourly: dataHourly
+        })
+        data.unshift({
+            temperature: Math.round(Math.random() * 70),
+            humidity: Math.floor(Math.random() * (45 - 20 + 1) + 20),
+            windSpeed: (Math.random() * 30).toFixed(2),
+            description: status[Math.round(Math.random() * 1)],
+            uv: uvArr[Math.round(Math.random() * 10)],
+            rain: Math.round(Math.random() * 70),
+            cloudCover: Math.floor(Math.random() * (100 - 20 + 1) + 20),
+            date: dayjs(fisrtDay).format('DD/M/YYYY'),
+            hourly: dataHourly
+        });
+    }
 
     Promise.all([
         Weather.find(),

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { IconContext } from 'react-icons';
 import { TiPlus } from 'react-icons/ti';
 
 import styles from './Tool.module.css';
 import SelectCity from '../SelectCity/SelectCity';
 import ModalCreate from '../ModalCreate/ModalCreate';
+import { getAllCity } from '../../redux/actions';
 
 function ToolComponent({
     setShowModal,
@@ -14,7 +15,12 @@ function ToolComponent({
     setSelectId,
     showModal
 }) {
-    const { allCity, } = useSelector(state => state.forecastData);
+    const dispatch = useDispatch();
+    const { allCity, cityId } = useSelector(state => state.forecastData);
+
+    useEffect(() => {
+        dispatch(getAllCity())
+    }, [dispatch, cityId, selectId]);
 
     return (
         <div
