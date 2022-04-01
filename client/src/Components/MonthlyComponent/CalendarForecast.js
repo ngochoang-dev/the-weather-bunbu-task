@@ -10,22 +10,13 @@ import dayjs from 'dayjs';
 function CalendarForecast({ data, typeForecast }) {
 
     function insertAfter(e, data) {
-        const index = Number(e.currentTarget.dataset.index);
-        let i;
-        if (index <= 7) {
-            i = 7
-        }
-        if (7 < index && index <= 14) {
-            i = 14
-        }
-        if (14 < index && index <= 21) {
-            i = 21
-        }
-        if (21 < index && index <= 28) {
-            i = 28
-        }
-        if (28 < index && index <= 35) {
-            i = 35
+        const number = Number(e.currentTarget.dataset.index);
+        let index;
+        for (let i = 1; i <= 5; i++) {
+            if (number <= i * 7) {
+                index = i * 7;
+                break;
+            }
         }
         const isElem = document.getElementById('wrapper_detail');
         if (isElem) {
@@ -38,7 +29,7 @@ function CalendarForecast({ data, typeForecast }) {
         const newElement = document.createElement('div');
         newElement.innerHTML = html;
         newElement.id = 'wrapper_detail';
-        const referenceNode = document.querySelector(`button[data-index="${i}"`);
+        const referenceNode = document.querySelector(`button[data-index="${index}"`);
         referenceNode.parentNode.insertBefore(newElement, referenceNode.nextSibling);
     }
 

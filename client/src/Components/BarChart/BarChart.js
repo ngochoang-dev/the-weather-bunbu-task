@@ -19,31 +19,44 @@ ChartJS.register(
     Legend
 );
 
-const labels = ['Temperature', 'Humidity', 'Wind speed'];
 
-const options = {
-    responsive: true,
-    plugins: {
-        title: {
-            display: true,
-            text: 'Chart.js Bar Chart',
-        },
-    },
-};
-
-const data = {
+function BarChart({
     labels,
-    datasets: [
-        {
-            label: 'Dataset 1',
-            data: [10, 1, 2],
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    temperature,
+    humidity,
+    windSpeed, }) {
+
+    const options = {
+        responsive: true,
+        plugins: {
+            title: {
+                display: false,
+            },
         },
-    ],
-};
+    };
+
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: 'Temperature',
+                data: temperature,
+                backgroundColor: '#039BE5',
+            },
+            {
+                label: 'Humidity',
+                data: humidity,
+                backgroundColor: 'pink',
+            },
+            {
+                label: 'Wind speed',
+                data: windSpeed,
+                backgroundColor: 'gray',
+            },
+        ],
+    };
 
 
-function BarChart() {
     return <Bar options={options} data={data} />;
 }
 

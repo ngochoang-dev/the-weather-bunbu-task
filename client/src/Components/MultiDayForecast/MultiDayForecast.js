@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import styles from './Multiday.module.css'
 import SummaryComponent from '../SummaryComponent/SummaryComponent';
 import { getAllForecast } from '../../redux/actions';
+import BarChart from '../BarChart/BarChart';
 
 function MultiDayForecast({ selectId, typeForecast }) {
     const location = useLocation();
@@ -46,9 +47,29 @@ function MultiDayForecast({ selectId, typeForecast }) {
 
 function Children({ typeForecast, data }) {
 
-    const handleChangeUnit = () => {
+    const [isBarChart, setIsBarChart] = useState(false)
 
-    }
+    const labels = useMemo(() => {
+        return data.map(item => {
+            return dayjs(item.date).format('MMM DD') === dayjs().format('MMM DD')
+                ?
+                "Today" :
+                dayjs(item.date).format('MMM DD')
+        })
+    }, [data]);
+
+    const temperature = useMemo(() => {
+        return data.map(item => item.temperature)
+    }, [data]);
+
+    const humidity = useMemo(() => {
+        return data.map(item => item.humidity)
+    }, [data]);
+
+    const windSpeed = useMemo(() => {
+        return data.map(item => Number(item.windSpeed))
+    }, [data])
+
 
     return (
         <div className={clsx(
@@ -67,19 +88,27 @@ function Children({ typeForecast, data }) {
                     styles.switch
                 )}>
                     <input type="checkbox"
-                        onChange={(e) => handleChangeUnit()} />
+                        onChange={(e) => setIsBarChart(!isBarChart)} />
                     <span></span>
                 </label>
             </div>
             {
-                data && data.map((item, i) => {
-                    return <SummaryComponent
-                        key={i}
-                        {...item}
-                        isMultiDay
-                        typeForecast={typeForecast}
+                isBarChart ? (
+                    <BarChart
+                        labels={labels}
+                        temperature={temperature}
+                        humidity={humidity}
+                        windSpeed={windSpeed}
                     />
-                })
+                ) :
+                    data && data.map((item, i) => {
+                        return <SummaryComponent
+                            key={i}
+                            {...item}
+                            isMultiDay
+                            typeForecast={typeForecast}
+                        />
+                    })
             }
         </div>
     )

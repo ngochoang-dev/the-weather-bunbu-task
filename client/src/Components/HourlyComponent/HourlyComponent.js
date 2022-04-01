@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs'
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,10 +39,23 @@ function HourlyComponent({ typeForecast, selectId }) {
 
 
 function Children({ typeForecast, cityName, data }) {
+    const [isBarChart, setIsBarChart] = useState(false)
 
-    const handleChangeUnit = () => {
+    const labels = useMemo(() => {
+        return data.map(item => item.hour)
+    }, [data]);
 
-    }
+    const temperature = useMemo(() => {
+        return data.map(item => item.temperature)
+    }, [data]);
+
+    const humidity = useMemo(() => {
+        return data.map(item => item.humidity)
+    }, [data]);
+
+    const windSpeed = useMemo(() => {
+        return data.map(item => Number(item.windSpeed))
+    }, [data])
 
     return (
         <div className={clsx(
@@ -61,19 +74,26 @@ function Children({ typeForecast, cityName, data }) {
                     styles.switch
                 )}>
                     <input type="checkbox"
-                        onChange={(e) => handleChangeUnit()} />
+                        onChange={(e) => setIsBarChart(!isBarChart)} />
                     <span></span>
                 </label>
             </div>
-            {/* <BarChart /> */}
             {
-                data && data.map((item, i) => {
-                    return <SummaryComponent
-                        key={i}
-                        {...item}
-                        typeForecast={typeForecast}
+                isBarChart ? (
+                    <BarChart
+                        labels={labels}
+                        temperature={temperature}
+                        humidity={humidity}
+                        windSpeed={windSpeed}
                     />
-                })
+                ) :
+                    data && data.map((item, i) => {
+                        return <SummaryComponent
+                            key={i}
+                            {...item}
+                            typeForecast={typeForecast}
+                        />
+                    })
             }
         </div>
     )
