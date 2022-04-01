@@ -46,7 +46,6 @@ function MultiDayForecast({ selectId, typeForecast }) {
 
 
 function Children({ typeForecast, data }) {
-
     const [isBarChart, setIsBarChart] = useState(false)
 
     const labels = useMemo(() => {

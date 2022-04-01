@@ -21,17 +21,17 @@ function Detail({
     cloudCover,
     typeForecast,
     rain,
+    setIndexColumn
 }) {
-
-
     return (
         <div className={clsx(
             styles.wrapper
         )}>
             <button className={clsx(
                 styles.btn_remove,
-                'close_detail'
-            )}>
+            )}
+                onClick={() => setIndexColumn(null)}
+            >
                 <IconContext.Provider value={{
                     className: clsx(
                         styles.icon_remove
@@ -86,7 +86,7 @@ function Detail({
                                             styles.icon_info_basic
                                         )
                                     }}>
-                                        <WiRaindrop />
+                                        <WiCloudy />
                                     </IconContext.Provider>
                                     <span>
                                         {rain}%
@@ -100,7 +100,7 @@ function Detail({
                                             styles.icon_info_basic
                                         )
                                     }}>
-                                        <WiCloudy />
+                                        <RiWindyLine />
                                     </IconContext.Provider>
                                     <span>{windSpeed} km/j</span>
                                 </div>
@@ -121,7 +121,7 @@ function Detail({
                     )}>
                         <li className={clsx(styles.item_detail)}>
                             <IconContext.Provider value={{ className: clsx(styles.icon_detail) }}>
-                                <RiWindyLine />
+                                <WiRaindrop />
                             </IconContext.Provider>
                             <div className={clsx(
                                 styles.field_detail

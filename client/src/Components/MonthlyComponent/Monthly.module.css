@@ -73,6 +73,10 @@
     -o-border-radius: 2px;
 }
 
+.btn_day.outside {
+    opacity: .4;
+}
+
 .btn_day:focus {
     outline: 2px solid var(--black-color);
     z-index: 99;
@@ -101,28 +105,32 @@
     justify-content: center;
     cursor: pointer;
     background-color: transparent;
-    border: none;
     outline: none;
+    border: 2px solid transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
 }
 
 .icon_remove {
     color: var(--primary-color);
     font-size: 1.6rem;
     pointer-events: none;
+    font-weight: 500;
 }
 
-.btn_remove:hover .icon_remove {
-    opacity: .8;
+.btn_remove:focus {
+    border: 1px solid var(--primary-color);
 }
-
-
-/*  */
-
 
 .wrapper {
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    cursor: pointer;
     padding: 0 10px;
     margin: 4px 0;
     position: relative;

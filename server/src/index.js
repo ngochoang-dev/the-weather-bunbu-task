@@ -26,7 +26,7 @@ app.get('/forecast', (req, res) => {
         "cityId": {
             $in: ids
         }
-    }).sort({ createdAt: 1 })
+    }).sort({ date: 1 })
         .then((allData) => {
             let data = [];
             const result = allData.sort((a, b) => {
@@ -104,7 +104,8 @@ app.get('/forecast-monthly', (req, res) => {
         "cityId": {
             $in: ids
         }
-    }).sort({ createdAt: 1 })
+    })
+        // .sort({ date: 1 })
         .then((allData) => {
             let data = [];
             const result = allData.sort((a, b) => {

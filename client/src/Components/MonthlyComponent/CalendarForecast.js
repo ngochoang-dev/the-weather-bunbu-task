@@ -1,46 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 import { IconContext } from 'react-icons';
-import ReactDOMServer from "react-dom/server";
 
 import styles from './Monthly.module.css';
 import Detail from './Detail';
-import dayjs from 'dayjs';
 
 function CalendarForecast({ data, typeForecast }) {
 
-    function insertAfter(e, data) {
-        const number = Number(e.currentTarget.dataset.index);
-        let index;
-        for (let i = 1; i <= 5; i++) {
-            if (number <= i * 7) {
-                index = i * 7;
-                break;
-            }
-        }
-        const isElem = document.getElementById('wrapper_detail');
-        if (isElem) {
-            isElem.remove()
-        }
-        const html = ReactDOMServer.renderToString(<Detail
-            {...data}
-            typeForecast={typeForecast}
-        />)
-        const newElement = document.createElement('div');
-        newElement.innerHTML = html;
-        newElement.id = 'wrapper_detail';
-        const referenceNode = document.querySelector(`button[data-index="${index}"`);
-        referenceNode.parentNode.insertBefore(newElement, referenceNode.nextSibling);
-    }
+    const [calendar, setCalendar] = useState([]);
+    const [indexColumn, setIndexColumn] = useState(null);
+    const [dataDetail, setDataDetail] = useState([]);
 
-    useEffect(() => {
-        document.querySelector('body').onclick = (e) => {
-            if (e.target.classList.contains('close_detail')) {
-                const isElem = document.getElementById('wrapper_detail');
-                isElem.remove();
-            }
+    useMemo(() => {
+        for (let i = 1; i <= 5; i++) {
+            const result = data.slice((i - 1) * 7, i * 7);
+            setCalendar(prev => [...prev, result])
         }
-    }, []);
+    }, [data]);
+
+    const handleClick = (data, index) => {
+        setIndexColumn(index)
+        setDataDetail(data)
+    }
 
     return (
         <div className={clsx(
@@ -61,36 +43,52 @@ function CalendarForecast({ data, typeForecast }) {
                 styles.day_grid_wrapper
             )}>
                 {
-                    data && data.map((item, i) => {
-                        const { temperature, description, date } = item;
-                        return (
-                            <button
-                                key={i}
-                                className={clsx(
-                                    styles.btn_day
-                                )} data-index={i + 1}
-                                onClick={(e) => insertAfter(e, item)}
-                            >
-                                <span className={clsx(styles.day)}>
-                                    {dayjs(date).format('DD')}
-                                </span>
-                                <IconContext.Provider value={{
-                                    className: clsx(
-                                        styles.icon_temperature
+                    calendar && calendar.map((arr, index) => {
+                        return <React.Fragment key={index}>
+                            {
+                                arr.map((item, i) => {
+                                    const { temperature, description, date } = item;
+                                    return (
+                                        <button
+                                            key={i}
+                                            className={clsx(
+                                                styles.btn_day,
+                                                dayjs(date).format('M')
+                                                !== dayjs().format('M')
+                                                && styles.outside
+                                            )}
+                                            onClick={() => handleClick(item, index)}
+                                        >
+                                            <span className={clsx(styles.day)}>
+                                                {dayjs(date).format('DD')}
+                                            </span>
+                                            <IconContext.Provider value={{
+                                                className: clsx(
+                                                    styles.icon_temperature
+                                                )
+                                            }}>
+                                                {
+                                                    typeForecast.map((item, i) => {
+                                                        if (item.description === description) {
+                                                            return <span key={i}>{item.icon}</span>
+                                                        }
+                                                        return []
+                                                    })
+                                                }
+                                            </IconContext.Provider>
+                                            <p className={clsx(styles.temperature_calendar)}>{temperature}°</p>
+                                        </button>
                                     )
-                                }}>
-                                    {
-                                        typeForecast.map((item, i) => {
-                                            if (item.description === description) {
-                                                return <span key={i}>{item.icon}</span>
-                                            }
-                                            return []
-                                        })
-                                    }
-                                </IconContext.Provider>
-                                <p className={clsx(styles.temperature_calendar)}>{temperature}°</p>
-                            </button>
-                        )
+                                })
+                            }
+                            {
+                                indexColumn === index && <Detail
+                                    {...dataDetail}
+                                    typeForecast={typeForecast}
+                                    setIndexColumn={setIndexColumn}
+                                />
+                            }
+                        </React.Fragment>
                     })
                 }
             </div>
