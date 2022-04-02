@@ -33,6 +33,8 @@ function MultiDayForecast({ selectId, typeForecast }) {
                     const newData = [...data];
                     newData.pop();
                     newData.shift();
+                    newData.sort((a, b) =>
+                        new Date(a.date) - new Date(b.date));
                     return <Children
                         key={i}
                         data={newData}
@@ -46,7 +48,7 @@ function MultiDayForecast({ selectId, typeForecast }) {
 
 
 function Children({ typeForecast, data }) {
-    const [isBarChart, setIsBarChart] = useState(false)
+    const [isBarChart, setIsBarChart] = useState(false);
 
     const labels = useMemo(() => {
         return data.map(item => {

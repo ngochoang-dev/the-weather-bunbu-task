@@ -13,7 +13,8 @@ function ToolComponent({
     setShowModal,
     selectId,
     setSelectId,
-    showModal
+    showModal,
+    setIds
 }) {
     const dispatch = useDispatch();
     const { allCity, cityId } = useSelector(state => state.forecastData);
@@ -30,6 +31,7 @@ function ToolComponent({
             )}
         >
             <SelectCity
+                setIds={setIds}
                 select={selectId}
                 setSelect={setSelectId}
                 selectArr={allCity}

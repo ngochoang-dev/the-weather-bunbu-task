@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { WiCloudy, WiDaySunny } from 'react-icons/wi';
 import { useSelector } from 'react-redux';
 import { Routes, Route } from "react-router-dom";
@@ -28,8 +28,10 @@ const typeForecast = [
 function App() {
   const [selectId, setSelectId] = useState([1]);
   const [showModal, setShowModal] = useState(false);
+  const [ids, setIds] = useState(selectId[0]);
 
   const { cityId } = useSelector(state => state.forecastData);
+
 
   useEffect(() => {
     if (cityId || cityId === 0) {
@@ -39,8 +41,9 @@ function App() {
           const result = dummy.filter(i => i !== prev[prev.length - 1]);
           return result
         }
-        return cityId === 1 ? prev : [cityId, ...prev]
+        return cityId === 1 ? prev : [...prev, cityId]
       });
+      setIds(cityId)
     }
   }, [cityId, setSelectId]);
 
@@ -52,6 +55,7 @@ function App() {
         selectId={selectId}
         setSelectId={setSelectId}
         setShowModal={setShowModal}
+        setIds={setIds}
       />
       <SideBar />
       <Routes>
@@ -77,6 +81,8 @@ function App() {
         />
         <Route path="monthly"
           element={<MonthlyComponent
+            ids={ids}
+            setIds={setIds}
             selectId={selectId}
             typeForecast={typeForecast}
           />}

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, memo } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs'
 import { useNavigate } from "react-router-dom";
@@ -48,7 +48,11 @@ function MainComponent({
     }, [idOfCity]);
 
     useMemo(() => {
-        allForecast && setData(allForecast.data)
+        allForecast && setData(() => {
+            return allForecast.data.sort((a, b) =>
+                new Date(a.date) - new Date(b.date)
+            );
+        })
     }, [allForecast]);
 
     const handleReSize = () => {
@@ -148,4 +152,4 @@ function MainComponent({
     )
 }
 
-export default MainComponent;
+export default memo(MainComponent);

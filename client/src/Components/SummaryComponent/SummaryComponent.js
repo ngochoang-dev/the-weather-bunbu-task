@@ -102,7 +102,7 @@ function SummaryComponent({
                                                             styles.icon_info_basic
                                                         )
                                                     }}>
-                                                        <WiCloudy />
+                                                        <RiWindyLine />
                                                     </IconContext.Provider>
                                                     <span>{windSpeed} km/j</span>
                                                 </div>
@@ -123,7 +123,7 @@ function SummaryComponent({
                                     )}>
                                         <li className={clsx(styles.item_detail)}>
                                             <IconContext.Provider value={{ className: clsx(styles.icon_detail) }}>
-                                                <RiWindyLine />
+                                                <WiCloudy />
                                             </IconContext.Provider>
                                             <div className={clsx(
                                                 styles.field_detail

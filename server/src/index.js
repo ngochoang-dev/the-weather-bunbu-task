@@ -26,7 +26,8 @@ app.get('/forecast', (req, res) => {
         "cityId": {
             $in: ids
         }
-    }).sort({ date: 1 })
+    })
+        .sort({ date: 1 })
         .then((allData) => {
             let data = [];
             const result = allData.sort((a, b) => {
@@ -66,7 +67,9 @@ app.get('/forecast', (req, res) => {
 app.get('/forecast-monthly', (req, res) => {
     const { cityId } = req.query;
     const ids = JSON.parse(cityId);
-    const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][new Date().getDay()];
+    const month_year = dayjs().format('YYYY/M');
+    const weekday =
+        ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][new Date(`${month_year}/1`).getDay()];
     const dummyArr = [
         {
             name: 'Sun',
@@ -98,14 +101,13 @@ app.get('/forecast-monthly', (req, res) => {
         }
     ]
     const number = dummyArr.find(item => item.name === weekday).number;
-    const month_year = dayjs().format('YYYY/M');
 
     Weather.find({
         "cityId": {
             $in: ids
         }
     })
-        // .sort({ date: 1 })
+        .sort({ date: 1 })
         .then((allData) => {
             let data = [];
             const result = allData.sort((a, b) => {

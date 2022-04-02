@@ -13,10 +13,14 @@ function CalendarForecast({ data, typeForecast }) {
     const [dataDetail, setDataDetail] = useState([]);
 
     useMemo(() => {
+        let newdata = [];
+        data.sort((a, b) => new Date(a.date) - new Date(b.date));
         for (let i = 1; i <= 5; i++) {
-            const result = data.slice((i - 1) * 7, i * 7);
-            setCalendar(prev => [...prev, result])
+            const result =
+                data.slice((i - 1) * 7, i * 7);
+            newdata.push(result);
         }
+        setCalendar(newdata)
     }, [data]);
 
     const handleClick = (data, index) => {
