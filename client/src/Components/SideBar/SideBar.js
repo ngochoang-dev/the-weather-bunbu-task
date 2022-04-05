@@ -34,7 +34,7 @@ function SideBar() {
                 </li>
                 <li>
                     <NavLink
-                        to="tenday"
+                        to="10days"
                         className={({ isActive }) =>
                             isActive ? clsx(styles.active) : undefined
                         }
