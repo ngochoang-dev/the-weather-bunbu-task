@@ -80,12 +80,39 @@
 
 .wrapper_chart {
     width: 830px;
-
     transform: translateX(-45px);
     -webkit-transform: translateX(-45px);
     -moz-transform: translateX(-45px);
     -ms-transform: translateX(-45px);
     -o-transform: translateX(-45px);
+}
+
+.btn_redirect {
+    position: absolute;
+    right: 0;
+    bottom: 80px;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.icon_arrow {
+    font-size: 1.4rem;
+    color: var(--gray-color);
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    -moz-transition: all 0.25s;
+    -ms-transition: all 0.25s;
+    -o-transition: all 0.25s;
+}
+
+.btn_redirect:hover .icon_arrow {
+    color: purple;
 }
 
 @media (max-width: 1023px) {

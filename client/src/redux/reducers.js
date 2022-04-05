@@ -9,18 +9,20 @@ import {
     GET_ALL_FORECAST_SUCCESS,
     DELETE_CITY_SUCCESS,
     SET_LOADING,
-    CHANGE_UNITS
-
+    CHANGE_UNITS,
+    GET_HOURLY_FORECAST_SUCCESS,
+    GET_MONTHLY_FORECAST_SUCCESS
 } from './actions';
 
 const initialState = {
     loading: false,
+    isDeleted: false,
     cityId: null,
     allCity: [],
     detailForecast: [],
     allForecast: [],
-    isDeleted: false,
-
+    hourlyData: [],
+    monthlyData: [],
 };
 
 const forecastData = (state = initialState, action) => {
@@ -99,7 +101,6 @@ const forecastData = (state = initialState, action) => {
             const { isCelsius, id, date } = action.payload;
             const { allForecast, detailForecast } = state;
             const forecasts = [...state.allForecast];
-            console.log(date);
             if (isCelsius) {
                 const newDetailForecast = detailForecast.map(detail => {
                     if (detail.cityId === id) {
@@ -154,6 +155,16 @@ const forecastData = (state = initialState, action) => {
                     detailForecast: newDetailForecast,
                     allForecast: newAllForecast,
                 }
+            }
+        case GET_HOURLY_FORECAST_SUCCESS:
+            return {
+                ...state,
+                hourlyData: action.data
+            }
+        case GET_MONTHLY_FORECAST_SUCCESS:
+            return {
+                ...state,
+                monthlyData: action.data
             }
         default:
             return state

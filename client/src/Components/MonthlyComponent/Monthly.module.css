@@ -1,0 +1,321 @@
+.container {
+    background-color: var(--white-color);
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    min-height: 100px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.header {
+    padding: 10px;
+    padding-bottom: 20px;
+}
+
+.header h3 {
+    font-size: 1.3rem;
+}
+
+.header h3 span {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.header span {
+    margin-top: 8px;
+    display: inline-block;
+}
+
+.calendar_container {
+    padding: 0 10px;
+}
+
+.day_of_month {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.day_of_month span {
+    width: 100%;
+    text-align: center;
+    padding: 8px 10px;
+    cursor: pointer;
+    font-weight: 500;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+}
+
+.day_grid_wrapper {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.btn_day {
+    display: flex;
+    justify-content: Space-between;
+    align-items: center;
+    border: 1px solid #dedede;
+    flex: 1 1 14.285%;
+    flex-flow: column;
+    min-height: 140px;
+    padding: 10px 4px;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+}
+
+.btn_day.outside {
+    opacity: .4;
+}
+
+.btn_day:focus {
+    outline: 2px solid var(--black-color);
+    z-index: 99;
+}
+
+.day {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.icon_temperature {
+    font-size: 2.6rem;
+}
+
+.temperature_calendar {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.btn_remove {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: transparent;
+    outline: none;
+    border: 2px solid transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.icon_remove {
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    pointer-events: none;
+    font-weight: 500;
+}
+
+.btn_remove:focus {
+    border: 1px solid var(--primary-color);
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin: 4px 0;
+    position: relative;
+}
+
+.box {
+    width: 100%;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.day_name {
+    flex: 0 0 90px;
+}
+
+.day_name>p {
+    font-weight: 500;
+}
+
+.temperature {
+    flex: 0 0 100px;
+}
+
+.temperature>p {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.description {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+}
+
+.description span {
+    margin-left: 10px;
+}
+
+.icon_description {
+    font-size: 3rem;
+}
+
+.humidity {
+    flex: 0 0 125px;
+    display: flex;
+    min-width: 125px;
+}
+
+.wind_speed {
+    flex: 0 0 165px;
+    display: flex;
+    min-width: 165px;
+}
+
+.wrapper_detail {
+    padding: 6px 20px;
+    margin: 0 20px 15px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+.wrapper_detail_multiday {
+    margin: 0 0 15px 0;
+}
+
+.list_details {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.list_details li {
+    margin: 10px 0;
+    width: 33%;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+}
+
+.list_details .item_detail {
+    width: 50%;
+}
+
+.list_details li:nth-child(4),
+.list_details li:nth-child(5),
+.list_details li:nth-child(6) {
+    padding-top: 10px;
+}
+
+.list_details li:nth-child(-n+3) {
+    border-top: none !important;
+}
+
+.list_details_multiday li:nth-child(3) {
+    border-top: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+.list_details_multiday li:nth-child(3),
+.list_details_multiday li:nth-child(4) {
+    padding-top: 10px;
+}
+
+.icon_detail {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.field_detail {
+    margin-left: 10px;
+}
+
+.field_detail p {
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+.box_multi_day {
+    width: 100%;
+}
+
+.box_info_basic {
+    width: 100%;
+}
+
+.header_detail {
+    font-weight: 500;
+}
+
+.detail_basic {
+    margin-top: 10px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.detail_basic>h3 {
+    font-size: 3rem;
+    flex: 0 0 90px;
+}
+
+.icon_desc_multi_day {
+    font-size: 4rem;
+}
+
+.container_info_basic {
+    width: 50%;
+    margin-left: auto;
+}
+
+.wrappper_info_basic {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+}
+
+.wrappper_info_basic span {
+    display: block;
+    margin-left: 10px;
+}
+
+.icon_info_basic {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+}
+
+.sub_title {
+    display: block;
+    margin: 10px 0;
+}
+
+@media (max-width: 644px) {
+    .btn_day {
+        min-height: 100px;
+    }
+}
+
+@media (max-width: 468px) {
+
+    .container,
+    .calendar_container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

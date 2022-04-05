@@ -1,0 +1,286 @@
+.container {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.btn_extend {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.25;
+    -webkit-transition: all 0.25;
+    -moz-transition: all 0.25;
+    -ms-transition: all 0.25;
+    -o-transition: all 0.25;
+}
+
+.btn_extend_rotate {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+.btn_extend_top {
+    position: absolute;
+    top: 0;
+    right: 16px;
+}
+
+.icon_arrow {
+    font-size: 1.4rem;
+    color: var(--primary-color)
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0 10px;
+    margin: 4px 0;
+    position: relative;
+}
+
+
+.box {
+    width: 100%;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.day_name {
+    flex: 0 0 90px;
+}
+
+.day_name>p {
+    font-weight: 500;
+}
+
+.temperature {
+    flex: 0 0 100px;
+}
+
+.temperature>p {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.description {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+}
+
+.description span {
+    margin-left: 10px;
+}
+
+.icon_description {
+    font-size: 3rem;
+}
+
+.humidity {
+    flex: 0 0 125px;
+    display: flex;
+    min-width: 125px;
+}
+
+.wind_speed {
+    flex: 0 0 165px;
+    display: flex;
+    min-width: 165px;
+}
+
+.wrapper_detail {
+    padding: 6px 20px;
+    margin: 0 20px 15px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+.wrapper_detail_multiday {
+    margin: 0 0 15px 0;
+}
+
+.list_details {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.list_details li {
+    margin: 10px 0;
+    width: 33%;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+}
+
+.list_details .item_detail {
+    width: 50%;
+}
+
+.list_details li:nth-child(4),
+.list_details li:nth-child(5),
+.list_details li:nth-child(6) {
+    padding-top: 10px;
+}
+
+.list_details li:nth-child(-n+3) {
+    border-top: none !important;
+}
+
+.list_details_multiday li:nth-child(3) {
+    border-top: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+.list_details_multiday li:nth-child(3),
+.list_details_multiday li:nth-child(4) {
+    padding-top: 10px;
+}
+
+.icon_detail {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.field_detail {
+    margin-left: 10px;
+}
+
+.field_detail p {
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+.box_multi_day {
+    width: 100%;
+}
+
+.box_info_basic {
+    width: 100%;
+}
+
+.header_detail {
+    font-weight: 500;
+}
+
+.detail_basic {
+    margin-top: 10px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.detail_basic>h3 {
+    font-size: 3rem;
+    flex: 0 0 90px;
+}
+
+.icon_desc_multi_day {
+    font-size: 4rem;
+}
+
+.container_info_basic {
+    width: 50%;
+    margin-left: auto;
+}
+
+.wrappper_info_basic {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+}
+
+.wrappper_info_basic span {
+    display: block;
+    margin-left: 10px;
+}
+
+.icon_info_basic {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+}
+
+.sub_title {
+    display: block;
+    margin: 10px 0;
+}
+
+.icon_h_w {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    display: none;
+}
+
+
+@media (max-width: 1023px) {
+
+    .humidity p>span:first-child,
+    .wind_speed p>span:first-child {
+        display: none;
+    }
+
+    .humidity,
+    .wind_speed {
+        flex: 0 0 50px;
+        min-width: 100px;
+    }
+
+    .humidity>p,
+    .wind_speed>p {
+        display: flex;
+        align-items: center
+    }
+
+    .icon_h_w {
+        display: unset;
+        margin-right: 6px;
+    }
+
+    .day_name,
+    .temperature {
+        flex: 0 0 60px;
+    }
+}
+
+@media (max-width: 644px) {
+    .wrapper {
+        padding: 0;
+    }
+
+    .wrapper_detail {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .box {
+        padding: 4px 0;
+    }
+
+    .humidity {
+        flex: 0 0 50px;
+        min-width: 65px;
+    }
+
+    .day_name,
+    .temperature {
+        flex: 0 0 40px;
+    }
+
+    .temperature>p {
+        font-size: 1.1rem;
+    }
+
+}
+
+@media (max-width: 468px) {
+    .description>span {
+        margin-left: 0;
+    }
+}

@@ -6,12 +6,15 @@ import { CgClose } from 'react-icons/cg';
 import styles from './Select.module.css';
 import ModalSelect from './ModalSelect';
 
-function SelectCity({ select, setSelect, selectArr }) {
+function SelectCity({ select, setSelect, selectArr, setIds }) {
     const [showModal, setShowModal] = useState(false);
 
     const handleRemoveCity = (id) => {
         setSelect(prev => {
             return prev.filter(item => item !== id)
+        })
+        setIds(prev => {
+            return prev === id ? select[select.length - 2] : prev
         })
     }
 
@@ -51,6 +54,7 @@ function SelectCity({ select, setSelect, selectArr }) {
                 select={select}
                 selectArr={selectArr}
                 setShowModal={setShowModal}
+                setIds={setIds}
                 setSelect={setSelect}
             />}
             <div className={clsx(

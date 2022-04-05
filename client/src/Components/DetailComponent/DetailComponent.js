@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { IconContext } from "react-icons";
+import { useNavigate } from "react-router-dom";
 
 import styles from './DetailComponent.module.css';
 
@@ -11,6 +12,8 @@ function DetailComponent({
     typeForecast,
     handleChangeUnit,
 }) {
+    let navigate = useNavigate();
+
     const [data, setData] = useState({
         cityId: "",
         cityName: "",
@@ -57,7 +60,7 @@ function DetailComponent({
                                 onChange={(e) => handleChangeUnit(e, cityId, date)} />
                             <span></span>
                         </label>
-                        <span>&deg;{isCelsius ? 'C' : 'F'}</span>
+                        <span data-testid='isCelsius'>&deg;{isCelsius ? 'C' : 'F'}</span>
                     </div>
                 </h4>
                 <div className={clsx(
@@ -68,7 +71,9 @@ function DetailComponent({
             </div>
             <div className={clsx(
                 styles.wrapper_detail
-            )}>
+            )}
+                onClick={() => navigate(`/today/hourly?id=${cityId}`)}
+            >
                 <div className={clsx(
                     styles.temperature
                 )}>

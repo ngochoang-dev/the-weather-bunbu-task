@@ -14,7 +14,8 @@ function ModalSelect({
     setShowModal,
     selectArr,
     select,
-    setSelect }) {
+    setSelect,
+    setIds }) {
     const dispatch = useDispatch();
     const isDeleted = useSelector(state => state.forecastData.isDeleted);
 
@@ -78,6 +79,7 @@ function ModalSelect({
     const handleSubmit = () => {
         setSelect(idSelect);
         setShowModal(false);
+        setIds(idSelect[idSelect.length - 1])
     }
 
     return (

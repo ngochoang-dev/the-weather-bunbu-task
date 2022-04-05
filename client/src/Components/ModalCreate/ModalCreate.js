@@ -12,7 +12,7 @@ function ModalCreate({
     setShowModal,
 }) {
     const dispatch = useDispatch();
-    const loading = useSelector(state => state.forecastData.loading);
+    const { loading } = useSelector(state => state.forecastData);
     const [cityName, setCityName] = useState('');
     const [isValid, setIsValid] = useState(false);
 

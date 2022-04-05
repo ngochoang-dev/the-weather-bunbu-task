@@ -27,7 +27,7 @@ function Chart({
         LineElement,
         Title,
         Tooltip,
-        Legend
+        Legend,
     );
 
     if (humidityArr.length === 0 && !temperature)
