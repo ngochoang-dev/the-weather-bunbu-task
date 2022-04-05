@@ -6,7 +6,8 @@ import { IconContext } from 'react-icons';
 import styles from './Monthly.module.css';
 import Detail from './Detail';
 
-function CalendarForecast({ data, typeForecast }) {
+
+function CalendarForecast({ dayOfWeek, data, typeForecast }) {
 
     const [calendar, setCalendar] = useState([]);
     const [indexColumn, setIndexColumn] = useState(null);
@@ -35,13 +36,11 @@ function CalendarForecast({ data, typeForecast }) {
             <div className={clsx(
                 styles.day_of_month
             )}>
-                <span>SUN</span>
-                <span>MON</span>
-                <span>TUE</span>
-                <span>WED</span>
-                <span>THU</span>
-                <span>FRI</span>
-                <span>SAT</span>
+                {
+                    dayOfWeek.map((name, i) => {
+                        return <span key={i}>{name}</span>
+                    })
+                }
             </div>
             <div className={clsx(
                 styles.day_grid_wrapper

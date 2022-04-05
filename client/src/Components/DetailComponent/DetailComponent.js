@@ -4,7 +4,6 @@ import dayjs from 'dayjs';
 import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
 
-
 import styles from './DetailComponent.module.css';
 
 function DetailComponent({
@@ -61,7 +60,7 @@ function DetailComponent({
                                 onChange={(e) => handleChangeUnit(e, cityId, date)} />
                             <span></span>
                         </label>
-                        <span>&deg;{isCelsius ? 'C' : 'F'}</span>
+                        <span data-testid='isCelsius'>&deg;{isCelsius ? 'C' : 'F'}</span>
                     </div>
                 </h4>
                 <div className={clsx(

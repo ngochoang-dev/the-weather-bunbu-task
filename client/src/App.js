@@ -73,7 +73,7 @@ function App() {
             typeForecast={typeForecast}
           />}
         />
-        <Route path="tenday"
+        <Route path="10days"
           element={<MultiDayForecast
             selectId={selectId}
             typeForecast={typeForecast}
@@ -82,8 +82,6 @@ function App() {
         <Route path="monthly"
           element={<MonthlyComponent
             ids={ids}
-            setIds={setIds}
-            selectId={selectId}
             typeForecast={typeForecast}
           />}
         />
