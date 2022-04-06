@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const app = express();
 const port = 5001;
@@ -5,6 +6,7 @@ const db = require('./db/index');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const dayjs = require('dayjs');
+const axios = require('axios');
 
 const Weather = require('./models/Weather');
 
@@ -146,11 +148,54 @@ app.get('/forecast-monthly', (req, res) => {
         })
 })
 
-app.get('/forecast-detail', (req, res) => {
+
+const handleGetTemplate = async (lat, long) => {
+    const response =
+        await axios.get(`${process.env.API_WEATHER}?lat=${lat}&lon=${long}&appid=${process.env.API_KEY}&units=imperial`);
+    return response.data.main
+}
+
+app.get('/forecast-detail', async (req, res) => {
     const { today, cityId } = req.query;
+    const ids = JSON.parse(cityId);
+
+    const latlong = [
+        {
+            lat: 21.030653,
+            long: 105.847130
+        },
+        {
+            lat: 16.047079,
+            long: 108.206230
+        },
+        {
+            lat: 10.762622,
+            long: 106.660172
+        }
+    ]
+
+    await ids.forEach(async (id, index) => {
+        const { lat, long } = latlong[index];
+        const { temp } = await handleGetTemplate(lat, long)
+        Weather.findOneAndUpdate({
+            cityId: id,
+            date: today
+        }, {
+            temperature: Math.round(temp),
+        })
+            .then(result => console.log("result"))
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    success: false,
+                    message: 'Có lỗi xảy ra'
+                })
+            })
+    })
+
     Weather.find({
         "cityId": {
-            $in: JSON.parse(cityId)
+            $in: ids
         },
         date: today,
     })
@@ -374,7 +419,10 @@ app.get('/today/hourly', (req, res) => {
         })
 })
 
+console.log('gg');
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 });
+

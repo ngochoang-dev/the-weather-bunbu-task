@@ -29,45 +29,45 @@ import {
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 
-function* createForecast(action) {
+export function* createForecast({ payload }) {
     try {
-        const data = yield call(handlePostForecast, action.payload);
+        const data = yield call(handlePostForecast, payload);
         yield put({ type: POST_FORECAST_SUCCESS, data: data.cityId })
     } catch (error) {
         yield put({ type: POST_FORECAST_FAIL, data: error })
     }
 }
 
-function* getAllCity() {
+export function* getAllCity() {
     const data = yield call(handleGetAllCity);
     yield put({ type: GET_ALL_CITY_SUCCESS, data: data.data })
 }
 
-function* getDetailForecast(payload) {
+export function* getDetailForecast(payload) {
     const data = yield call(handleGetDetailForecast, payload);
     yield put({ type: GET_DETAIL_FORECAST_SUCCESS, data: data.data })
 }
 
-function* getAllForecast(payload) {
+export function* getAllForecast(payload) {
     const data = yield call(handleGetAllForecast, payload);
     yield put({ type: GET_ALL_FORECAST_SUCCESS, data: data.data })
 }
 
-function* deleteCity(payload) {
+export function* deleteCity(payload) {
     const data = yield call(handleDeleteCity, payload);
     yield put({
         type: DELETE_CITY_SUCCESS, data: data.data
     })
 }
 
-function* getHourlyForecast(payload) {
+export function* getHourlyForecast(payload) {
     const data = yield call(handleGetHourlyForecast, payload);
     yield put({
         type: GET_HOURLY_FORECAST_SUCCESS, data: data.data
     })
 }
 
-function* getMonthlyForecast(payload) {
+export function* getMonthlyForecast(payload) {
     const data = yield call(handleGetMonthlyForecast, payload);
     yield put({
         type: GET_MONTHLY_FORECAST_SUCCESS, data: data.data

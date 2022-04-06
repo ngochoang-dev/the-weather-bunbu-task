@@ -18,30 +18,33 @@ const handleChangeUnit = jest.fn();
 
 afterEach(cleanup);
 
-test('isCelsius', () => {
-    render(
-        <BrowserRouter>
-            <DetailComponent
-                isCelsius={true}
-                typeForecast={typeForecast}
-                handleChangeUnit={handleChangeUnit}
-            />
-        </BrowserRouter>
-    )
-    const elementShowCelsius = screen.getByTestId('celsius-id');
-    expect(elementShowCelsius.innerHTML).toMatch(/C/);
-});
+describe('DetailComponent', () => {
+    test('isCelsius', () => {
+        render(
+            <BrowserRouter>
+                <DetailComponent
+                    isCelsius={true}
+                    typeForecast={typeForecast}
+                    handleChangeUnit={handleChangeUnit}
+                />
+            </BrowserRouter>
+        )
+        const elementShowCelsius = screen.getByTestId('celsius-id');
+        expect(elementShowCelsius.innerHTML).toMatch(/C/);
+    });
 
-test('isFahrenheit', () => {
-    render(
-        <BrowserRouter>
-            <DetailComponent
-                isCelsius={false}
-                typeForecast={typeForecast}
-                handleChangeUnit={handleChangeUnit}
-            />
-        </BrowserRouter>
-    )
-    const elementShowCelsius = screen.getByTestId('celsius-id');
-    expect(elementShowCelsius.innerHTML).toMatch(/F/);
-});
+    test('isFahrenheit', () => {
+        render(
+            <BrowserRouter>
+                <DetailComponent
+                    isCelsius={false}
+                    typeForecast={typeForecast}
+                    handleChangeUnit={handleChangeUnit}
+                />
+            </BrowserRouter>
+        )
+        const elementShowCelsius = screen.getByTestId('celsius-id');
+        expect(elementShowCelsius.innerHTML).toMatch(/F/);
+    });
+
+})
