@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { WiCloudy, WiDaySunny } from 'react-icons/wi';
 import { useSelector } from 'react-redux';
 import { Routes, Route } from "react-router-dom";

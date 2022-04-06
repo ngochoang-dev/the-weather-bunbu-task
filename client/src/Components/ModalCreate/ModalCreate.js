@@ -72,6 +72,7 @@ function ModalCreate({
                 )}>
                     <label>Nhập tên thành phố</label>
                     <input type="text"
+                        data-testid="input-id"
                         ref={e => e ? e.focus() : null}
                         value={cityName}
                         onChange={(e) => handleInputChange(e)}

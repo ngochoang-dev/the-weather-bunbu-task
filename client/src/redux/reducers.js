@@ -25,7 +25,7 @@ const initialState = {
     monthlyData: [],
 };
 
-const forecastData = (state = initialState, action) => {
+export const forecastData = (state = initialState, action) => {
     switch (action.type) {
         case POST_FORECAST:
             return {

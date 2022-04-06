@@ -60,7 +60,7 @@ function DetailComponent({
                                 onChange={(e) => handleChangeUnit(e, cityId, date)} />
                             <span></span>
                         </label>
-                        <span data-testid='isCelsius'>&deg;{isCelsius ? 'C' : 'F'}</span>
+                        <span data-testid='celsius-id'>&deg;{isCelsius ? 'C' : 'F'}</span>
                     </div>
                 </h4>
                 <div className={clsx(
