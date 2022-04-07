@@ -1,4 +1,4 @@
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from "react-router-dom";
 import { WiCloudy, WiDaySunny } from 'react-icons/wi';
 
@@ -19,7 +19,7 @@ const handleChangeUnit = jest.fn();
 afterEach(cleanup);
 
 describe('DetailComponent', () => {
-    test('isCelsius', () => {
+    test('isCelsius is true', () => {
         render(
             <BrowserRouter>
                 <DetailComponent
@@ -29,11 +29,11 @@ describe('DetailComponent', () => {
                 />
             </BrowserRouter>
         )
-        const elementShowCelsius = screen.getByTestId('celsius-id');
-        expect(elementShowCelsius.innerHTML).toMatch(/C/);
+        const elm = screen.getByTestId('celsius-id');
+        expect(elm.innerHTML).toMatch(/C/);
     });
 
-    test('isFahrenheit', () => {
+    test('isCelsius is false', () => {
         render(
             <BrowserRouter>
                 <DetailComponent
@@ -43,8 +43,37 @@ describe('DetailComponent', () => {
                 />
             </BrowserRouter>
         )
-        const elementShowCelsius = screen.getByTestId('celsius-id');
-        expect(elementShowCelsius.innerHTML).toMatch(/F/);
+        const elm = screen.getByTestId('celsius-id');
+        expect(elm.innerHTML).toMatch(/F/);
     });
 
+    test('fn handleChangeUnit', () => {
+        render(
+            <BrowserRouter>
+                <DetailComponent
+                    isCelsius={false}
+                    typeForecast={typeForecast}
+                    handleChangeUnit={handleChangeUnit}
+                />
+            </BrowserRouter>
+        )
+        const labelCheckbox = screen.getByTestId('labelCheckbox-id')
+        const elm = screen.getByTestId('celsius-id');
+        fireEvent.click(labelCheckbox);
+        expect(elm.innerHTML).toMatch(/F/);
+    });
+
+    test('fn navigate', () => {
+        render(
+            <BrowserRouter>
+                <DetailComponent
+                    isCelsius={false}
+                    typeForecast={typeForecast}
+                    handleChangeUnit={handleChangeUnit}
+                />
+            </BrowserRouter>
+        )
+        const navigateElm = screen.getByTestId('navigate-id')
+        fireEvent.click(navigateElm);
+    });
 })

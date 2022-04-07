@@ -38,7 +38,7 @@ function HourlyComponent({ typeForecast, selectId }) {
 }
 
 
-function Children({ typeForecast, cityName, data }) {
+export function Children({ typeForecast, cityName, data }) {
     const [isBarChart, setIsBarChart] = useState(false)
 
     const labels = useMemo(() => {
@@ -72,7 +72,9 @@ function Children({ typeForecast, cityName, data }) {
             )}>
                 <label className={clsx(
                     styles.switch
-                )}>
+                )}
+                    data-testid='switch-id'
+                >
                     <input type="checkbox"
                         onChange={(e) => setIsBarChart(!isBarChart)} />
                     <span></span>

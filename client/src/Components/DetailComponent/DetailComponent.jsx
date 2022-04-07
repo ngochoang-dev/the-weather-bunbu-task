@@ -55,7 +55,9 @@ function DetailComponent({
                     )}>
                         <label className={clsx(
                             styles.switch
-                        )}>
+                        )}
+                            data-testid="labelCheckbox-id"
+                        >
                             <input type="checkbox"
                                 onChange={(e) => handleChangeUnit(e, cityId, date)} />
                             <span></span>
@@ -72,6 +74,7 @@ function DetailComponent({
             <div className={clsx(
                 styles.wrapper_detail
             )}
+                data-testid="navigate-id"
                 onClick={() => navigate(`/today/hourly?id=${cityId}`)}
             >
                 <div className={clsx(
@@ -85,10 +88,9 @@ function DetailComponent({
                     }}>
                         {
                             typeForecast.map((item, i) => {
-                                if (item.description === description) {
-                                    return <span key={i}>{item.icon}</span>
-                                }
-                                return []
+                                return item.description === description ?
+                                    <span key={i}>{item.icon}</span> :
+                                    []
                             })
                         }
                     </IconContext.Provider>

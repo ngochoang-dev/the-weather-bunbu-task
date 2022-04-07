@@ -17,10 +17,10 @@ function ModalCreate({
     const [isValid, setIsValid] = useState(false);
 
     const handleCreate = () => {
-        if (cityName && !isValid) {
-            dispatch(createForecast({ cityName: cityName }))
-            setCityName('')
-        }
+        cityName
+            && !isValid
+            && dispatch(createForecast({ cityName: cityName }))
+            && setCityName('')
     }
 
     useEffect(() => {
@@ -28,12 +28,13 @@ function ModalCreate({
     }, []);
 
     useEffect(() => {
-        if (loading)
-            setShowModal(false)
+        loading && setShowModal(false)
     }, [loading, setShowModal]);
 
     function removeAscent(str) {
-        if (str === null || str === undefined) return str;
+        if (str === null || str === undefined) {
+            return str
+        };
         str = str.toLowerCase();
         str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
         str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
@@ -61,6 +62,7 @@ function ModalCreate({
                 styles.modal,
             )}>
                 <span className={clsx(styles.btn_close)}
+                    data-testid='btnClose-id'
                     onClick={() => setShowModal(false)}
                 >
                     <IconContext.Provider value={{ className: clsx(styles.icon_close) }}>

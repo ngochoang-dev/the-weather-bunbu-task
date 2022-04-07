@@ -23,7 +23,7 @@ function Container({
     const [detailData, setDetailDate] = useState([]);
     const [dataForecast, setDataForecast] = useState([]);
     const [isCelsius, setIsCelsius] = useState(false);
-    const [day, setDay] = useState(null)
+    const [day, setDay] = useState(null);
 
     useMemo(() => {
         const result = detailForecast.find(item => Number(item.cityId) === id)
@@ -81,6 +81,7 @@ function Container({
             <button className={clsx(
                 styles.btn_close
             )}
+                data-testid='btnClose-id'
                 onClick={() => setSelect(prev => prev.filter(i => i !== id))}
             >
                 <IconContext.Provider value={{ className: styles.icon_close }}>

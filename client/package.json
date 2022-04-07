@@ -47,5 +47,23 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.jsx"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/*/index.js",
+      "src/serviceWorker.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 92.9,
+        "branches": 89.5,
+        "lines": 93.3,
+        "functions": 91.9
+      }
+    }
   }
 }

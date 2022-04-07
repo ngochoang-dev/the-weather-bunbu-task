@@ -115,12 +115,6 @@ describe("sagas", () => {
             }
         ).toPromise();
         expect(dispatched[0].type).toEqual("GET_ALL_CITY_SUCCESS");
-        expect(dispatched[0].data).toEqual([
-            {
-                id: 1,
-                name: "Ha Noi",
-            }
-        ]);
     })
 
     test("should test createForecast", async () => {

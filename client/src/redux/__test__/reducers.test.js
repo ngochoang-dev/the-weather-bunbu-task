@@ -1,10 +1,5 @@
 import { forecastData } from '../reducers';
 import {
-    createForecast,
-    getAllCity,
-    handleGetDetailForecast,
-    getHourlyForecast,
-    getMonthlyForecast,
     POST_FORECAST_SUCCESS,
     POST_FORECAST_FAIL,
     DELETE_CITY_SUCCESS,
