@@ -13,7 +13,9 @@ import {
     GET_HOURLY_FORECAST,
     GET_HOURLY_FORECAST_SUCCESS,
     GET_MONTHLY_FORECAST,
-    GET_MONTHLY_FORECAST_SUCCESS
+    GET_MONTHLY_FORECAST_SUCCESS,
+    REFRESH_FORECAST,
+    REFRESH_FORECAST_SUCCESS
 
 } from './actions';
 import {
@@ -23,7 +25,8 @@ import {
     handleGetAllForecast,
     handleDeleteCity,
     handleGetHourlyForecast,
-    handleGetMonthlyForecast
+    handleGetMonthlyForecast,
+    handleRefreshForecast
 
 } from './getApi';
 import { call, put, takeEvery } from 'redux-saga/effects';
@@ -74,6 +77,13 @@ export function* getMonthlyForecast(payload) {
     })
 }
 
+export function* refreshForecast(payload) {
+    const data = yield call(handleRefreshForecast, payload);
+    yield put({
+        type: REFRESH_FORECAST_SUCCESS, data: data.data
+    })
+}
+
 
 function* rootSaga() {
     yield takeEvery(POST_FORECAST, createForecast);
@@ -83,6 +93,7 @@ function* rootSaga() {
     yield takeEvery(DELETE_CITY, deleteCity);
     yield takeEvery(GET_HOURLY_FORECAST, getHourlyForecast);
     yield takeEvery(GET_MONTHLY_FORECAST, getMonthlyForecast);
+    yield takeEvery(REFRESH_FORECAST, refreshForecast)
 }
 
 export default rootSaga;

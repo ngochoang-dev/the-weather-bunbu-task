@@ -15,6 +15,8 @@ export const SET_LOADING = 'SET_LOADING';
 export const CHANGE_UNITS = 'CHANGE_UNITS';
 export const GET_HOURLY_FORECAST = 'GET_HOURLY_FORECAST';
 export const GET_HOURLY_FORECAST_SUCCESS = 'GET_HOURLY_FORECAST_SUCCESS';
+export const REFRESH_FORECAST = 'REFRESH_FORECAST';
+export const REFRESH_FORECAST_SUCCESS = 'REFRESH_FORECAST_SUCCESS';
 
 
 export const createForecast = (data) => {
@@ -74,6 +76,13 @@ export const getHourlyForecast = (payload) => {
 export const getMonthlyForecast = (payload) => {
     return {
         type: GET_MONTHLY_FORECAST,
+        payload
+    }
+}
+
+export const refreshForecast = (payload) => {
+    return {
+        type: REFRESH_FORECAST,
         payload
     }
 }

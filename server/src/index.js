@@ -159,40 +159,6 @@ app.get('/forecast-detail', async (req, res) => {
     const { today, cityId } = req.query;
     const ids = JSON.parse(cityId);
 
-    const latlong = [
-        {
-            lat: 21.030653,
-            long: 105.847130
-        },
-        {
-            lat: 16.047079,
-            long: 108.206230
-        },
-        {
-            lat: 10.762622,
-            long: 106.660172
-        }
-    ]
-
-    await ids.forEach(async (id, index) => {
-        const { lat, long } = latlong[index];
-        const { temp } = await handleGetTemplate(lat, long)
-        Weather.findOneAndUpdate({
-            cityId: id,
-            date: today
-        }, {
-            temperature: Math.round(temp),
-        })
-            .then(result => console.log("result"))
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({
-                    success: false,
-                    message: 'Có lỗi xảy ra'
-                })
-            })
-    })
-
     Weather.find({
         "cityId": {
             $in: ids
@@ -216,7 +182,7 @@ app.get('/forecast-detail', async (req, res) => {
 app.post('/create-new-forecast', (req, res) => {
     const { cityName } = req.body;
     const uvArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    const status = ['Cloudy', 'Clear sky'];
+    const status = ['Cloudy', 'Clear sky', 'Rain'];
     const restHour = 25 - dayjs().hour();
     const totalDays = dayjs().daysInMonth();
     const days = [];
@@ -239,7 +205,7 @@ app.post('/create-new-forecast', (req, res) => {
                 temperature: Math.round(Math.random() * 70),
                 humidity: Math.floor(Math.random() * (45 - 20 + 1) + 20),
                 windSpeed: (Math.random() * 30).toFixed(2),
-                description: status[Math.round(Math.random() * 1)],
+                description: status[Math.round(Math.random() * 2)],
                 date: day,
                 hour: hour,
                 uv: uvArr[Math.round(Math.random() * 10)],
@@ -251,7 +217,7 @@ app.post('/create-new-forecast', (req, res) => {
             temperature: Math.round(Math.random() * 70),
             humidity: Math.floor(Math.random() * (45 - 20 + 1) + 20),
             windSpeed: (Math.random() * 30).toFixed(2),
-            description: status[Math.round(Math.random() * 1)],
+            description: status[Math.round(Math.random() * 2)],
             date: day,
             uv: uvArr[Math.round(Math.random() * 10)],
             rain: Math.round(Math.random() * 70),
@@ -278,7 +244,7 @@ app.post('/create-new-forecast', (req, res) => {
                 temperature: Math.round(Math.random() * 70),
                 humidity: Math.floor(Math.random() * (45 - 20 + 1) + 20),
                 windSpeed: (Math.random() * 30).toFixed(2),
-                description: status[Math.round(Math.random() * 1)],
+                description: status[Math.round(Math.random() * 2)],
                 hour: hour,
                 uv: uvArr[Math.round(Math.random() * 10)],
                 cloudCover: Math.floor(Math.random() * (100 - 20 + 1) + 20),
@@ -291,7 +257,7 @@ app.post('/create-new-forecast', (req, res) => {
             temperature: Math.round(Math.random() * 70),
             humidity: Math.floor(Math.random() * (45 - 20 + 1) + 20),
             windSpeed: (Math.random() * 30).toFixed(2),
-            description: status[Math.round(Math.random() * 1)],
+            description: status[Math.round(Math.random() * 2)],
             uv: uvArr[Math.round(Math.random() * 10)],
             rain: Math.round(Math.random() * 70),
             cloudCover: Math.floor(Math.random() * (100 - 20 + 1) + 20),
@@ -302,7 +268,7 @@ app.post('/create-new-forecast', (req, res) => {
             temperature: Math.round(Math.random() * 70),
             humidity: Math.floor(Math.random() * (45 - 20 + 1) + 20),
             windSpeed: (Math.random() * 30).toFixed(2),
-            description: status[Math.round(Math.random() * 1)],
+            description: status[Math.round(Math.random() * 2)],
             uv: uvArr[Math.round(Math.random() * 10)],
             rain: Math.round(Math.random() * 70),
             cloudCover: Math.floor(Math.random() * (100 - 20 + 1) + 20),
@@ -419,8 +385,11 @@ app.get('/today/hourly', (req, res) => {
         })
 })
 
-console.log('gg');
+app.get('/refresh-forecast', (req, res) => {
+    const { cityId } = req.query;
+    console.log(cityId);
 
+})
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

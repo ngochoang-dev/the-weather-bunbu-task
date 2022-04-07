@@ -6,6 +6,9 @@
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
     margin: 4px 0 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .list_sidebar {
@@ -18,7 +21,7 @@
 }
 
 .list_sidebar li a {
-    display: block; 
+    display: block;
     padding: 14px 10px;
     font-size: 1rem;
 }
@@ -37,3 +40,42 @@
     height: 1px;
     background-color: purple;
 }
+
+.btn_refresh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 34px;
+    margin-right: 32px;
+    cursor: pointer;
+    border: none;
+    padding: 4px 0;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+.icon_refresh {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.btn_refresh:hover {
+    opacity: .8;
+}
+
+/* .btn_refresh:hover .icon_refresh {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transition: transform 1s;
+    -webkit-transition: transform 1s;
+    -moz-transition: transform 1s;
+    -ms-transition: transform 1s;
+    -o-transition: transform 1s;
+} */

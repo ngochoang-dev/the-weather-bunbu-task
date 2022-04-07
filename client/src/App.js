@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { WiCloudy, WiDaySunny } from 'react-icons/wi';
+import { WiCloudy, WiDaySunny, WiRainMix } from 'react-icons/wi';
 import { useSelector } from 'react-redux';
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -22,6 +22,10 @@ const typeForecast = [
   {
     description: 'Clear sky',
     icon: <WiDaySunny />
+  },
+  {
+    description: 'Rain',
+    icon: <WiRainMix />
   }
 ];
 
@@ -57,7 +61,7 @@ function App() {
         setShowModal={setShowModal}
         setIds={setIds}
       />
-      <SideBar />
+      <SideBar selectId={selectId} />
       <Routes>
         <Route path="/"
           element={

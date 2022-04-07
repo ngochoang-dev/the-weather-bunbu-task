@@ -11,7 +11,9 @@ import {
     SET_LOADING,
     CHANGE_UNITS,
     GET_HOURLY_FORECAST_SUCCESS,
-    GET_MONTHLY_FORECAST_SUCCESS
+    GET_MONTHLY_FORECAST_SUCCESS,
+    REFRESH_FORECAST_SUCCESS,
+
 } from './actions';
 
 const initialState = {
@@ -165,6 +167,11 @@ export const forecastData = (state = initialState, action) => {
             return {
                 ...state,
                 monthlyData: action.data
+            }
+        case REFRESH_FORECAST_SUCCESS:
+            return {
+                ...state,
+                detailForecast: action.data
             }
         default:
             return state

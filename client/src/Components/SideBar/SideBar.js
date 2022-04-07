@@ -1,10 +1,20 @@
 import React from 'react';
 import clsx from 'clsx';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { IconContext } from 'react-icons';
+import { FiRefreshCw } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
 
-import styles from './Sidebar.module.css'
+import styles from './Sidebar.module.css';
+import { refreshForecast } from '../../redux/actions';
 
-function SideBar() {
+function SideBar({ selectId }) {
+    const dispatch = useDispatch();
+
+    const handleRefresh = () => {
+        dispatch(refreshForecast({ selectId }))
+    }
+
     return (
         <nav className={clsx(
             styles.container
@@ -53,7 +63,15 @@ function SideBar() {
                     </NavLink>
                 </li>
             </ul>
-            <Outlet />
+            <button className={clsx(
+                styles.btn_refresh
+            )}
+                onClick={handleRefresh}
+            >
+                <IconContext.Provider value={{ className: clsx(styles.icon_refresh) }}>
+                    <FiRefreshCw />
+                </IconContext.Provider>
+            </button>
         </nav>
     )
 }

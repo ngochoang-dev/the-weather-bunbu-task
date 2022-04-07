@@ -55,3 +55,10 @@ export const handleGetMonthlyForecast = ({ payload }) => {
     return fetch(`${process.env.REACT_APP_URL}/forecast-monthly?cityId=${id}`)
         .then(response => response.json())
 }
+
+export const handleRefreshForecast = ({ payload }) => {
+    const { selectId } = payload;
+    const id = JSON.stringify(selectId)
+    return fetch(`${process.env.REACT_APP_URL}/refresh-forecast?cityId=${id}`)
+        .then(response => response.json())
+}
