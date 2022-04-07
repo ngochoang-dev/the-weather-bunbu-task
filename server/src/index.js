@@ -52,8 +52,17 @@ app.get('/forecast', (req, res) => {
                     data: arr
                 })
             })
+
+            const newData = data.map(item => {
+                item.data.forEach(dataItem => {
+                    const temp = dataItem.hourly.find(item => item.hour === dayjs().format('h a'));
+                    dataItem.temperature = temp.temperature
+                })
+                return item;
+            })
+
             res.json({
-                data: data
+                data: newData
             })
         })
         .catch(err => {
@@ -149,12 +158,6 @@ app.get('/forecast-monthly', (req, res) => {
 })
 
 
-const handleGetTemplate = async (lat, long) => {
-    const response =
-        await axios.get(`${process.env.API_WEATHER}?lat=${lat}&lon=${long}&appid=${process.env.API_KEY}&units=imperial`);
-    return response.data.main
-}
-
 app.get('/forecast-detail', async (req, res) => {
     const { today, cityId } = req.query;
     const ids = JSON.parse(cityId);
@@ -165,9 +168,14 @@ app.get('/forecast-detail', async (req, res) => {
         },
         date: today,
     })
-        .then(data => {
+        .then(datas => {
+            const newData = datas.map(data => {
+                const temp = data.hourly.find(item => item.hour === dayjs().format('h a'));
+                data.temperature = temp.temperature
+                return data;
+            });
             res.json({
-                data: data
+                data: newData
             })
         })
         .catch(err => {
@@ -385,11 +393,6 @@ app.get('/today/hourly', (req, res) => {
         })
 })
 
-app.get('/refresh-forecast', (req, res) => {
-    const { cityId } = req.query;
-    console.log(cityId);
-
-})
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

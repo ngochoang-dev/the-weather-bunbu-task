@@ -168,11 +168,6 @@ export const forecastData = (state = initialState, action) => {
                 ...state,
                 monthlyData: action.data
             }
-        case REFRESH_FORECAST_SUCCESS:
-            return {
-                ...state,
-                detailForecast: action.data
-            }
         default:
             return state
     }

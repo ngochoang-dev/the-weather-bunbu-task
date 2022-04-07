@@ -3,6 +3,7 @@ import { WiCloudy, WiDaySunny, WiRainMix } from 'react-icons/wi';
 import { useSelector } from 'react-redux';
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { useDispatch } from 'react-redux';
 import "react-toastify/dist/ReactToastify.css";
 
 import './css/App.css';
@@ -12,6 +13,7 @@ import TodayComponent from './Components/TodayComponent/TodayComponent';
 import HourlyComponent from './Components/HourlyComponent/HourlyComponent';
 import MultiDayForecast from './Components/MultiDayForecast/MultiDayForecast';
 import MonthlyComponent from './Components/MonthlyComponent/MonthlyComponent';
+import { getAllForecast, handleGetDetailForecast } from './redux/actions';
 
 
 const typeForecast = [
@@ -30,6 +32,7 @@ const typeForecast = [
 ];
 
 function App() {
+  const dispatch = useDispatch();
   const [selectId, setSelectId] = useState([1]);
   const [showModal, setShowModal] = useState(false);
   const [ids, setIds] = useState(selectId[0]);
@@ -50,6 +53,19 @@ function App() {
       setIds(cityId)
     }
   }, [cityId, setSelectId]);
+
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      console.log('refresh');
+      dispatch(getAllForecast({
+        selectId,
+        day: 7
+      }));
+      dispatch(handleGetDetailForecast({ selectId }));
+    }, 21600000);
+
+    return () => clearInterval(timerId)
+  }, [dispatch, selectId]);
 
   return (
     <div className="App">

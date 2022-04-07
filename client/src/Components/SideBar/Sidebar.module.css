@@ -45,9 +45,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
+    width: 34px;
     height: 34px;
-    margin-right: 32px;
+    margin-right: 10px;
     cursor: pointer;
     border: none;
     padding: 4px 0;
@@ -56,10 +56,11 @@
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
+    background-color: var(--background-color);
 }
 
 .icon_refresh {
-    font-size: 1.2rem;
+    font-size: 1.12rem;
     color: var(--primary-color);
 }
 
@@ -67,7 +68,7 @@
     opacity: .8;
 }
 
-/* .btn_refresh:hover .icon_refresh {
+.active_btn .icon_refresh {
     transform: rotate(360deg);
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
@@ -78,4 +79,4 @@
     -moz-transition: transform 1s;
     -ms-transition: transform 1s;
     -o-transition: transform 1s;
-} */
+}

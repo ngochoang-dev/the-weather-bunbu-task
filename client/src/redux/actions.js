@@ -79,10 +79,3 @@ export const getMonthlyForecast = (payload) => {
         payload
     }
 }
-
-export const refreshForecast = (payload) => {
-    return {
-        type: REFRESH_FORECAST,
-        payload
-    }
-}
