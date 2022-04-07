@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+:root {
+  --white-color: #fff;
+  --black-color: #000;
+  --text-color: #333;
+  --gray-color: #666;
+  --primary-color: #039BE5;
+  --background-color: #ecf3ff;
+  --font-family: Roboto, "Helvetica";
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--text-color);
+  font-size: 1rem;
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading svg {
+  width: 3.75em;
+  transform-origin: center;
+  animation: rotate 2s linear infinite;
+}
+
+.loading circle {
+  fill: none;
+  stroke: #fc2f70;
+  stroke-width: 2;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+.Open_modal {
+  overflow: hidden;
+  padding-right: 16px;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dashoffset: -125px;
+  }
+}
+
+.App {
+  padding-top: 100px;
+  overflow-x: hidden;
+  margin: 0 auto;
+  width: 1080px;
+  min-height: 100vh;
+}
+
+
+@media (min-width: 1024px) and (max-width: 1239px) {
+  .App {
+    width: 1024px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .App {
+    width: 644px;
+    padding-top: 50px;
+  }
+}
+
+@media (max-width: 644px) {
+  .App {
+    width: 100%;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+}

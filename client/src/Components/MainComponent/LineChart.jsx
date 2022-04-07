@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
 import clsx from 'clsx';
-import styles from './MainComponent.module.css';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -13,22 +12,23 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-);
-
+import styles from './MainComponent.module.css';
 
 function Chart({
     temperature,
     humidityArr,
-    currentForecast
+    currentForecast,
+    isCelsius
 }) {
+    ChartJS.register(
+        CategoryScale,
+        LinearScale,
+        PointElement,
+        LineElement,
+        Title,
+        Tooltip,
+        Legend,
+    );
 
     if (humidityArr.length === 0 && !temperature)
         return null
@@ -103,7 +103,7 @@ function Chart({
     const tracker = {
         afterDatasetsDraw(chart) {
             const { ctx } = chart;
-            text(`${temperature}°F`, currentForecast + 1, currentForecast + 1)
+            text(`${temperature} ${isCelsius ? '°C' : '°F'}`, currentForecast + 1, currentForecast + 1)
             circle(currentForecast + 1, currentForecast + 1);
             // text
             function text(text, x, y) {
@@ -139,7 +139,9 @@ function Chart({
 
     return (
         <div className={clsx(
-            styles.wrapper_chart
+            styles.wrapper_chart,
+            styles.rapper_chart
+
         )}>
             <Line
                 key={Math.random()}
@@ -151,4 +153,4 @@ function Chart({
     )
 }
 
-export default Chart;
+export default memo(Chart);
