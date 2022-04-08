@@ -76,7 +76,10 @@ function ModalSelect({
     }, [isDeleted, dispatch, handleConfirm]);
 
     useEffect(() => {
-        return () => document.querySelector('body').classList.remove('Open_modal')
+        return () => {
+            toast.dismiss();
+            document.querySelector('body').classList.remove('Open_modal')
+        }
     }, []);
 
     const handleSubmit = () => {

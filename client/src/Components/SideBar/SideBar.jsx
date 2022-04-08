@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import { NavLink } from 'react-router-dom';
 import { IconContext } from 'react-icons';
@@ -11,6 +11,7 @@ import { getAllForecast, handleGetDetailForecast } from '../../redux/actions';
 import dayjs from 'dayjs';
 
 function SideBar({ selectId }) {
+    const timerRef = useRef();
     const [toggle, setToggle] = useState(false);
     const dispatch = useDispatch();
     const { allForecast } = useSelector(state => state.forecastData);
@@ -28,7 +29,8 @@ function SideBar({ selectId }) {
             tomorrow.setDate(tomorrow.getDate() + 1);
             const { description, cityName } =
                 data.find(item => item.date === dayjs(tomorrow).format('YYYY/M/DD'));
-            if (description === 'Rain') {
+
+            description === 'Rain' &&
                 toast.warn(`${cityName} - ngày mai có mưa`, {
                     position: "top-right",
                     autoClose: 2000,
@@ -38,16 +40,19 @@ function SideBar({ selectId }) {
                     draggable: true,
                     progress: undefined,
                 });
-            }
         })
     }
 
-    useEffect(() => {
-        const timerId = setTimeout(() => {
+    const handleToggle = () => {
+        timerRef.current = setTimeout(() => {
             setToggle(false);
         }, 1000)
+    }
+
+    useEffect(() => {
+        handleToggle()
         return () => {
-            clearTimeout(timerId)
+            clearTimeout(timerRef.current)
         }
     }, [toggle])
 
@@ -103,6 +108,7 @@ function SideBar({ selectId }) {
                 styles.btn_refresh,
                 toggle && styles.active_btn
             )}
+                data-testid='refresh-id'
                 onClick={handleRefresh}
             >
                 <IconContext.Provider value={{ className: clsx(styles.icon_refresh) }}>

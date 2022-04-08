@@ -63,10 +63,16 @@ describe("ModalSelect", () => {
         render(wrapper)
         const elm1 = screen.getByTestId('delete-1');
         fireEvent.click(elm1);
-
         const elm5 = screen.getByTestId('cancel-id');
         fireEvent.click(elm5);
     })
 
+    test("should submit delete", () => {
+        render(wrapper)
+        const elm1 = screen.getByTestId('delete-1');
+        fireEvent.click(elm1);
+        const elm2 = screen.getByText('Confirm');
+        fireEvent.click(elm2);
+    })
 
 })
