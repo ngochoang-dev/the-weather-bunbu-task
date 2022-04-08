@@ -5,11 +5,11 @@ import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
 
 import styles from './DetailComponent.module.css';
+import { typeForecast } from '../../contants';
 
 function DetailComponent({
     isCelsius,
     detailForecast,
-    typeForecast,
     handleChangeUnit,
 }) {
     let navigate = useNavigate();

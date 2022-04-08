@@ -10,6 +10,7 @@ import { GiSunflower } from 'react-icons/gi';
 import { MdGrain } from 'react-icons/md';
 
 import styles from './Monthly.module.css';
+import { typeForecast } from '../../contants';
 
 function Detail({
     temperature,
@@ -19,7 +20,6 @@ function Detail({
     uv,
     date,
     cloudCover,
-    typeForecast,
     rain,
     setIndexColumn
 }) {
@@ -30,6 +30,7 @@ function Detail({
             <button className={clsx(
                 styles.btn_remove,
             )}
+                data-testid="remove-id"
                 onClick={() => setIndexColumn(null)}
             >
                 <IconContext.Provider value={{
@@ -68,10 +69,8 @@ function Detail({
                             }}>
                                 {
                                     typeForecast.map((item, i) => {
-                                        if (item.description === description) {
-                                            return <span key={i}>{item.icon}</span>
-                                        }
-                                        return []
+                                        return (item.description === description) ?
+                                            <span key={i}>{item.icon}</span> : []
                                     })
                                 }
                             </IconContext.Provider>

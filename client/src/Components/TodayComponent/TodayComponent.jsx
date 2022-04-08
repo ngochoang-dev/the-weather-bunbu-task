@@ -11,7 +11,6 @@ import {
 } from '../../redux/actions';
 
 function TodayComponent({
-    typeForecast,
     selectId,
     setSelectId
 }) {
@@ -63,7 +62,6 @@ function TodayComponent({
                                                     {...provided.draggableProps}>
                                                     <Container
                                                         id={id}
-                                                        typeForecast={typeForecast}
                                                         setSelect={setSelectId}
                                                         provided={provided}
                                                         detailForecast={detailForecast}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 import { IconContext } from 'react-icons';
 import { CgCloseR } from 'react-icons/cg';
@@ -18,33 +18,34 @@ function ModalSelect({
     setIds }) {
     const dispatch = useDispatch();
     const isDeleted = useSelector(state => state.forecastData.isDeleted);
-
     const [id, setId] = useState(null)
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [idSelect, setIdSelect] = useState(select)
 
     const handleChooseCity = (cityId) => {
-        if (idSelect.includes(cityId)) {
+        const handleSetId = () => {
             const newSelect = idSelect.filter(item => item !== cityId);
             return setIdSelect(newSelect)
         }
-        setIdSelect(prev => {
-            if (prev.length < 3) {
-                return [...prev, cityId]
-            } else {
-                toast.error('Select up to 3 locations', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    toastId: 'error',
-                })
-                return prev
-            }
-        })
+        idSelect.includes(cityId) ?
+            handleSetId()
+            :
+            setIdSelect(prev => {
+                const handleShowToast = () => {
+                    toast.error('Select up to 3 locations', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        toastId: 'error',
+                    })
+                    return prev
+                }
+                return prev.length < 3 ? [...prev, cityId] : handleShowToast()
+            })
     };
 
     const handleActionDelete = (id) => {
@@ -57,20 +58,22 @@ function ModalSelect({
         dispatch(deleteCity(id))
     }
 
+    const handleConfirm = useCallback(() => {
+        setShowModalDelete(false);
+        setSelect(prev => {
+            return prev.filter(i => i !== id)
+        })
+        setIdSelect(prev => {
+            return prev.filter(i => i !== id)
+        })
+    }, [id, setSelect])
+
     useEffect(() => {
-        if (isDeleted) {
-            setShowModalDelete(false);
-            setSelect(prev => {
-                return prev.filter(i => i !== id)
-            })
-            setIdSelect(prev => {
-                return prev.filter(i => i !== id)
-            })
-        }
+        isDeleted && handleConfirm()
         return () => {
             dispatch(resetLoading())
         }
-    }, [isDeleted, dispatch, id, setSelect]);
+    }, [isDeleted, dispatch, handleConfirm]);
 
     useEffect(() => {
         return () => document.querySelector('body').classList.remove('Open_modal')
@@ -91,6 +94,7 @@ function ModalSelect({
                 styles.modal
             )}>
                 <span className={clsx(styles.btn_close)}
+                    data-testid="showModal-id"
                     onClick={() => setShowModal(false)}
                 >
                     <IconContext.Provider value={{ className: clsx(styles.icon_close) }}>
@@ -109,7 +113,9 @@ function ModalSelect({
                                 <li key={i}>
                                     <label className={clsx(
                                         styles.checkbox
-                                    )}>
+                                    )}
+                                        data-testid={`cityName-${id}`}
+                                    >
                                         <input type="checkbox"
                                             checked={idSelect.includes(id)}
                                             onChange={() => handleChooseCity(id)} />
@@ -118,6 +124,7 @@ function ModalSelect({
                                         )}>{name}</span>
                                     </label>
                                     <span className={clsx(styles.btn_remove)}
+                                        data-testid={`delete-${id}`}
                                         onClick={() => handleActionDelete(id)}>
                                         <IconContext.Provider value={{ className: clsx(styles.icon_delete) }}>
                                             <IoMdTrash />
@@ -159,6 +166,7 @@ function ModalSelect({
                                     <button className={clsx(
                                         styles.btn_modal_cancle
                                     )}
+                                        data-testid="cancel-id"
                                         onClick={() => setShowModalDelete(false)}>
                                         Cancel
                                     </button>

@@ -4,18 +4,7 @@ import Container from '../Container';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from '../../../redux/store';
-import { WiCloudy, WiDaySunny } from 'react-icons/wi';
-
-const typeForecast = [
-    {
-        description: 'Cloudy',
-        icon: <WiCloudy />
-    },
-    {
-        description: 'Clear sky',
-        icon: <WiDaySunny />
-    }
-];
+import { typeForecast } from '../../../contants';
 
 const setSelect = jest.fn();
 

@@ -33,9 +33,6 @@ function Chart({
     if (humidityArr.length === 0 && !temperature)
         return null
 
-    const up = (ctx, value) => ctx.p0.parsed.y < ctx.p1.parsed.y ? value : undefined;
-    const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
-
     const data = {
         labels: humidityArr,
         datasets: [
@@ -45,10 +42,6 @@ function Chart({
                 data: humidityArr,
                 borderColor: "#039BE5",
                 tension: 0.4,
-                segment: {
-                    borderColor: ctx => up(ctx, '#039BE5') || down(ctx, '#039BE5'),
-                    backgroundColor: ctx => up(ctx, '#039BE5') || down(ctx, '#039BE5'),
-                },
             }
         ]
     };

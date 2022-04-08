@@ -11,7 +11,6 @@ import MainComponent from '../MainComponent/MainComponent';
 import { changeUnit } from '../../redux/actions';
 
 function Container({
-    typeForecast,
     id,
     setSelect,
     provided,
@@ -66,13 +65,11 @@ function Container({
                 isCelsius={isCelsius}
                 detailForecast={detailData}
                 idOfCity={idOfCity}
-                typeForecast={typeForecast}
                 setIdOfCity={setIdOfCity}
                 handleChangeUnit={handleChangeUnit}
             />
             <MainComponent
                 idOfCity={idOfCity}
-                typeForecast={typeForecast}
                 allForecast={dataForecast}
                 handleGetDetail={handleGetDetail}
                 isCelsius={isCelsius}

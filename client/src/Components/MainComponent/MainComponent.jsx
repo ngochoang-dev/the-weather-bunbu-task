@@ -7,16 +7,25 @@ import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 
 import styles from './MainComponent.module.css';
 import LineChart from './LineChart';
+import { typeForecast } from '../../contants';
 
 function MainComponent({
     idOfCity,
-    typeForecast,
     handleGetDetail,
     allForecast,
     isCelsius,
 }) {
     let navigate = useNavigate();
-    const [dataForecast, setDataForecast] = useState([]);
+    const [dataForecast, setDataForecast] = useState(
+        [{
+            cityId: "1",
+            cityName: "Hà Nội",
+            cloudCover: "73",
+            date: "2022/4/07",
+            description: "Clear sky",
+            temperature: "38"
+        }]
+    );
     const [currentForecast, setCurrentForecast] = useState(0);
     const [data, setData] = useState([]);
     const [isMobile, setIsMobile] = useState(false);
@@ -28,17 +37,14 @@ function MainComponent({
     }, [data]);
 
     const temperature = useMemo(() => {
-        if (data.length > 0)
-            return data[currentForecast + 1].temperature
-        return 0
+        return data.length > 0 ? data[currentForecast + 1].temperature : 0
     }, [data, currentForecast])
 
     useMemo(() => {
         let dataArr = [];
         for (let i = 0; i < data.length; i++) {
-            if (i !== 0 && i !== data.length - 1) {
+            i !== 0 && i !== data.length - 1 &&
                 dataArr.push(data[i])
-            }
         }
         setDataForecast(dataArr);
     }, [data]);
@@ -103,6 +109,7 @@ function MainComponent({
                                         styles.box_forecast,
                                         currentForecast === i && styles.current,
                                     )}
+                                    data-testid="forecast-id"
                                     onClick={() => {
                                         setCurrentForecast(i);
                                         handleGetDetail(date, cityId)
@@ -118,14 +125,11 @@ function MainComponent({
                                     <IconContext.Provider value={{ className: clsx(styles.icon) }}>
                                         {
                                             typeForecast.map((item, i) => {
-                                                if (item.description === description) {
-                                                    return (
-                                                        <span key={i}>
-                                                            {item.icon}
-                                                        </span>
-                                                    )
-                                                }
-                                                return []
+                                                return item.description === description ? (
+                                                    <span key={i}>
+                                                        {item.icon}
+                                                    </span>
+                                                ) : []
                                             })
                                         }
                                     </IconContext.Provider>

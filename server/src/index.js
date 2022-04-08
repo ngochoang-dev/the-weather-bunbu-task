@@ -56,7 +56,7 @@ app.get('/forecast', (req, res) => {
             const newData = data.map(item => {
                 item.data.forEach(dataItem => {
                     const temp = dataItem.hourly.find(item => item.hour === dayjs().format('h a'));
-                    dataItem.temperature = temp.temperature
+                    dataItem.temperature = temp?.temperature ? temp.temperature : 50;
                 })
                 return item;
             })
@@ -171,7 +171,7 @@ app.get('/forecast-detail', async (req, res) => {
         .then(datas => {
             const newData = datas.map(data => {
                 const temp = data.hourly.find(item => item.hour === dayjs().format('h a'));
-                data.temperature = temp.temperature
+                data.temperature = temp?.temperature ? temp.temperature : 50;
                 return data;
             });
             res.json({

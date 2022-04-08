@@ -5,9 +5,9 @@ import { IconContext } from 'react-icons';
 
 import styles from './Monthly.module.css';
 import Detail from './Detail';
+import { typeForecast } from '../../contants';
 
-
-function CalendarForecast({ dayOfWeek, data, typeForecast }) {
+function CalendarForecast({ dayOfWeek, data }) {
 
     const [calendar, setCalendar] = useState([]);
     const [indexColumn, setIndexColumn] = useState(null);
@@ -87,7 +87,6 @@ function CalendarForecast({ dayOfWeek, data, typeForecast }) {
                             {
                                 indexColumn === index && <Detail
                                     {...dataDetail}
-                                    typeForecast={typeForecast}
                                     setIndexColumn={setIndexColumn}
                                 />
                             }

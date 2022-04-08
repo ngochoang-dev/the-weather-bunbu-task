@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { WiCloudy, WiDaySunny, WiRainMix } from 'react-icons/wi';
 import { useSelector } from 'react-redux';
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -15,21 +14,6 @@ import MultiDayForecast from './Components/MultiDayForecast/MultiDayForecast';
 import MonthlyComponent from './Components/MonthlyComponent/MonthlyComponent';
 import { getAllForecast, handleGetDetailForecast } from './redux/actions';
 
-
-const typeForecast = [
-  {
-    description: 'Cloudy',
-    icon: <WiCloudy />
-  },
-  {
-    description: 'Clear sky',
-    icon: <WiDaySunny />
-  },
-  {
-    description: 'Rain',
-    icon: <WiRainMix />
-  }
-];
 
 function App() {
   const dispatch = useDispatch();
@@ -82,7 +66,6 @@ function App() {
         <Route path="/"
           element={
             <TodayComponent
-              typeForecast={typeForecast}
               selectId={selectId}
               setSelectId={setSelectId}
             />}
@@ -90,19 +73,16 @@ function App() {
         <Route path="today/hourly"
           element={<HourlyComponent
             selectId={selectId}
-            typeForecast={typeForecast}
           />}
         />
         <Route path="10days"
           element={<MultiDayForecast
             selectId={selectId}
-            typeForecast={typeForecast}
           />}
         />
         <Route path="monthly"
           element={<MonthlyComponent
             ids={ids}
-            typeForecast={typeForecast}
           />}
         />
       </Routes>

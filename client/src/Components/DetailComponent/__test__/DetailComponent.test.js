@@ -1,18 +1,7 @@
 import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from "react-router-dom";
-import { WiCloudy, WiDaySunny } from 'react-icons/wi';
-
 import DetailComponent from '../DetailComponent';
-const typeForecast = [
-    {
-        description: 'Cloudy',
-        icon: <WiCloudy />
-    },
-    {
-        description: 'Clear sky',
-        icon: <WiDaySunny />
-    }
-];
+import { typeForecast } from '../../../contants';
 
 const handleChangeUnit = jest.fn();
 
