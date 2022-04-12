@@ -46,7 +46,7 @@ function MonthlyComponent({ ids }) {
 }
 
 
-function Children({ data, cityName }) {
+export function Children({ data, cityName }) {
     return (
         <div className={clsx(
             styles.container

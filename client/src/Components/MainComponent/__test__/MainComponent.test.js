@@ -1,11 +1,12 @@
-import { render, screen, fireEvent, } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import React from 'react';
-import { BrowserRouter, Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import MainComponent from '../MainComponent';
 import { typeForecast } from '../../../contants';
 
 const handleGetDetail = jest.fn();
+const setDataAllForecast = jest.fn();
 
 describe('MainComponent', () => {
     test('should render', () => {
@@ -34,6 +35,7 @@ describe('MainComponent', () => {
                             temperature: "38"
                         }]
                     }}
+                    setDataAllForecast={setDataAllForecast}
                     isCelsius={false}
                 />
             </BrowserRouter>

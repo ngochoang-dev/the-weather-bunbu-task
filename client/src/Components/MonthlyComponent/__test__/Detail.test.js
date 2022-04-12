@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { WiCloudy, WiDaySunny } from 'react-icons/wi';
+import dayjs from 'dayjs'
 
 import Detail from '../Detail';
 
@@ -40,7 +41,7 @@ describe('detail', () => {
             windSpeed={33}
             description={'Rain'}
             uv={3}
-            date={'2022/12/2'}
+            date={dayjs()}
             cloudCover={80}
             typeForecast={typeForecast}
             rain={80}

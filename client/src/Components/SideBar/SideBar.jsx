@@ -54,7 +54,7 @@ function SideBar({ selectId }) {
         return () => {
             clearTimeout(timerRef.current)
         }
-    }, [toggle])
+    }, [toggle]);
 
     return (
         <nav className={clsx(

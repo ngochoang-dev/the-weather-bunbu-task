@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { IconContext } from 'react-icons';
@@ -12,6 +12,7 @@ function CalendarForecast({ dayOfWeek, data }) {
     const [calendar, setCalendar] = useState([]);
     const [indexColumn, setIndexColumn] = useState(null);
     const [dataDetail, setDataDetail] = useState([]);
+    const [isCurrentDay, setIsCurrentDay] = useState('')
 
     useMemo(() => {
         let newdata = [];
@@ -24,10 +25,22 @@ function CalendarForecast({ dayOfWeek, data }) {
         setCalendar(newdata)
     }, [data]);
 
-    const handleClick = (data, index) => {
+    const handleClick = (data, index, day) => {
         setIndexColumn(index)
         setDataDetail(data)
+        setIsCurrentDay(day)
     }
+
+    useEffect(() => {
+        const handle = (currData, index) => {
+            handleClick(currData, index)
+            setIsCurrentDay(dayjs(currData.date).format('DD'))
+        }
+        calendar.forEach((arr, index) => {
+            const currData = arr.find((d) => d.date === dayjs().format('YYYY/M/DD'));
+            currData && handle(currData, index)
+        })
+    }, [calendar])
 
     return (
         <div className={clsx(
@@ -60,9 +73,16 @@ function CalendarForecast({ dayOfWeek, data }) {
                                                 !== dayjs().format('M')
                                                 && styles.outside
                                             )}
-                                            onClick={() => handleClick(item, index)}
+                                            onClick={() =>
+                                                handleClick(item, index, dayjs(date).format('DD'))}
                                         >
-                                            <span className={clsx(styles.day)}>
+                                            <span
+                                                className={clsx(
+                                                    styles.day,
+                                                    isCurrentDay === dayjs(date).format('DD')
+                                                    && styles.active
+                                                )}
+                                            >
                                                 {dayjs(date).format('DD')}
                                             </span>
                                             <IconContext.Provider value={{

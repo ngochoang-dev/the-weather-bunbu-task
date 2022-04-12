@@ -10,12 +10,29 @@ describe('ModalCreate', () => {
     test('input change', () => {
         render(
             <Provider store={store}>
-                <ModalCreate />
+                <ModalCreate
+                    loading={true}
+                    setShowModal={setShowModal}
+                />
             </Provider>
         )
         const element = screen.getByTestId('input-id')
         fireEvent.change(element, { target: { value: 'enter city name' } })
         expect(element.value).toBe('enter city name')
+    })
+
+    test('input valid', () => {
+        render(
+            <Provider store={store}>
+                <ModalCreate
+                    loading={false}
+                    setShowModal={setShowModal}
+                />
+            </Provider>
+        )
+        const element = screen.getByTestId('input-id')
+        fireEvent.change(element, { target: { value: 'enter city name #' } })
+        // expect(element.value).toBe('enter city name #')
     })
 
     test('fn button close', () => {

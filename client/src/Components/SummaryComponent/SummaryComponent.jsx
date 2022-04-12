@@ -37,6 +37,7 @@ function SummaryComponent({
             <div className={clsx(
                 styles.wrapper
             )}
+                data-testid="wrapper-id"
                 onClick={() => setShowDetail(!showDetail)}
             >
                 {
@@ -70,10 +71,8 @@ function SummaryComponent({
                                             }}>
                                                 {
                                                     typeForecast.map((item, i) => {
-                                                        if (item.description === description) {
-                                                            return <span key={i}>{item.icon}</span>
-                                                        }
-                                                        return []
+                                                        return item.description === description ?
+                                                            <span key={i}>{item.icon}</span> : []
                                                     })
                                                 }
                                             </IconContext.Provider>

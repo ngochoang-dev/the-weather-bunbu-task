@@ -1,12 +1,14 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
-import Container from '../Container';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
-import store from '../../../redux/store';
+
 import { typeForecast } from '../../../contants';
+import store from '../../../redux/store';
+import Container from '../Container';
 
 const setSelect = jest.fn();
+const setDay = jest.fn();
 
 describe('container component', () => {
     test('should render', () => {
@@ -26,6 +28,8 @@ describe('container component', () => {
                         }]}
                         typeForecast={typeForecast}
                         setSelect={setSelect}
+                        day={'2022/12/2'}
+                        setDay={setDay}
                     />
                 </Provider>
             </BrowserRouter>
@@ -56,5 +60,4 @@ describe('container component', () => {
         const elm = screen.getByTestId('btnClose-id');
         fireEvent.click(elm)
     })
-
 })

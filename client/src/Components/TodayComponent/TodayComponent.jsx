@@ -1,4 +1,4 @@
-import { useEffect, useCallback, memo } from 'react';
+import { useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -12,7 +12,8 @@ import {
 
 function TodayComponent({
     selectId,
-    setSelectId
+    setSelectId,
+    handleOnDragEnd
 }) {
     const dispatch = useDispatch();
 
@@ -20,14 +21,6 @@ function TodayComponent({
         detailForecast,
         allForecast,
         cityId } = useSelector(state => state.forecastData);
-
-    function handleOnDragEnd(result) {
-        if (!result.destination) return;
-        const items = Array.from(selectId);
-        const [reorderedItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderedItem);
-        setSelectId(items);
-    }
 
     const handleGetDetail = useCallback(() => {
         dispatch(handleGetDetailForecast({ selectId }))

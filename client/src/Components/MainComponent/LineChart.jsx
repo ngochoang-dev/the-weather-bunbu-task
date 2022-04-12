@@ -133,8 +133,6 @@ function Chart({
     return (
         <div className={clsx(
             styles.wrapper_chart,
-            styles.rapper_chart
-
         )}>
             <Line
                 key={Math.random()}

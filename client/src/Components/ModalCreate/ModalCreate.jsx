@@ -10,9 +10,9 @@ import { createForecast } from '../../redux/actions';
 
 function ModalCreate({
     setShowModal,
+    loading
 }) {
     const dispatch = useDispatch();
-    const { loading } = useSelector(state => state.forecastData);
     const [cityName, setCityName] = useState('');
     const [isValid, setIsValid] = useState(false);
 

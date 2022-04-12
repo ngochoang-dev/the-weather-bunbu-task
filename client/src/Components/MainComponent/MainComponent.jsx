@@ -11,20 +11,21 @@ import { typeForecast } from '../../contants';
 
 function MainComponent({
     idOfCity,
-    handleGetDetail,
     allForecast,
     isCelsius,
+    setDay,
+    setDetailDate,
+    datas
 }) {
     let navigate = useNavigate();
-    const [dataForecast, setDataForecast] = useState(
-        [{
-            cityId: "1",
-            cityName: "Hà Nội",
-            cloudCover: "73",
-            date: "2022/4/07",
-            description: "Clear sky",
-            temperature: "38"
-        }]
+    const [dataForecast, setDataForecast] = useState([{
+        cityId: "1",
+        cityName: "Hà Nội",
+        cloudCover: "73",
+        date: "2022/4/07",
+        description: "Clear sky",
+        temperature: "38"
+    }]
     );
     const [currentForecast, setCurrentForecast] = useState(0);
     const [data, setData] = useState([]);
@@ -73,6 +74,12 @@ function MainComponent({
             window.removeEventListener("resize", handleReSize)
         }
     }, []);
+
+    const handleGetDetail = (date) => {
+        setDay(date)
+        const newData = datas.data.find(item => item.date === date);
+        setDetailDate(newData)
+    };
 
     return (
         <div className={clsx(

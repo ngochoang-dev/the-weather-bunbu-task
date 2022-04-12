@@ -1,6 +1,5 @@
 import React, { useState, useMemo, memo } from 'react';
 import clsx from 'clsx';
-import { useDispatch } from 'react-redux';
 import { IconContext } from 'react-icons';
 import { CgClose } from 'react-icons/cg';
 import { GiHamburgerMenu } from 'react-icons/gi';
@@ -8,16 +7,14 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import styles from './Container.module.css';
 import DetailComponent from '../DetailComponent/DetailComponent';
 import MainComponent from '../MainComponent/MainComponent';
-import { changeUnit } from '../../redux/actions';
 
 function Container({
     id,
     setSelect,
     provided,
     detailForecast,
-    allForecast
+    allForecast,
 }) {
-    const dispatch = useDispatch();
     const [idOfCity, setIdOfCity] = useState(id);
     const [detailData, setDetailDate] = useState([]);
     const [dataForecast, setDataForecast] = useState([]);
@@ -33,22 +30,6 @@ function Container({
         const result = allForecast.find(item => Number(item.cityId) === id)
         setDataForecast(result)
     }, [allForecast, id]);
-
-    const handleGetDetail = (date) => {
-        setDay(date)
-        const newData = dataForecast.data.find(item => item.date === date);
-        setDetailDate(newData)
-    };
-
-    const handleChangeUnit = (e, id, time) => {
-        const date = day ? day : time
-        dispatch(changeUnit({
-            isCelsius: e.target.checked,
-            id,
-            date
-        }));
-        setIsCelsius(e.target.checked);
-    }
 
     return (
         <div className={clsx(
@@ -66,14 +47,16 @@ function Container({
                 detailForecast={detailData}
                 idOfCity={idOfCity}
                 setIdOfCity={setIdOfCity}
-                handleChangeUnit={handleChangeUnit}
+                day={day}
+                setIsCelsius={setIsCelsius}
             />
             <MainComponent
                 idOfCity={idOfCity}
                 allForecast={dataForecast}
-                handleGetDetail={handleGetDetail}
                 isCelsius={isCelsius}
                 setDay={setDay}
+                setDetailDate={setDetailDate}
+                datas={dataForecast}
             />
             <button className={clsx(
                 styles.btn_close
