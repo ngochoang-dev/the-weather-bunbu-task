@@ -111,6 +111,7 @@ function SideBar({ selectId }) {
                 data-testid='refresh-id'
                 onClick={handleRefresh}
             >
+                <span className={styles.title_refresh}>Refresh</span>
                 <IconContext.Provider value={{ className: clsx(styles.icon_refresh) }}>
                     <FiRefreshCw />
                 </IconContext.Provider>

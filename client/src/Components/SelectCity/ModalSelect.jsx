@@ -124,7 +124,9 @@ function ModalSelect({
                                             onChange={() => handleChooseCity(id)} />
                                         <span className={clsx(
                                             styles.name_city
-                                        )}>{name}</span>
+                                        )}>
+                                            {name}
+                                        </span>
                                     </label>
                                     <span className={clsx(styles.btn_remove)}
                                         data-testid={`delete-${id}`}

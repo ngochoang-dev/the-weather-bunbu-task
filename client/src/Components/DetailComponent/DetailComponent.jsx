@@ -3,12 +3,10 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
-
 import { useDispatch } from "react-redux";
 
 import styles from './DetailComponent.module.css';
 import { typeForecast } from '../../contants';
-
 import { changeUnit } from '../../redux/actions';
 
 

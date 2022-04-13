@@ -2,7 +2,7 @@ import React, { useState, memo, useEffect } from 'react';
 import clsx from 'clsx';
 import { IconContext } from 'react-icons';
 import { CgCloseR } from 'react-icons/cg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import styles from './Modal.module.css';
 import { createForecast } from '../../redux/actions';
@@ -24,7 +24,7 @@ function ModalCreate({
     }
 
     useEffect(() => {
-        return document.querySelector('body').classList.remove('Open_modal')
+        return () => document.querySelector('body').classList.remove('Open_modal')
     }, []);
 
     useEffect(() => {
