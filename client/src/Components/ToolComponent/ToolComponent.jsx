@@ -17,7 +17,8 @@ function ToolComponent({
     setIds
 }) {
     const dispatch = useDispatch();
-    const { allCity, cityId } = useSelector(state => state.forecastData);
+    const { allCity, cityId, loading } = useSelector(state => state.forecastData);
+
 
     useEffect(() => {
         dispatch(getAllCity())
@@ -28,8 +29,7 @@ function ToolComponent({
             className={clsx(
                 styles.options,
                 selectId.length === 3 ? styles.options_unset : ""
-            )}
-        >
+            )}>
             <SelectCity
                 setIds={setIds}
                 select={selectId}
@@ -40,11 +40,11 @@ function ToolComponent({
                 className={clsx(
                     styles.btn_create
                 )}
+                data-testid="openModal-id"
                 onClick={() => {
                     setShowModal(true)
                     document.querySelector('body').classList.add('Open_modal')
-                }}
-            >
+                }}>
                 <span>New Forecast</span>
                 <IconContext.Provider value={{ className: clsx(styles.icon_new_forecast) }}>
                     <TiPlus />
@@ -54,6 +54,7 @@ function ToolComponent({
                 showModal && (
                     <ModalCreate
                         setShowModal={setShowModal}
+                        loading={loading}
                     />
                 )
             }

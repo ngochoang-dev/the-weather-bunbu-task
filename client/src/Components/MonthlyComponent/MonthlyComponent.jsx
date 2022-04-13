@@ -18,7 +18,7 @@ const dayOfWeek = [
     "SAT",
 ]
 
-function MonthlyComponent({ typeForecast, ids }) {
+function MonthlyComponent({ ids }) {
     const dispatch = useDispatch();
     const { monthlyData } = useSelector(state => state.forecastData);
 
@@ -27,7 +27,6 @@ function MonthlyComponent({ typeForecast, ids }) {
             selectId: [ids]
         }))
     }, [dispatch, ids]);
-
 
     return (
         <div className={clsx(
@@ -39,7 +38,6 @@ function MonthlyComponent({ typeForecast, ids }) {
                         key={i}
                         data={data}
                         cityName={cityName}
-                        typeForecast={typeForecast}
                     />
                 })
             }
@@ -48,7 +46,7 @@ function MonthlyComponent({ typeForecast, ids }) {
 }
 
 
-function Children({ typeForecast, data, cityName }) {
+export function Children({ data, cityName }) {
     return (
         <div className={clsx(
             styles.container
@@ -61,7 +59,6 @@ function Children({ typeForecast, data, cityName }) {
             </div>
             <CalendarForecast
                 data={data}
-                typeForecast={typeForecast}
                 dayOfWeek={dayOfWeek}
             />
         </div>

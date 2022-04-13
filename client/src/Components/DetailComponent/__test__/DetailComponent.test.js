@@ -1,20 +1,13 @@
 import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from "react-router-dom";
-import { WiCloudy, WiDaySunny } from 'react-icons/wi';
+import { Provider } from 'react-redux';
 
+import store from '../../../redux/store';
 import DetailComponent from '../DetailComponent';
-const typeForecast = [
-    {
-        description: 'Cloudy',
-        icon: <WiCloudy />
-    },
-    {
-        description: 'Clear sky',
-        icon: <WiDaySunny />
-    }
-];
+import { typeForecast } from '../../../contants';
 
 const handleChangeUnit = jest.fn();
+const setIsCelsius = jest.fn();
 
 afterEach(cleanup);
 
@@ -22,11 +15,13 @@ describe('DetailComponent', () => {
     test('isCelsius is true', () => {
         render(
             <BrowserRouter>
-                <DetailComponent
-                    isCelsius={true}
-                    typeForecast={typeForecast}
-                    handleChangeUnit={handleChangeUnit}
-                />
+                <Provider store={store}>
+                    <DetailComponent
+                        isCelsius={true}
+                        typeForecast={typeForecast}
+                        handleChangeUnit={handleChangeUnit}
+                    />
+                </Provider>
             </BrowserRouter>
         )
         const elm = screen.getByTestId('celsius-id');
@@ -36,11 +31,13 @@ describe('DetailComponent', () => {
     test('isCelsius is false', () => {
         render(
             <BrowserRouter>
-                <DetailComponent
-                    isCelsius={false}
-                    typeForecast={typeForecast}
-                    handleChangeUnit={handleChangeUnit}
-                />
+                <Provider store={store}>
+                    <DetailComponent
+                        isCelsius={false}
+                        typeForecast={typeForecast}
+                        handleChangeUnit={handleChangeUnit}
+                    />
+                </Provider>
             </BrowserRouter>
         )
         const elm = screen.getByTestId('celsius-id');
@@ -50,11 +47,14 @@ describe('DetailComponent', () => {
     test('fn handleChangeUnit', () => {
         render(
             <BrowserRouter>
-                <DetailComponent
-                    isCelsius={false}
-                    typeForecast={typeForecast}
-                    handleChangeUnit={handleChangeUnit}
-                />
+                <Provider store={store}>
+                    <DetailComponent
+                        isCelsius={false}
+                        typeForecast={typeForecast}
+                        handleChangeUnit={handleChangeUnit}
+                        setIsCelsius={setIsCelsius}
+                    />
+                </Provider>
             </BrowserRouter>
         )
         const labelCheckbox = screen.getByTestId('labelCheckbox-id')
@@ -66,11 +66,13 @@ describe('DetailComponent', () => {
     test('fn navigate', () => {
         render(
             <BrowserRouter>
-                <DetailComponent
-                    isCelsius={false}
-                    typeForecast={typeForecast}
-                    handleChangeUnit={handleChangeUnit}
-                />
+                <Provider store={store}>
+                    <DetailComponent
+                        isCelsius={false}
+                        typeForecast={typeForecast}
+                        handleChangeUnit={handleChangeUnit}
+                    />
+                </Provider>
             </BrowserRouter>
         )
         const navigateElm = screen.getByTestId('navigate-id')

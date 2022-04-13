@@ -8,7 +8,7 @@ import SummaryComponent from '../SummaryComponent/SummaryComponent';
 import { getHourlyForecast } from '../../redux/actions';
 import BarChart from '../BarChart/BarChart';
 
-function HourlyComponent({ typeForecast, selectId }) {
+function HourlyComponent({ selectId }) {
     const dispatch = useDispatch();
     const data = useSelector(state => state.forecastData.hourlyData);
     let search = window.location.search;
@@ -29,7 +29,6 @@ function HourlyComponent({ typeForecast, selectId }) {
                         key={i}
                         cityName={cityName}
                         data={data}
-                        typeForecast={typeForecast}
                     />
                 })
             }
@@ -38,7 +37,7 @@ function HourlyComponent({ typeForecast, selectId }) {
 }
 
 
-export function Children({ typeForecast, cityName, data }) {
+export function Children({ cityName, data }) {
     const [isBarChart, setIsBarChart] = useState(false)
 
     const labels = useMemo(() => {
@@ -93,7 +92,6 @@ export function Children({ typeForecast, cityName, data }) {
                         return <SummaryComponent
                             key={i}
                             {...item}
-                            typeForecast={typeForecast}
                         />
                     })
             }

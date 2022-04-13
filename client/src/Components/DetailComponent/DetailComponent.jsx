@@ -3,16 +3,23 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import styles from './DetailComponent.module.css';
+import { typeForecast } from '../../contants';
+import { changeUnit } from '../../redux/actions';
+
 
 function DetailComponent({
     isCelsius,
     detailForecast,
-    typeForecast,
-    handleChangeUnit,
+    setIsCelsius,
+    day
 }) {
     let navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
 
     const [data, setData] = useState({
         cityId: "",
@@ -37,6 +44,16 @@ function DetailComponent({
     useEffect(() => {
         detailForecast && setData(detailForecast)
     }, [detailForecast]);
+
+    const handleChangeUnit = (e, id, time) => {
+        const date = day ? day : time
+        dispatch(changeUnit({
+            isCelsius: e.target.checked,
+            id,
+            date
+        }));
+        setIsCelsius(e.target.checked);
+    }
 
     return (
         <div className={clsx(

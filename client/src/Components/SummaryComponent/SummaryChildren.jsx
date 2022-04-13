@@ -5,16 +5,15 @@ import { IconContext } from 'react-icons';
 import { RiCloudWindyLine } from 'react-icons/ri';
 import { WiHumidity } from 'react-icons/wi';
 
-
-
 import styles from './Summary.module.css';
+
+import { typeForecast } from '../../contants';
 
 function SummaryChildren({
     isMultiDay,
     date,
     hour,
     temperature,
-    typeForecast,
     description,
     humidity,
     windSpeed

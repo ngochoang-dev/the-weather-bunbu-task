@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { WiCloudy, WiDaySunny, WiRainMix } from 'react-icons/wi';
 import { useSelector } from 'react-redux';
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -16,21 +15,6 @@ import MonthlyComponent from './Components/MonthlyComponent/MonthlyComponent';
 import { getAllForecast, handleGetDetailForecast } from './redux/actions';
 
 
-const typeForecast = [
-  {
-    description: 'Cloudy',
-    icon: <WiCloudy />
-  },
-  {
-    description: 'Clear sky',
-    icon: <WiDaySunny />
-  },
-  {
-    description: 'Rain',
-    icon: <WiRainMix />
-  }
-];
-
 function App() {
   const dispatch = useDispatch();
   const [selectId, setSelectId] = useState([1]);
@@ -39,24 +23,26 @@ function App() {
 
   const { cityId } = useSelector(state => state.forecastData);
 
-
   useEffect(() => {
-    if (cityId || cityId === 0) {
+    (cityId || cityId === 0) &&
       setSelectId(prev => {
-        if (prev.length === 3 || prev.length > 3) {
+        const firstCondition = () => {
           const dummy = [cityId, ...prev]
           const result = dummy.filter(i => i !== prev[prev.length - 1]);
           return result
         }
-        return cityId === 1 ? prev : [...prev, cityId]
+        const secondCondition = () => {
+          return cityId === 1 ? prev : [...prev, cityId]
+        }
+        return (prev.length === 3 || prev.length > 3)
+          ? firstCondition() :
+          secondCondition()
       });
-      setIds(cityId)
-    }
+    setIds(prev => cityId ? cityId : prev)
   }, [cityId, setSelectId]);
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      console.log('refresh');
       dispatch(getAllForecast({
         selectId,
         day: 7
@@ -66,6 +52,16 @@ function App() {
 
     return () => clearInterval(timerId)
   }, [dispatch, selectId]);
+
+  const handleOnDragEnd = (result) => {
+    const actionDragEnd = (result) => {
+      const items = Array.from(selectId);
+      const [reorderedItem] = items.splice(result.source.index, 1);
+      items.splice(result.destination.index, 0, reorderedItem);
+      setSelectId(items);
+    }
+    result.destination && actionDragEnd(result);
+  }
 
   return (
     <div className="App">
@@ -82,27 +78,24 @@ function App() {
         <Route path="/"
           element={
             <TodayComponent
-              typeForecast={typeForecast}
               selectId={selectId}
               setSelectId={setSelectId}
+              handleOnDragEnd={handleOnDragEnd}
             />}
         />
         <Route path="today/hourly"
           element={<HourlyComponent
             selectId={selectId}
-            typeForecast={typeForecast}
           />}
         />
         <Route path="10days"
           element={<MultiDayForecast
             selectId={selectId}
-            typeForecast={typeForecast}
           />}
         />
         <Route path="monthly"
           element={<MonthlyComponent
             ids={ids}
-            typeForecast={typeForecast}
           />}
         />
       </Routes>

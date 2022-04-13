@@ -17,7 +17,8 @@
     overflow-x: hidden;
 }
 
-.btn_close, .btn_menu {
+.btn_close,
+.btn_menu {
     cursor: pointer;
     padding: 6px 8px;
     border: none;
@@ -33,7 +34,8 @@
     -o-border-radius: 4px;
 }
 
-.btn_close, .btn_menu {
+.btn_close,
+.btn_menu {
     position: absolute;
     top: 10px;
     right: 10px;

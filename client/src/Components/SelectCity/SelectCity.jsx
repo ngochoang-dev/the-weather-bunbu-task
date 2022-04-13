@@ -10,24 +10,20 @@ function SelectCity({ select, setSelect, selectArr, setIds }) {
     const [showModal, setShowModal] = useState(false);
 
     const handleRemoveCity = (id) => {
-        setSelect(prev => {
-            return prev.filter(item => item !== id)
-        })
-        setIds(prev => {
-            return prev === id ? select[select.length - 2] : prev
-        })
+        setSelect(prev => prev.filter(item => item !== id))
+        setIds(prev => prev === id ? select[select.length - 2] : prev)
     }
 
     const allCityName = useMemo(() => {
-        if (selectArr.length > 0) {
-            const nameCity = select.map(index => {
+        const handleCityName = () => {
+            return select.map(index => {
                 const nameFilter = selectArr.filter(item => item.id === index);
                 return nameFilter[0] ? nameFilter[0] : []
             });
-            return nameCity
         }
-        return null
+        return selectArr.length > 0 ? handleCityName() : null
     }, [select, selectArr]);
+
 
     return (
         <div className={clsx(
@@ -68,6 +64,7 @@ function SelectCity({ select, setSelect, selectArr, setIds }) {
                             >
                                 {item.name}
                                 <span
+                                    data-testid={`removeCity-${i}`}
                                     onClick={() => handleRemoveCity(item.id)}
                                 >
                                     <IconContext.Provider

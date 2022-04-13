@@ -1,8 +1,7 @@
-
 .container {
     margin-top: 20px;
     overflow-x: hidden;
-    margin: 0 auto;   
+    margin: 0 auto;
     width: 100%;
 }
 
@@ -20,7 +19,7 @@
     height: 31px
 }
 
-.btn_create  {
+.btn_create {
     cursor: pointer;
     padding: 6px 8px;
     border: none;
@@ -52,7 +51,7 @@
     }
 
     .btn_create>span {
-        display: none ;
+        display: none;
     }
 
     .icon_new_forecast {

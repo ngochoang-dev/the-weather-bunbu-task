@@ -9,7 +9,7 @@ import SummaryComponent from '../SummaryComponent/SummaryComponent';
 import { getAllForecast } from '../../redux/actions';
 import BarChart from '../BarChart/BarChart';
 
-function MultiDayForecast({ selectId, typeForecast }) {
+function MultiDayForecast({ selectId }) {
     const location = useLocation();
     const dispatch = useDispatch();
     const data = useSelector(state => state.forecastData.allForecast);
@@ -29,7 +29,7 @@ function MultiDayForecast({ selectId, typeForecast }) {
             styles.main
         )}>
             {
-                data && data.map(({ data }, i) => {
+                data.map(({ data }, i) => {
                     const newData = [...data];
                     newData.pop();
                     newData.shift();
@@ -38,7 +38,6 @@ function MultiDayForecast({ selectId, typeForecast }) {
                     return <Children
                         key={i}
                         data={newData}
-                        typeForecast={typeForecast}
                     />
                 })
             }
@@ -47,7 +46,7 @@ function MultiDayForecast({ selectId, typeForecast }) {
 }
 
 
-function Children({ typeForecast, data }) {
+export function Children({ data }) {
     const [isBarChart, setIsBarChart] = useState(false);
 
     const labels = useMemo(() => {
@@ -87,7 +86,9 @@ function Children({ typeForecast, data }) {
             )}>
                 <label className={clsx(
                     styles.switch
-                )}>
+                )}
+                    data-testid="switch-id"
+                >
                     <input type="checkbox"
                         onChange={(e) => setIsBarChart(!isBarChart)} />
                     <span></span>
@@ -107,7 +108,6 @@ function Children({ typeForecast, data }) {
                             key={i}
                             {...item}
                             isMultiDay
-                            typeForecast={typeForecast}
                         />
                     })
             }

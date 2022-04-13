@@ -13,6 +13,7 @@ import { MdGrain } from 'react-icons/md'
 
 import styles from './Summary.module.css';
 import SummaryChildren from './SummaryChildren';
+import { typeForecast } from '../../contants';
 
 function SummaryComponent({
     temperature,
@@ -23,7 +24,6 @@ function SummaryComponent({
     uv,
     date,
     cloudCover,
-    typeForecast,
     isMultiDay,
     rain
 }) {
@@ -37,6 +37,7 @@ function SummaryComponent({
             <div className={clsx(
                 styles.wrapper
             )}
+                data-testid="wrapper-id"
                 onClick={() => setShowDetail(!showDetail)}
             >
                 {
@@ -70,10 +71,8 @@ function SummaryComponent({
                                             }}>
                                                 {
                                                     typeForecast.map((item, i) => {
-                                                        if (item.description === description) {
-                                                            return <span key={i}>{item.icon}</span>
-                                                        }
-                                                        return []
+                                                        return item.description === description ?
+                                                            <span key={i}>{item.icon}</span> : []
                                                     })
                                                 }
                                             </IconContext.Provider>
@@ -174,7 +173,6 @@ function SummaryComponent({
                                 date={date}
                                 hour={hour}
                                 temperature={temperature}
-                                typeForecast={typeForecast}
                                 description={description}
                                 humidity={humidity}
                                 windSpeed={windSpeed}
@@ -187,7 +185,6 @@ function SummaryComponent({
                                 date={date}
                                 hour={hour}
                                 temperature={temperature}
-                                typeForecast={typeForecast}
                                 description={description}
                                 humidity={humidity}
                                 windSpeed={windSpeed}
