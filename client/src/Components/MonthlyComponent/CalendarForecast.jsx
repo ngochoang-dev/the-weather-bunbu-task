@@ -40,7 +40,11 @@ function CalendarForecast({ dayOfWeek, data }) {
             const currData = arr.find((d) => d.date === dayjs().format('YYYY/M/DD'));
             currData && handle(currData, index)
         })
-    }, [calendar])
+    }, [calendar]);
+
+    useEffect(() => {
+        data.length === 0 && setIndexColumn(null)
+    }, [data])
 
     return (
         <div className={clsx(

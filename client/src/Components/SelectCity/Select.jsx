@@ -44,9 +44,6 @@ function Select({ select, setSelect, selectArr, setIds }) {
         })
     }, [selectArr, id, cityId]);
 
-    console.log(cityId);
-    console.log(listSelect);
-
     const handleChooseCity = (item) => {
         if (allCityName.length === 3 || allCityName.length > 3) {
             return toast.error('Select up to 3 locations', {
@@ -63,6 +60,7 @@ function Select({ select, setSelect, selectArr, setIds }) {
         setId(prev => [...prev, item.id])
         setSelect(prev => [...prev, item.id]);
         setOpenSelect(!openSelect)
+        setIds(item.id)
     };
 
     const handleRemoveCity = (data) => {
@@ -71,6 +69,10 @@ function Select({ select, setSelect, selectArr, setIds }) {
         });
         setId(prev => {
             return prev.filter(item => item !== data.id);
+        })
+        setIds(() => {
+            const result = id.filter(d => d !== data.id);
+            return result[result.length - 1]
         })
     }
 
