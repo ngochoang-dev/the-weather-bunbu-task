@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from "react-redux";
 import { IconContext } from 'react-icons';
@@ -18,6 +18,7 @@ function ToolComponent({
 }) {
     const dispatch = useDispatch();
     const { allCity, cityId, loading } = useSelector(state => state.forecastData);
+    const [openSelect, setOpenSelect] = useState(false);
 
 
     useEffect(() => {
@@ -35,6 +36,9 @@ function ToolComponent({
                 select={selectId}
                 setSelect={setSelectId}
                 selectArr={allCity}
+                cityId={cityId}
+                openSelect={openSelect}
+                setOpenSelect={setOpenSelect}
             />
             <button
                 className={clsx(

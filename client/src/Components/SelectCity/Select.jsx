@@ -1,29 +1,34 @@
-import React, { useState, useRef, useMemo, memo } from 'react';
+import React, {
+    useState,
+    useRef,
+    useMemo,
+    memo,
+} from 'react';
 import clsx from 'clsx';
 import { IconContext } from 'react-icons';
 import { CgClose } from 'react-icons/cg';
 import { toast } from 'react-toastify';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import { useSelector } from 'react-redux';
 
 import styles from './Select.module.css';
 import useClickOutSide from '../../customHook/useClickOutSide';
 
-function Select({ select, setSelect, selectArr, setIds }) {
+function Select({ select,
+    setSelect,
+    selectArr,
+    setIds,
+    cityId,
+    openSelect,
+    setOpenSelect }) {
     const selecRef = useRef();
     const [isFocused, setIsFocused] = useState(false);
-    const [openSelect, setOpenSelect] = useState(false);
     const [allCityName, setAllCityName] = useState([]);
     const [listSelect, setListSelect] = useState(selectArr);
     const [id, setId] = useState([1]);
-    const { cityId } = useSelector(state => state.forecastData);
 
     useClickOutSide((e) => {
-        if (selecRef.current) {
-            if (!selecRef.current.contains(e.target)) {
-                setOpenSelect(false)
-            }
-        }
+        !selecRef.current.contains(e.target) &&
+            setOpenSelect(false)
     })
 
     useMemo(() => {
@@ -45,7 +50,7 @@ function Select({ select, setSelect, selectArr, setIds }) {
     }, [selectArr, id, cityId]);
 
     const handleChooseCity = (item) => {
-        if (allCityName.length === 3 || allCityName.length > 3) {
+        const showToast = () => {
             return toast.error('Select up to 3 locations', {
                 position: "top-right",
                 autoClose: 2000,
@@ -57,10 +62,13 @@ function Select({ select, setSelect, selectArr, setIds }) {
                 toastId: 'error',
             })
         }
-        setId(prev => [...prev, item.id])
-        setSelect(prev => [...prev, item.id]);
-        setOpenSelect(!openSelect)
-        setIds(item.id)
+        const actionSet = () => {
+            setId(prev => [...prev, item.id])
+            setSelect(prev => [...prev, item.id]);
+            setOpenSelect(!openSelect)
+            setIds(item.id)
+        }
+        (allCityName.length === 3 || allCityName.length > 3) ? showToast() : actionSet()
     };
 
     const handleRemoveCity = (data) => {
@@ -81,6 +89,7 @@ function Select({ select, setSelect, selectArr, setIds }) {
             styles.container_select,
             isFocused && styles.container_select_focused
         )}
+            data-testid="test-id"
             ref={selecRef}
         >
             <div className={clsx(
@@ -97,6 +106,7 @@ function Select({ select, setSelect, selectArr, setIds }) {
                             <span className={clsx(
                                 styles.box_icon_remove
                             )}
+                                data-testid="remove-id"
                                 onClick={() => handleRemoveCity(item)}
                             >
                                 <IconContext.Provider
@@ -114,6 +124,7 @@ function Select({ select, setSelect, selectArr, setIds }) {
                         allCityName.length === 3 && styles.input_text_width
                     )}
                     placeholder={allCityName && allCityName.length === 0 ? "Choose city" : ""}
+                    data-testid="input-id"
                     onFocus={() => {
                         setIsFocused(true)
                         setOpenSelect(true)
@@ -123,6 +134,7 @@ function Select({ select, setSelect, selectArr, setIds }) {
                 <div className={clsx(
                     styles.select_right
                 )}
+                    data-testid="arrow-id"
                     onClick={() => setOpenSelect(!openSelect)}
                 >
                     <IconContext.Provider value={{ className: clsx(styles.icon_arrow) }}>
@@ -131,13 +143,17 @@ function Select({ select, setSelect, selectArr, setIds }) {
                 </div>
             </div>
             {
-                openSelect && <ul className={clsx(
+                openSelect &&
+                <ul className={clsx(
                     styles.list_city
-                )}>
+                )} >
                     {
                         listSelect.map((item, i) => {
                             return (
-                                <li key={i} onClick={() => handleChooseCity(item)}>
+                                <li key={i}
+                                    data-testid={`select-${item.id}`}
+                                    onClick={() => handleChooseCity(item)}
+                                >
                                     {item.name}
                                 </li>
                             )

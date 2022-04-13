@@ -16,7 +16,7 @@
     -moz-transition: all 0.25s;
     -ms-transition: all 0.25s;
     -o-transition: all 0.25s;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--white-color);
 }
 
 .container_select_focused {
