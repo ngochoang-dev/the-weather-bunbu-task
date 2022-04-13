@@ -103,6 +103,16 @@ function SideBar({ selectId }) {
                         Monthly
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink
+                        to="dashboard"
+                        className={({ isActive }) =>
+                            isActive ? clsx(styles.active) : undefined
+                        }
+                    >
+                        Dashboard
+                    </NavLink>
+                </li>
             </ul>
             <button className={clsx(
                 styles.btn_refresh,

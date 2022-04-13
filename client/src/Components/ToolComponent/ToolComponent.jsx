@@ -5,7 +5,7 @@ import { IconContext } from 'react-icons';
 import { TiPlus } from 'react-icons/ti';
 
 import styles from './Tool.module.css';
-import SelectCity from '../SelectCity/SelectCity';
+import Select from '../SelectCity/Select';
 import ModalCreate from '../ModalCreate/ModalCreate';
 import { getAllCity } from '../../redux/actions';
 
@@ -30,7 +30,7 @@ function ToolComponent({
                 styles.options,
                 selectId.length === 3 ? styles.options_unset : ""
             )}>
-            <SelectCity
+            <Select
                 setIds={setIds}
                 select={selectId}
                 setSelect={setSelectId}

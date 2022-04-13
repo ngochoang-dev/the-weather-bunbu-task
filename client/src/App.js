@@ -13,6 +13,7 @@ import HourlyComponent from './Components/HourlyComponent/HourlyComponent';
 import MultiDayForecast from './Components/MultiDayForecast/MultiDayForecast';
 import MonthlyComponent from './Components/MonthlyComponent/MonthlyComponent';
 import { getAllForecast, handleGetDetailForecast } from './redux/actions';
+import Dashboard from './Components/Dashboard/Dashboard';
 
 
 function App() {
@@ -96,6 +97,11 @@ function App() {
         <Route path="monthly"
           element={<MonthlyComponent
             ids={ids}
+          />}
+        />
+        <Route path="dashboard"
+          element={<Dashboard
+            setSelectId={setSelectId}
           />}
         />
       </Routes>

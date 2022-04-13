@@ -81,6 +81,38 @@ input[type=number] {
   padding-right: 16px;
 }
 
+table {
+  width: 80%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  margin: 0 auto;
+}
+
+th {
+  font-weight: 600;
+}
+
+tr {
+  padding: 10px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tr td:last-child {
+  width: 100px
+}
+
 @keyframes rotate {
   100% {
     transform: rotate(360deg);
