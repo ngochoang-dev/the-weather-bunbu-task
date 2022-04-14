@@ -2,16 +2,17 @@ import React, { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 import { IconContext } from 'react-icons';
 import { IoMdTrash } from 'react-icons/io';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import styles from './Dashboard.module.css';
 import { deleteCity, resetLoading } from '../../redux/actions';
 
 function Dashboard({
-    setSelectId
+    setSelectId,
+    allCity,
+    isDeleted
 }) {
     const dispatch = useDispatch();
-    const { allCity, isDeleted } = useSelector(state => state.forecastData);
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [idDelete, setIdDelete] = useState(null);
 
@@ -54,6 +55,7 @@ function Dashboard({
                                         <button className={clsx(
                                             styles.btn_delete
                                         )}
+                                            data-testid={`delete-${id}`}
                                             onClick={() => {
                                                 setIdDelete(id)
                                                 setShowModalDelete(true)

@@ -18,6 +18,20 @@ describe('ToolComponent', () => {
                 setSelectId={setSelectId}
                 setIds={setIds}
                 showModal={false}
+                isDashboard={false}
+            />
+        </Provider>)
+    })
+
+    test('should render isDashboard', () => {
+        render(<Provider store={store}>
+            <ToolComponent
+                setShowModal={setShowModal}
+                selectId={[1]}
+                setSelectId={setSelectId}
+                setIds={setIds}
+                showModal={false}
+                isDashboard={true}
             />
         </Provider>)
     })
@@ -30,6 +44,7 @@ describe('ToolComponent', () => {
                 setSelectId={setSelectId}
                 setIds={setIds}
                 showModal={false}
+                isDashboard={false}
             />
         </Provider>)
     })
@@ -42,6 +57,7 @@ describe('ToolComponent', () => {
                 setSelectId={setSelectId}
                 setIds={setIds}
                 showModal={true}
+                isDashboard={false}
             />
         </Provider>)
     })
@@ -54,10 +70,28 @@ describe('ToolComponent', () => {
                 setSelectId={setSelectId}
                 setIds={setIds}
                 showModal={false}
+                isDashboard={false}
             />
         </Provider>)
 
         const elm = screen.queryByTestId('openModal-id');
+        fireEvent.click(elm)
+    })
+
+
+    test('should click refresh', () => {
+        render(<Provider store={store}>
+            <ToolComponent
+                setShowModal={setShowModal}
+                selectId={[1, 2, 3]}
+                setSelectId={setSelectId}
+                setIds={setIds}
+                showModal={false}
+                isDashboard={false}
+            />
+        </Provider>)
+
+        const elm = screen.queryByTestId('refresh-id');
         fireEvent.click(elm)
     })
 })

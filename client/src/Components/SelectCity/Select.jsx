@@ -3,6 +3,7 @@ import React, {
     useRef,
     useMemo,
     memo,
+    useEffect
 } from 'react';
 import clsx from 'clsx';
 import { IconContext } from 'react-icons';
@@ -13,18 +14,21 @@ import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import styles from './Select.module.css';
 import useClickOutSide from '../../customHook/useClickOutSide';
 
-function Select({ select,
+function Select({
+    select,
     setSelect,
     selectArr,
     setIds,
     cityId,
     openSelect,
-    setOpenSelect }) {
+    setOpenSelect,
+    isMonthly }) {
     const selecRef = useRef();
     const [isFocused, setIsFocused] = useState(false);
     const [allCityName, setAllCityName] = useState([]);
     const [listSelect, setListSelect] = useState(selectArr);
     const [id, setId] = useState([1]);
+    const [selectOne, setSelectOne] = useState(select)
 
     useClickOutSide((e) => {
         !selecRef.current.contains(e.target) &&
@@ -32,22 +36,39 @@ function Select({ select,
     })
 
     useMemo(() => {
-        const data = select.map(index => {
-            const nameFilter = selectArr.filter(item => item.id === index);
-            return nameFilter[0] ? nameFilter[0] : []
-        });
+        let data;
+        !isMonthly ?
+            data = select.map(index => {
+                const nameFilter = selectArr.find(item => item.id === index);
+                return nameFilter ? nameFilter : []
+            }) :
+            data = selectOne.map(index => {
+                const nameFilter = selectArr.find(item => item.id === index);
+                return nameFilter ? nameFilter : []
+            });
         selectArr.length > 0 && setAllCityName(data);
+    }, [select, selectArr, isMonthly, selectOne]);
 
-    }, [select, selectArr]);
 
     useMemo(() => {
-        setListSelect(() => {
-            const data = selectArr.filter(d => {
-                return cityId ? !id.includes(d.id) && cityId !== d.id : !id.includes(d.id)
-            });
-            return data;
-        })
-    }, [selectArr, id, cityId]);
+        !isMonthly ?
+            setListSelect(() => {
+                const data = selectArr.filter(d => {
+                    return cityId ?
+                        !id.includes(d.id) && cityId !== d.id
+                        : !id.includes(d.id)
+                });
+                return data;
+            }) :
+            setListSelect(() => {
+                const data = selectArr.filter(d => {
+                    return cityId ?
+                        !selectOne.includes(d.id) && cityId !== d.id
+                        : !selectOne.includes(d.id)
+                });
+                return data;
+            })
+    }, [selectArr, id, cityId, isMonthly, selectOne]);
 
     const handleChooseCity = (item) => {
         const showToast = () => {
@@ -62,27 +83,56 @@ function Select({ select,
                 toastId: 'error',
             })
         }
-        const actionSet = () => {
+
+        const setSelectGroupA = () => {
             setId(prev => [...prev, item.id])
             setSelect(prev => [...prev, item.id]);
             setOpenSelect(!openSelect)
             setIds(item.id)
         }
-        (allCityName.length === 3 || allCityName.length > 3) ? showToast() : actionSet()
+
+        const setSelectGroupB = () => {
+            setIds(item.id)
+            setOpenSelect(!openSelect)
+            setSelectOne([item.id])
+        }
+
+        const actionSet = () => {
+            !isMonthly ?
+                setSelectGroupA()
+                :
+                setSelectGroupB()
+        }
+        (allCityName.length === 3 || allCityName.length > 3)
+            ? showToast() :
+            actionSet()
     };
 
     const handleRemoveCity = (data) => {
-        setSelect(prev => {
-            return prev.filter(item => item !== data.id);
-        });
-        setId(prev => {
-            return prev.filter(item => item !== data.id);
-        })
-        setIds(() => {
-            const result = id.filter(d => d !== data.id);
-            return result[result.length - 1]
-        })
+        const setSelectGroupA = () => {
+            setSelect(prev => {
+                return prev.filter(item => item !== data.id);
+            });
+            setId(prev => {
+                return prev.filter(item => item !== data.id);
+            })
+            setIds(() => {
+                const result = id.filter(d => d !== data.id);
+                return result[result.length - 1]
+            })
+        }
+
+        const setSelectGroupB = () => {
+            setIds(0)
+            setSelectOne([])
+        }
+
+        !isMonthly ? setSelectGroupA() : setSelectGroupB()
     }
+
+    useEffect(() => {
+        isMonthly && setIds(selectOne[0])
+    }, [isMonthly, setIds, selectOne]);
 
     return (
         <div className={clsx(

@@ -8,12 +8,20 @@
     justify-content: space-between;
 }
 
+.wrapper_right {
+    display: flex;
+    align-items: center;
+}
+
+.set_width {
+    width: 100%;
+    justify-content: flex-end;
+}
 
 .btn_create {
-    height: 31px;
+    height: 34px;
     cursor: pointer;
     padding: 6px 8px;
-    margin-right: 10px;
     border: none;
     outline: none;
     background-color: var(--primary-color);
@@ -33,6 +41,49 @@
 
 .icon_new_forecast {
     display: none;
+}
+
+.btn_refresh {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 105px;
+    height: 34px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: none;
+    padding: 4px 0;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: .9rem;
+    font-weight: 500;
+}
+
+.icon_refresh {
+    font-size: 1.12rem;
+    color: var(--white-color);
+}
+
+.btn_refresh:hover {
+    opacity: .8;
+}
+
+.active_btn .icon_refresh {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transition: transform 1s;
+    -webkit-transition: transform 1s;
+    -moz-transition: transform 1s;
+    -ms-transition: transform 1s;
+    -o-transition: transform 1s;
 }
 
 @media (max-width: 644px) {

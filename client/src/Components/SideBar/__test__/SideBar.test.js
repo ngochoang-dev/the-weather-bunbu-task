@@ -5,11 +5,16 @@ import { BrowserRouter } from 'react-router-dom';
 import SideBar from "../SideBar";
 import store from "../../../redux/store";
 
+const setIsMonthly = jest.fn();
+const setIsDashboard = jest.fn();
+
 const wrapper = (
     <BrowserRouter>
         <Provider store={store}>
             <SideBar
                 selectId={[1]}
+                setIsMonthly={setIsMonthly}
+                setIsDashboard={setIsDashboard}
             />
         </Provider>
     </BrowserRouter>
@@ -23,11 +28,4 @@ describe("sidebar", () => {
     test('should render', () => {
         render(wrapper)
     })
-
-    test('should test refresh', () => {
-        render(wrapper)
-        const elm = screen.getByTestId('refresh-id');
-        fireEvent.click(elm)
-    })
-
 })

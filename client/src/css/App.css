@@ -137,7 +137,6 @@ tr td:last-child {
 
 .App {
   padding-top: 100px;
-  overflow-x: hidden;
   margin: 0 auto;
   width: 1080px;
   min-height: 100vh;

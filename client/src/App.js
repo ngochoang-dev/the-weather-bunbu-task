@@ -21,8 +21,9 @@ function App() {
   const [selectId, setSelectId] = useState([1]);
   const [showModal, setShowModal] = useState(false);
   const [ids, setIds] = useState(selectId[0]);
-
-  const { cityId } = useSelector(state => state.forecastData);
+  const [isMonthly, setIsMonthly] = useState(false);
+  const [isDashboard, setIsDashboard] = useState(false);
+  const { cityId, allCity, isDeleted } = useSelector(state => state.forecastData);
 
   useEffect(() => {
     (cityId || cityId === 0) &&
@@ -67,14 +68,20 @@ function App() {
   return (
     <div className="App">
       <ToastContainer />
+      <SideBar
+        selectId={selectId}
+        setIsMonthly={setIsMonthly}
+        setIsDashboard={setIsDashboard}
+      />
       <ToolComponent
         showModal={showModal}
         selectId={selectId}
         setSelectId={setSelectId}
         setShowModal={setShowModal}
         setIds={setIds}
+        isMonthly={isMonthly}
+        isDashboard={isDashboard}
       />
-      <SideBar selectId={selectId} />
       <Routes>
         <Route path="/"
           element={
@@ -102,6 +109,8 @@ function App() {
         <Route path="dashboard"
           element={<Dashboard
             setSelectId={setSelectId}
+            allCity={allCity}
+            isDeleted={isDeleted}
           />}
         />
       </Routes>

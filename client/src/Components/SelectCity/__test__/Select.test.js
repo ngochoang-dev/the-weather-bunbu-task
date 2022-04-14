@@ -35,6 +35,7 @@ const wrapper = (
             cityId={null}
             openSelect={false}
             setOpenSelect={setOpenSelect}
+            isMonthly={false}
         />
     </Provider>
 )
@@ -55,6 +56,40 @@ describe('Select', () => {
         render(wrapper)
         const elm = screen.getByTestId('arrow-id');
         fireEvent.click(elm)
+    })
+
+    test('should isMonthly', () => {
+        render(
+            <Provider store={store}>
+                <Select
+                    select={[1, 2, 3]}
+                    setSelect={setSelect}
+                    selectArr={[
+                        {
+                            id: 1,
+                            name: 'Ha Noi'
+                        },
+                        {
+                            id: 2,
+                            name: 'HCM'
+                        },
+                        {
+                            id: 3,
+                            name: 'Hue'
+                        },
+                        {
+                            id: 4,
+                            name: 'Da Nang'
+                        }
+                    ]}
+                    setIds={setIds}
+                    cityId={null}
+                    openSelect={false}
+                    setOpenSelect={setOpenSelect}
+                    isMonthly={true}
+                />
+            </Provider>
+        )
     })
 
     test('should render cityId', () => {
@@ -84,6 +119,7 @@ describe('Select', () => {
                 cityId={1}
                 openSelect={false}
                 setOpenSelect={setOpenSelect}
+                isMonthly={false}
             />
         </Provider>)
     })
@@ -106,6 +142,32 @@ describe('Select', () => {
                 setIds={setIds}
                 openSelect={false}
                 setOpenSelect={setOpenSelect}
+                isMonthly={false}
+            />
+        </Provider>)
+        const elm = screen.getByTestId('remove-id');
+        fireEvent.click(elm)
+    })
+
+    test('should remove select isMonthly is true', () => {
+        render(<Provider store={store}>
+            <Select
+                select={[1]}
+                setSelect={setSelect}
+                selectArr={[
+                    {
+                        id: 1,
+                        name: 'Ha Noi'
+                    },
+                    {
+                        id: 2,
+                        name: 'HCM'
+                    }
+                ]}
+                setIds={setIds}
+                openSelect={false}
+                setOpenSelect={setOpenSelect}
+                isMonthly={true}
             />
         </Provider>)
         const elm = screen.getByTestId('remove-id');
@@ -140,6 +202,7 @@ describe('Select', () => {
                     cityId={null}
                     openSelect={true}
                     setOpenSelect={setOpenSelect}
+                    isMonthly={false}
                 />
             </Provider>
         )
@@ -152,7 +215,50 @@ describe('Select', () => {
         fireEvent.click(elm2)
         fireEvent.click(elm3)
     })
-    test('should 3 select', () => {
+
+    test('should select isMonthly is true', () => {
+        render(
+            <Provider store={store}>
+                <Select
+                    select={[1]}
+                    setSelect={setSelect}
+                    selectArr={[
+                        {
+                            id: 1,
+                            name: 'Ha Noi'
+                        },
+                        {
+                            id: 2,
+                            name: 'HCM'
+                        },
+                        {
+                            id: 3,
+                            name: 'Hue'
+                        },
+                        {
+                            id: 4,
+                            name: 'Da Nang'
+                        }
+                    ]}
+                    setIds={setIds}
+                    cityId={null}
+                    openSelect={true}
+                    setOpenSelect={setOpenSelect}
+                    isMonthly={true}
+                />
+            </Provider>
+        )
+        const elm1 = screen.getByTestId('select-2');
+        const elm2 = screen.getByTestId('select-3');
+        const elm3 = screen.getByTestId('select-4');
+        const input = screen.getByTestId('input-id');
+        fireEvent.focus(input)
+        fireEvent.click(elm1)
+        fireEvent.click(elm2)
+        fireEvent.click(elm3)
+    })
+
+    test('3 select', () => {
         render(
             <Provider store={store}>
                 <Select
@@ -180,6 +286,7 @@ describe('Select', () => {
                     cityId={null}
                     openSelect={true}
                     setOpenSelect={setOpenSelect}
+                    isMonthly={false}
                 />
             </Provider>
         )
@@ -200,6 +307,7 @@ describe('Select', () => {
                     cityId={null}
                     openSelect={true}
                     setOpenSelect={setOpenSelect}
+                    isMonthly={false}
                 />
             </Provider>
         )
