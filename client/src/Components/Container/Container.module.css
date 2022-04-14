@@ -58,6 +58,10 @@
     font-size: 1.2rem;
 }
 
+.btn_menu_none {
+    display: none;
+}
+
 .icon_close {
     color: var(--primary-color)
 }

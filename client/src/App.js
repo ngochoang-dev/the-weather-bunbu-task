@@ -18,11 +18,12 @@ import Dashboard from './Components/Dashboard/Dashboard';
 
 function App() {
   const dispatch = useDispatch();
+  const [ids, setIds] = useState(1);
   const [selectId, setSelectId] = useState([1]);
-  const [showModal, setShowModal] = useState(false);
-  const [ids, setIds] = useState(selectId[0]);
+  const [isMobile, setIsMobile] = useState(false);
   const [isMonthly, setIsMonthly] = useState(false);
   const [isDashboard, setIsDashboard] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
   const { cityId, allCity, isDeleted } = useSelector(state => state.forecastData);
 
   useEffect(() => {
@@ -65,19 +66,34 @@ function App() {
     result.destination && actionDragEnd(result);
   }
 
+  const handleReSize = () => {
+    setIsMobile(window.screen.width < 644)
+  }
+
+  useEffect(() => {
+    setIsMobile(window.screen.width < 644)
+    window.addEventListener("resize", handleReSize)
+    return () => {
+      setIsMobile(false)
+      window.removeEventListener("resize", handleReSize)
+    }
+  }, []);
+
+
   return (
     <div className="App">
       <ToastContainer />
       <SideBar
+        isMobile={isMobile}
         selectId={selectId}
         setIsMonthly={setIsMonthly}
         setIsDashboard={setIsDashboard}
       />
       <ToolComponent
-        showModal={showModal}
+        ids={ids}
+        isMobile={isMobile}
         selectId={selectId}
         setSelectId={setSelectId}
-        setShowModal={setShowModal}
         setIds={setIds}
         isMonthly={isMonthly}
         isDashboard={isDashboard}
@@ -86,6 +102,7 @@ function App() {
         <Route path="/"
           element={
             <TodayComponent
+              isMobile={isMobile}
               selectId={selectId}
               setSelectId={setSelectId}
               handleOnDragEnd={handleOnDragEnd}
@@ -111,6 +128,8 @@ function App() {
             setSelectId={setSelectId}
             allCity={allCity}
             isDeleted={isDeleted}
+            showModalDelete={showModalDelete}
+            setShowModalDelete={setShowModalDelete}
           />}
         />
       </Routes>
@@ -119,4 +138,3 @@ function App() {
 }
 
 export default App;
-

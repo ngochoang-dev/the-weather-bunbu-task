@@ -43,11 +43,6 @@
 }
 
 @media (max-width: 644px) {
-    .container {
-        width: 100%;
-        padding-left: 6px;
-        padding-right: 6px;
-    }
 
     .btn_create>span {
         display: none;

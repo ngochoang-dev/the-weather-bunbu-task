@@ -15,6 +15,7 @@ import styles from './Select.module.css';
 import useClickOutSide from '../../customHook/useClickOutSide';
 
 function Select({
+    ids,
     select,
     setSelect,
     selectArr,
@@ -28,7 +29,8 @@ function Select({
     const [allCityName, setAllCityName] = useState([]);
     const [listSelect, setListSelect] = useState(selectArr);
     const [id, setId] = useState([1]);
-    const [selectOne, setSelectOne] = useState(select)
+    const [selectOne, setSelectOne] = useState(() => ids ? [ids] : []);
+
 
     useClickOutSide((e) => {
         !selecRef.current.contains(e.target) &&
@@ -88,7 +90,6 @@ function Select({
             setId(prev => [...prev, item.id])
             setSelect(prev => [...prev, item.id]);
             setOpenSelect(!openSelect)
-            setIds(item.id)
         }
 
         const setSelectGroupB = () => {

@@ -236,7 +236,7 @@ label.switch>input[type="checkbox"]:checked~span:after {
 
     .wrapper_title_detail {
         position: absolute;
-        top: 16px;
+        top: 12px;
         left: 60px;
         display: flex;
         align-items: center;
@@ -248,6 +248,12 @@ label.switch>input[type="checkbox"]:checked~span:after {
 
     .wrapper_switch {
         position: unset;
+    }
+}
+
+@media (max-width: 644px) {
+    .wrapper_title_detail {
+        left: 0;
     }
 }
 
@@ -275,10 +281,6 @@ label.switch>input[type="checkbox"]:checked~span:after {
 
 @media (max-width: 468px) {
 
-    .wrapper_title_detail {
-        left: 44px;
-    }
-
     .wrapper_detail .temperature {
         font-size: 1.6rem;
     }
@@ -305,10 +307,6 @@ label.switch>input[type="checkbox"]:checked~span:after {
 
     .wrapper_detail>div:nth-child(2)>p {
         font-size: 1.1rem;
-    }
-
-    .your_city {
-        margin-left: 16px;
     }
 
     .wrapper_date {

@@ -144,8 +144,20 @@
 }
 
 
-@media (max-width: 1023px) {}
+@media (max-width: 1023px) {
+    .container_select {
+        width: 450px;
+    }
 
-@media (max-width: 644px) {}
+    .input_text {
+        width: 20px;
+    }
+}
+
+@media (max-width: 644px) {
+    .container_select {
+        width: 100%;
+    }
+}
 
 @media (max-width: 468px) {}

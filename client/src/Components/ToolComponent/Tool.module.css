@@ -13,6 +13,12 @@
     align-items: center;
 }
 
+.position_top {
+    position: absolute;
+    top: -50px;
+    right: 0;
+}
+
 .set_width {
     width: 100%;
     justify-content: flex-end;

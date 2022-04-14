@@ -11,6 +11,7 @@ const setOpenSelect = jest.fn();
 const wrapper = (
     <Provider store={store}>
         <Select
+            ids={1}
             select={[1, 2, 3]}
             setSelect={setSelect}
             selectArr={[
@@ -62,6 +63,7 @@ describe('Select', () => {
         render(
             <Provider store={store}>
                 <Select
+                    ids={1}
                     select={[1, 2, 3]}
                     setSelect={setSelect}
                     selectArr={[
@@ -95,6 +97,7 @@ describe('Select', () => {
     test('should render cityId', () => {
         render(<Provider store={store}>
             <Select
+                ids={1}
                 select={[1, 2, 3]}
                 setSelect={setSelect}
                 selectArr={[
@@ -127,6 +130,7 @@ describe('Select', () => {
     test('should  remove select', () => {
         render(<Provider store={store}>
             <Select
+                ids={1}
                 select={[1]}
                 setSelect={setSelect}
                 selectArr={[
@@ -152,6 +156,7 @@ describe('Select', () => {
     test('should remove select isMonthly is true', () => {
         render(<Provider store={store}>
             <Select
+                ids={1}
                 select={[1]}
                 setSelect={setSelect}
                 selectArr={[
@@ -178,6 +183,7 @@ describe('Select', () => {
         render(
             <Provider store={store}>
                 <Select
+                    ids={1}
                     select={[1]}
                     setSelect={setSelect}
                     selectArr={[
@@ -220,6 +226,7 @@ describe('Select', () => {
         render(
             <Provider store={store}>
                 <Select
+                    ids={1}
                     select={[1]}
                     setSelect={setSelect}
                     selectArr={[
@@ -262,6 +269,7 @@ describe('Select', () => {
         render(
             <Provider store={store}>
                 <Select
+                    ids={1}
                     select={[1, 2, 3]}
                     setSelect={setSelect}
                     selectArr={[
@@ -300,6 +308,7 @@ describe('Select', () => {
         render(
             <Provider store={store}>
                 <Select
+                    ids={1}
                     select={[1]}
                     setSelect={setSelect}
                     selectArr={[]}
@@ -312,5 +321,6 @@ describe('Select', () => {
             </Provider>
         )
     })
+
 })
 

@@ -10,6 +10,7 @@ import LineChart from './LineChart';
 import { typeForecast } from '../../contants';
 
 function MainComponent({
+    isMobile,
     idOfCity,
     allForecast,
     isCelsius,
@@ -29,7 +30,7 @@ function MainComponent({
     );
     const [currentForecast, setCurrentForecast] = useState(0);
     const [data, setData] = useState([]);
-    const [isMobile, setIsMobile] = useState(false);
+    // const [isMobile, setIsMobile] = useState(false);
 
     const humidityArr = useMemo(() => {
         return data.map(item => {
@@ -61,19 +62,6 @@ function MainComponent({
             );
         })
     }, [allForecast]);
-
-    const handleReSize = () => {
-        setIsMobile(window.screen.width < 644)
-    }
-
-    useEffect(() => {
-        setIsMobile(window.screen.width < 644)
-        window.addEventListener("resize", handleReSize)
-        return () => {
-            setIsMobile(false)
-            window.removeEventListener("resize", handleReSize)
-        }
-    }, []);
 
     const handleGetDetail = (date) => {
         setDay(date)

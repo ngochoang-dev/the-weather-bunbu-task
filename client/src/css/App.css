@@ -82,14 +82,9 @@ input[type=number] {
 }
 
 table {
-  width: 80%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  margin: 0 auto;
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 th {
@@ -152,7 +147,7 @@ tr td:last-child {
 @media (max-width: 1023px) {
   .App {
     width: 644px;
-    padding-top: 50px;
+    padding-top: 20px;
   }
 }
 

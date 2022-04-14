@@ -10,10 +10,11 @@ import { deleteCity, resetLoading } from '../../redux/actions';
 function Dashboard({
     setSelectId,
     allCity,
-    isDeleted
+    isDeleted,
+    showModalDelete,
+    setShowModalDelete
 }) {
     const dispatch = useDispatch();
-    const [showModalDelete, setShowModalDelete] = useState(false);
     const [idDelete, setIdDelete] = useState(null);
 
     const handleConfirmDelete = () => {
@@ -25,7 +26,7 @@ function Dashboard({
         setSelectId(prev => {
             return prev.filter(i => i !== idDelete)
         })
-    }, [idDelete, setSelectId])
+    }, [idDelete, setSelectId, setShowModalDelete])
 
     useEffect(() => {
         isDeleted && handleConfirm()
@@ -49,9 +50,9 @@ function Dashboard({
                         allCity.map(({ id, name }, index) => {
                             return (
                                 <tr key={index}>
-                                    <td>{index + 1}</td>
+                                    <td style={{ width: 100 }}>{index + 1}</td>
                                     <td>{name}</td>
-                                    <td style={{ width: 150 }}>
+                                    <td style={{ width: 100 }}>
                                         <button className={clsx(
                                             styles.btn_delete
                                         )}
@@ -61,7 +62,6 @@ function Dashboard({
                                                 setShowModalDelete(true)
                                             }}
                                         >
-                                            Delete
                                             <IconContext.Provider value={{ className: clsx(styles.icon_delete) }}>
                                                 <IoMdTrash />
                                             </IconContext.Provider>
@@ -112,7 +112,9 @@ function Dashboard({
                                 </button>
                                 <button className={clsx(
                                     styles.btn_modal_confirm
-                                )} onClick={handleConfirmDelete}>
+                                )}
+                                    data-testid="confirm-id"
+                                    onClick={handleConfirmDelete}>
                                     Confirm
                                 </button>
                             </div>

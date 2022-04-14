@@ -140,6 +140,10 @@
         display: block;
     }
 
+    .btn_redirect {
+        display: none;
+    }
+
     .box_forecast {
         width: 100%;
         flex-direction: row;

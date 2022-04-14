@@ -17,10 +17,10 @@ import {
 } from '../../redux/actions';
 
 function ToolComponent({
-    setShowModal,
+    ids,
+    isMobile,
     selectId,
     setSelectId,
-    showModal,
     setIds,
     isMonthly,
     isDashboard
@@ -32,8 +32,8 @@ function ToolComponent({
         loading,
         allForecast } = useSelector(state => state.forecastData);
     const [toggle, setToggle] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [openSelect, setOpenSelect] = useState(false);
-
 
     useEffect(() => {
         dispatch(getAllCity())
@@ -86,6 +86,7 @@ function ToolComponent({
             )}>
             {
                 !isDashboard && <Select
+                    ids={ids}
                     setIds={setIds}
                     select={selectId}
                     setSelect={setSelectId}
@@ -98,7 +99,8 @@ function ToolComponent({
             }
             <div className={clsx(
                 styles.wrapper_right,
-                isDashboard && styles.set_width
+                isDashboard && styles.set_width,
+                isMobile && styles.position_top
             )}>
                 {
                     !isDashboard && (
