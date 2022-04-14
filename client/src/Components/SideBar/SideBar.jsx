@@ -74,7 +74,10 @@ function SideBar({
                 isMobile && (
                     <button
                         className={clsx(styles.btn_menu)}
-                        onClick={() => setOpenMenu(!openMenu)}
+                        onClick={() => {
+                            setOpenMenu(true)
+                            document.querySelector('body').classList.add('Open_modal')
+                        }}
                     >
                         <IconContext.Provider value={{ className: clsx(styles.icon_menu) }}>
                             <GiHamburgerMenu />
@@ -85,28 +88,35 @@ function SideBar({
             <div className={clsx(
                 openMenu && styles.overlay_menu,
             )}
-                onClick={() => setOpenMenu(false)}
+                onClick={() => {
+                    setOpenMenu(false)
+                    document.querySelector('body').classList.remove('Open_modal')
+                }}
             >
-                <ul className={clsx(
-                    styles.list_sidebar_mobile,
-                    openMenu && styles.active
-                )}>
-                    {
-                        menuArr.map(({ title, link }, i) => {
-                            return <li key={i}>
-                                <NavLink
-                                    to={link}
-                                    className={({ isActive }) =>
-                                        isActive ? clsx(styles.active_mobile) : undefined
-                                    }
-                                >
-                                    {title}
-                                </NavLink>
-                            </li>
-                        })
-                    }
-                </ul>
             </div>
+            <ul className={clsx(
+                styles.list_sidebar_mobile,
+                openMenu && styles.active_sidebar_mobile,
+            )}>
+                {
+                    menuArr.map(({ title, link }, i) => {
+                        return <li key={i}>
+                            <NavLink
+                                to={link}
+                                onClick={() => {
+                                    setOpenMenu(false)
+                                    document.querySelector('body').classList.remove('Open_modal')
+                                }}
+                                className={({ isActive }) =>
+                                    isActive ? clsx(styles.active_mobile) : undefined
+                                }
+                            >
+                                {title}
+                            </NavLink>
+                        </li>
+                    })
+                }
+            </ul>
         </nav>
     )
 }

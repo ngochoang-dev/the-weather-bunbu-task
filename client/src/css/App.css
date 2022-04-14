@@ -157,4 +157,8 @@ tr td:last-child {
     padding-left: 6px;
     padding-right: 6px;
   }
+
+  .Open_modal {
+    padding-right: 2px;
+  }
 }

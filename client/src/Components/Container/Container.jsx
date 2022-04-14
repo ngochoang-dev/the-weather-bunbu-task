@@ -36,7 +36,7 @@ function Container({
         <div className={clsx(
             styles.container
         )} >
-            <p className={clsx(
+            <button className={clsx(
                 styles.btn_menu,
                 isMobile && styles.btn_menu_none
             )}
@@ -45,7 +45,7 @@ function Container({
                 <IconContext.Provider value={{ className: clsx(styles.icon_menu) }}>
                     <GiHamburgerMenu />
                 </IconContext.Provider>
-            </p>
+            </button>
             <DetailComponent
                 isCelsius={isCelsius}
                 detailForecast={detailData}

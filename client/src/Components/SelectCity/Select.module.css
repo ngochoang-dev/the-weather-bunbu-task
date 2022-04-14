@@ -143,7 +143,6 @@
     background-color: #E1F5FE
 }
 
-
 @media (max-width: 1023px) {
     .container_select {
         width: 450px;
@@ -160,4 +159,20 @@
     }
 }
 
-@media (max-width: 468px) {}
+@media (max-width: 468px) {
+    .container_select {
+        padding: 2px;
+    }
+
+    .input_text {
+        width: 2px;
+    }
+
+    .city_name {
+        margin-right: 6px;
+    }
+
+    .select_right {
+        display: none;
+    }
+}

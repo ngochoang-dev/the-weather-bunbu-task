@@ -49,6 +49,7 @@
 }
 
 .btn_menu {
+    z-index: 9;
     left: 10px;
     right: unset;
 }
