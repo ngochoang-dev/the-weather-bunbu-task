@@ -74,9 +74,9 @@ function Dashboard({
                     {
                         allCity.length === 0 && (
                             <tr>
+                                <td style={{ width: 100 }}>...</td>
                                 <td>...</td>
-                                <td>...</td>
-                                <td>...</td>
+                                <td style={{ width: 100 }}>...</td>
                             </tr>
                         )
                     }

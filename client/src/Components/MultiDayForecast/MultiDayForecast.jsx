@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import styles from './Multiday.module.css'
@@ -23,8 +23,6 @@ function MultiDayForecast({ selectId, allForecast }) {
         }))
     }, [dispatch, selectId, ids, location]);
 
-    console.log(allForecast);
-
     return (
         <div className={clsx(
             styles.main
@@ -45,7 +43,6 @@ function MultiDayForecast({ selectId, allForecast }) {
         </div>
     )
 }
-
 
 export function Children({ data }) {
     const [isBarChart, setIsBarChart] = useState(false);
