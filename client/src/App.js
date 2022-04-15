@@ -24,7 +24,14 @@ function App() {
   const [isMonthly, setIsMonthly] = useState(false);
   const [isDashboard, setIsDashboard] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
-  const { cityId, allCity, isDeleted } = useSelector(state => state.forecastData);
+  const {
+    isDeleted,
+    allCity,
+    cityId,
+    loading,
+    allForecast,
+    monthlyData
+  } = useSelector(state => state.forecastData);
 
   useEffect(() => {
     (cityId || cityId === 0) &&
@@ -90,13 +97,17 @@ function App() {
         setIsDashboard={setIsDashboard}
       />
       <ToolComponent
+        allCity={allCity}
+        cityId={cityId}
+        loading={loading}
+        allForecast={allForecast}
         ids={ids}
         isMobile={isMobile}
         selectId={selectId}
-        setSelectId={setSelectId}
-        setIds={setIds}
         isMonthly={isMonthly}
         isDashboard={isDashboard}
+        setSelectId={setSelectId}
+        setIds={setIds}
       />
       <Routes>
         <Route path="/"
@@ -115,12 +126,14 @@ function App() {
         />
         <Route path="10days"
           element={<MultiDayForecast
+            allForecast={allForecast}
             selectId={selectId}
           />}
         />
         <Route path="monthly"
           element={<MonthlyComponent
             ids={ids}
+            monthlyData={monthlyData}
           />}
         />
         <Route path="dashboard"

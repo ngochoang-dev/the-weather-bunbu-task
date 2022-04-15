@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import dayjs from 'dayjs';
 
 import ToolComponent from '../ToolComponent';
 import store from '../../../redux/store';
@@ -8,17 +9,43 @@ const setShowModal = jest.fn();
 const setSelectId = jest.fn();
 const setIds = jest.fn();
 
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+
 
 describe('ToolComponent', () => {
     test('should render', () => {
         render(<Provider store={store}>
             <ToolComponent
+                isMobile={true}
                 setShowModal={setShowModal}
                 selectId={[1]}
                 setSelectId={setSelectId}
                 setIds={setIds}
                 showModal={false}
                 isDashboard={false}
+                allCity={[{ id: 1, name: 'Hà Nội' }]}
+                cityId={null}
+                loading={false}
+                allForecast={[{
+                    cityId: 1,
+                    data: [{
+                        cityId: "1",
+                        cityName: "Hà Nội",
+                        cloudCover: "73",
+                        date: "2022/4/07",
+                        description: "Clear sky",
+                        temperature: "38"
+                    },
+                    {
+                        cityId: "2",
+                        cityName: "Da Nang",
+                        cloudCover: "73",
+                        date: "2022/4/07",
+                        description: "Clear sky",
+                        temperature: "38"
+                    }]
+                }]}
             />
         </Provider>)
     })
@@ -32,6 +59,28 @@ describe('ToolComponent', () => {
                 setIds={setIds}
                 showModal={false}
                 isDashboard={true}
+                allCity={[{ id: 1, name: 'Hà Nội' }]}
+                cityId={null}
+                loading={false}
+                allForecast={[{
+                    cityId: 1,
+                    data: [{
+                        cityId: "1",
+                        cityName: "Hà Nội",
+                        cloudCover: "73",
+                        date: "2022/4/07",
+                        description: "Clear sky",
+                        temperature: "38"
+                    },
+                    {
+                        cityId: "2",
+                        cityName: "Da Nang",
+                        cloudCover: "73",
+                        date: "2022/4/07",
+                        description: "Clear sky",
+                        temperature: "38"
+                    }]
+                }]}
             />
         </Provider>)
     })
@@ -45,6 +94,28 @@ describe('ToolComponent', () => {
                 setIds={setIds}
                 showModal={false}
                 isDashboard={false}
+                allCity={[{ id: 1, name: 'Hà Nội' }]}
+                cityId={null}
+                loading={false}
+                allForecast={[{
+                    cityId: 1,
+                    data: [{
+                        cityId: "1",
+                        cityName: "Hà Nội",
+                        cloudCover: "73",
+                        date: "2022/4/07",
+                        description: "Clear sky",
+                        temperature: "38"
+                    },
+                    {
+                        cityId: "2",
+                        cityName: "Da Nang",
+                        cloudCover: "73",
+                        date: "2022/4/07",
+                        description: "Clear sky",
+                        temperature: "38"
+                    }]
+                }]}
             />
         </Provider>)
     })
@@ -58,6 +129,28 @@ describe('ToolComponent', () => {
                 setIds={setIds}
                 showModal={true}
                 isDashboard={false}
+                allCity={[{ id: 1, name: 'Hà Nội' }]}
+                cityId={null}
+                loading={false}
+                allForecast={[{
+                    cityId: 1,
+                    data: [{
+                        cityId: "1",
+                        cityName: "Hà Nội",
+                        cloudCover: "73",
+                        date: "2022/4/07",
+                        description: "Clear sky",
+                        temperature: "38"
+                    },
+                    {
+                        cityId: "2",
+                        cityName: "Da Nang",
+                        cloudCover: "73",
+                        date: "2022/4/07",
+                        description: "Clear sky",
+                        temperature: "38"
+                    }]
+                }]}
             />
         </Provider>)
     })
@@ -71,6 +164,28 @@ describe('ToolComponent', () => {
                 setIds={setIds}
                 showModal={false}
                 isDashboard={false}
+                allCity={[{ id: 1, name: 'Hà Nội' }]}
+                cityId={null}
+                loading={false}
+                allForecast={[{
+                    cityId: 1,
+                    data: [{
+                        cityId: "1",
+                        cityName: "Hà Nội",
+                        cloudCover: "73",
+                        date: "2022/4/07",
+                        description: "Clear sky",
+                        temperature: "38"
+                    },
+                    {
+                        cityId: "2",
+                        cityName: "Da Nang",
+                        cloudCover: "73",
+                        date: "2022/4/07",
+                        description: "Clear sky",
+                        temperature: "38"
+                    }]
+                }]}
             />
         </Provider>)
 
@@ -88,6 +203,28 @@ describe('ToolComponent', () => {
                 setIds={setIds}
                 showModal={false}
                 isDashboard={false}
+                allCity={[{ id: 1, name: 'Hà Nội' }]}
+                cityId={null}
+                loading={false}
+                allForecast={[{
+                    cityId: 1,
+                    data: [{
+                        cityId: "1",
+                        cityName: "Hà Nội",
+                        cloudCover: "73",
+                        date: "2022/4/07",
+                        description: "Clear sky",
+                        temperature: "38"
+                    },
+                    {
+                        cityId: "2",
+                        cityName: "Da Nang",
+                        cloudCover: "73",
+                        date: dayjs(tomorrow).format('YYYY/M/DD'),
+                        description: "Rain",
+                        temperature: "38"
+                    }]
+                }]}
             />
         </Provider>)
 

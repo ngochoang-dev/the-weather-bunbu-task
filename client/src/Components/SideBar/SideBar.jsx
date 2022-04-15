@@ -73,6 +73,7 @@ function SideBar({
             {
                 isMobile && (
                     <button
+                        data-testid="menu-id"
                         className={clsx(styles.btn_menu)}
                         onClick={() => {
                             setOpenMenu(true)
@@ -88,6 +89,7 @@ function SideBar({
             <div className={clsx(
                 openMenu && styles.overlay_menu,
             )}
+                data-testid="overlay-id"
                 onClick={() => {
                     setOpenMenu(false)
                     document.querySelector('body').classList.remove('Open_modal')

@@ -16,6 +16,7 @@ describe('container component', () => {
             <BrowserRouter>
                 <Provider store={store}>
                     <Container
+                        isMobile={true}
                         id={1}
                         provided={{}}
                         detailForecast={[{

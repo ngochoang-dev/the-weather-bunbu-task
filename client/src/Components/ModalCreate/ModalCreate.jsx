@@ -32,9 +32,6 @@ function ModalCreate({
     }, [loading, setShowModal]);
 
     function removeAscent(str) {
-        if (str === null || str === undefined) {
-            return str
-        };
         str = str.toLowerCase();
         str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
         str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
@@ -89,6 +86,7 @@ function ModalCreate({
                     className={clsx(
                         styles.btn_create
                     )}
+                    data-testid="btnCreate-id"
                     onClick={handleCreate}
                 >
                     Tạo mới

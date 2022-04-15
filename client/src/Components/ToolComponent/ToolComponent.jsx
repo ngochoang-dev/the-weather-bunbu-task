@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { IconContext } from 'react-icons';
 import { TiPlus } from 'react-icons/ti';
 import { FiRefreshCw } from 'react-icons/fi';
@@ -23,14 +23,14 @@ function ToolComponent({
     setSelectId,
     setIds,
     isMonthly,
-    isDashboard
+    isDashboard,
+    allCity,
+    cityId,
+    loading,
+    allForecast,
 }) {
     const timerRef = useRef();
     const dispatch = useDispatch();
-    const { allCity,
-        cityId,
-        loading,
-        allForecast } = useSelector(state => state.forecastData);
     const [toggle, setToggle] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [openSelect, setOpenSelect] = useState(false);

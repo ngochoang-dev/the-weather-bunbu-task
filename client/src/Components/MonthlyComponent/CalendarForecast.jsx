@@ -77,6 +77,7 @@ function CalendarForecast({ dayOfWeek, data }) {
                                                 !== dayjs().format('M')
                                                 && styles.outside
                                             )}
+                                            data-testid={`calendar-${i}`}
                                             onClick={() =>
                                                 handleClick(item, index, dayjs(date).format('DD'))}
                                         >

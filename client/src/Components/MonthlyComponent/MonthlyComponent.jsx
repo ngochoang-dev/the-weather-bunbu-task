@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import styles from './Monthly.module.css';
 import { getMonthlyForecast } from '../../redux/actions';
@@ -18,9 +18,8 @@ const dayOfWeek = [
     "SAT",
 ]
 
-function MonthlyComponent({ ids }) {
+function MonthlyComponent({ ids, monthlyData }) {
     const dispatch = useDispatch();
-    const { monthlyData } = useSelector(state => state.forecastData);
 
     useEffect(() => {
         dispatch(getMonthlyForecast({

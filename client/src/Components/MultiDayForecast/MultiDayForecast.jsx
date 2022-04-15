@@ -9,10 +9,9 @@ import SummaryComponent from '../SummaryComponent/SummaryComponent';
 import { getAllForecast } from '../../redux/actions';
 import BarChart from '../BarChart/BarChart';
 
-function MultiDayForecast({ selectId }) {
+function MultiDayForecast({ selectId, allForecast }) {
     const location = useLocation();
     const dispatch = useDispatch();
-    const data = useSelector(state => state.forecastData.allForecast);
     let search = window.location.search;
     let id = new URLSearchParams(search).get('id');
     let ids = id ? id : selectId;
@@ -24,12 +23,14 @@ function MultiDayForecast({ selectId }) {
         }))
     }, [dispatch, selectId, ids, location]);
 
+    console.log(allForecast);
+
     return (
         <div className={clsx(
             styles.main
         )}>
             {
-                data.map(({ data }, i) => {
+                allForecast.map(({ data }, i) => {
                     const newData = [...data];
                     newData.pop();
                     newData.shift();
@@ -48,7 +49,6 @@ function MultiDayForecast({ selectId }) {
 
 export function Children({ data }) {
     const [isBarChart, setIsBarChart] = useState(false);
-
     const labels = useMemo(() => {
         return data.map(item => {
             return dayjs(item.date).format('MMM DD') === dayjs().format('MMM DD')

@@ -23,14 +23,13 @@ function MainComponent({
         cityId: "1",
         cityName: "Hà Nội",
         cloudCover: "73",
-        date: "2022/4/07",
+        date: dayjs().format('MMM DD'),
         description: "Clear sky",
         temperature: "38"
     }]
     );
     const [currentForecast, setCurrentForecast] = useState(0);
     const [data, setData] = useState([]);
-    // const [isMobile, setIsMobile] = useState(false);
 
     const humidityArr = useMemo(() => {
         return data.map(item => {
@@ -141,6 +140,7 @@ function MainComponent({
             <button className={clsx(
                 styles.btn_redirect
             )}
+                data-testid="redirect-id"
                 onClick={() => navigate(`/10days?id=${dataForecast[0].cityId}`)}
             >
                 <IconContext.Provider value={{ className: clsx(styles.icon_arrow) }}>

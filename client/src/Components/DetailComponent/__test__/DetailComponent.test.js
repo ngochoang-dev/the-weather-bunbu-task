@@ -44,6 +44,26 @@ describe('DetailComponent', () => {
         expect(elm.innerHTML).toMatch(/F/);
     });
 
+    test('fn handleChangeUnit have day', () => {
+        render(
+            <BrowserRouter>
+                <Provider store={store}>
+                    <DetailComponent
+                        day={'2022/12/2'}
+                        isCelsius={false}
+                        typeForecast={typeForecast}
+                        handleChangeUnit={handleChangeUnit}
+                        setIsCelsius={setIsCelsius}
+                    />
+                </Provider>
+            </BrowserRouter>
+        )
+        const labelCheckbox = screen.getByTestId('labelCheckbox-id')
+        const elm = screen.getByTestId('celsius-id');
+        fireEvent.click(labelCheckbox);
+        expect(elm.innerHTML).toMatch(/F/);
+    });
+
     test('fn handleChangeUnit', () => {
         render(
             <BrowserRouter>

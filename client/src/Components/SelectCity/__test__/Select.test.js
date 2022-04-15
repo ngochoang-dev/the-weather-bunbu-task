@@ -127,7 +127,7 @@ describe('Select', () => {
         </Provider>)
     })
 
-    test('should  remove select', () => {
+    test('should remove select isMonthly is false', () => {
         render(<Provider store={store}>
             <Select
                 ids={1}
