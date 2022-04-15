@@ -89,7 +89,7 @@
 
 .btn_redirect {
     position: absolute;
-    right: 0;
+    right: -30px;
     bottom: 80px;
     z-index: 99;
     display: flex;
@@ -99,16 +99,11 @@
     outline: none;
     background-color: transparent;
     cursor: pointer;
-    visibility: hidden;
     transition: all 0.25s;
     -webkit-transition: all 0.25s;
     -moz-transition: all 0.25s;
     -ms-transition: all 0.25s;
     -o-transition: all 0.25s;
-}
-
-.wrapper_main:hover~.btn_redirect {
-    visibility: visible;
 }
 
 .btn_redirect:hover {
@@ -117,7 +112,7 @@
 
 .icon_arrow {
     font-size: 1.4rem;
-    color: var(--background-color);
+    color: #90CAF9;
     transition: all 0.25s;
     -webkit-transition: all 0.25s;
     -moz-transition: all 0.25s;
@@ -143,6 +138,10 @@
 @media (max-width: 644px) {
     .wrapper_forecast {
         display: block;
+    }
+
+    .btn_redirect {
+        display: none;
     }
 
     .box_forecast {

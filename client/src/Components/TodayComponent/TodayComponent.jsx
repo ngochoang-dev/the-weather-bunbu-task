@@ -11,6 +11,7 @@ import {
 } from '../../redux/actions';
 
 function TodayComponent({
+    isMobile,
     selectId,
     setSelectId,
     handleOnDragEnd
@@ -55,6 +56,7 @@ function TodayComponent({
                                                     {...provided.draggableProps}>
                                                     <Container
                                                         id={id}
+                                                        isMobile={isMobile}
                                                         setSelect={setSelectId}
                                                         provided={provided}
                                                         detailForecast={detailForecast}

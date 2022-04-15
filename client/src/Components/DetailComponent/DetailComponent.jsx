@@ -20,7 +20,6 @@ function DetailComponent({
 
     const dispatch = useDispatch();
 
-
     const [data, setData] = useState({
         cityId: "",
         cityName: "",

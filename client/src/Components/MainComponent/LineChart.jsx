@@ -9,6 +9,7 @@ import {
     Title,
     Tooltip,
     Legend,
+    Filler
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
@@ -28,7 +29,9 @@ function Chart({
         Title,
         Tooltip,
         Legend,
+        Filler
     );
+
 
     if (humidityArr.length === 0 && !temperature)
         return null
@@ -87,8 +90,9 @@ function Chart({
                 ticks: {
                     display: false,
                 },
-                reverse: true,
+                reverse: false,
                 beginAtZero: true,
+                max: Math.max(...humidityArr) + 30
             }
         },
     };

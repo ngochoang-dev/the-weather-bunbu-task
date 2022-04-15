@@ -9,6 +9,7 @@ import DetailComponent from '../DetailComponent/DetailComponent';
 import MainComponent from '../MainComponent/MainComponent';
 
 function Container({
+    isMobile,
     id,
     setSelect,
     provided,
@@ -35,13 +36,16 @@ function Container({
         <div className={clsx(
             styles.container
         )} >
-            <p className={clsx(styles.btn_menu)}
+            <button className={clsx(
+                styles.btn_menu,
+                isMobile && styles.btn_menu_none
+            )}
                 {...provided.dragHandleProps}
             >
                 <IconContext.Provider value={{ className: clsx(styles.icon_menu) }}>
                     <GiHamburgerMenu />
                 </IconContext.Provider>
-            </p>
+            </button>
             <DetailComponent
                 isCelsius={isCelsius}
                 detailForecast={detailData}
@@ -51,6 +55,7 @@ function Container({
                 setIsCelsius={setIsCelsius}
             />
             <MainComponent
+                isMobile={isMobile}
                 idOfCity={idOfCity}
                 allForecast={dataForecast}
                 isCelsius={isCelsius}

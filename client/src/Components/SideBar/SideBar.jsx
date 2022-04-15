@@ -1,123 +1,126 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { IconContext } from 'react-icons';
-import { FiRefreshCw } from 'react-icons/fi';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import { GiHamburgerMenu } from 'react-icons/gi';
+
 
 import styles from './Sidebar.module.css';
-import { getAllForecast, handleGetDetailForecast } from '../../redux/actions';
-import dayjs from 'dayjs';
 
-function SideBar({ selectId }) {
-    const timerRef = useRef();
-    const [toggle, setToggle] = useState(false);
-    const dispatch = useDispatch();
-    const { allForecast } = useSelector(state => state.forecastData);
-
-    const handleRefresh = () => {
-        setToggle(!toggle);
-        dispatch(getAllForecast({
-            selectId,
-            day: 7
-        }));
-        dispatch(handleGetDetailForecast({ selectId }));
-        allForecast.forEach(item => {
-            const { data } = item;
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            const { description, cityName } =
-                data.find(item => item.date === dayjs(tomorrow).format('YYYY/M/DD'));
-
-            description === 'Rain' &&
-                toast.warn(`${cityName} - ngày mai có mưa`, {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
-        })
+const menuArr = [
+    {
+        title: 'Today',
+        link: '/'
+    },
+    {
+        title: 'Hourly',
+        link: '/today/hourly'
+    },
+    {
+        title: '10 days',
+        link: '10days'
+    },
+    {
+        title: 'Monthly',
+        link: 'monthly'
+    },
+    {
+        title: 'Dashboard',
+        link: 'dashboard'
     }
+]
 
-    const handleToggle = () => {
-        timerRef.current = setTimeout(() => {
-            setToggle(false);
-        }, 1000)
-    }
+function SideBar({
+    isMobile,
+    setIsMonthly,
+    setIsDashboard }) {
+    const { pathname } = useLocation();
+    const [openMenu, setOpenMenu] = useState(false);
 
     useEffect(() => {
-        handleToggle()
-        return () => {
-            clearTimeout(timerRef.current)
-        }
-    }, [toggle]);
+        setIsMonthly(pathname === '/monthly')
+        setIsDashboard(pathname === '/dashboard')
+    }, [pathname, setIsMonthly, setIsDashboard]);
+
 
     return (
         <nav className={clsx(
-            styles.container
+            styles.container,
+            isMobile && styles.sidebar_mobile
         )}>
-            <ul className={clsx(
-                styles.list_sidebar
-            )}>
-                <li>
-                    <NavLink
-                        to="/"
-                        className={({ isActive }) =>
-                            isActive ? clsx(styles.active) : undefined
+            {
+                !isMobile && (
+                    <ul className={clsx(
+                        styles.list_sidebar
+                    )}>
+                        {
+                            menuArr.map(({ title, link }, i) => {
+                                return <li key={i}>
+                                    <NavLink
+                                        to={link}
+                                        className={({ isActive }) =>
+                                            isActive ? clsx(styles.active) : undefined
+                                        }
+                                    >
+                                        {title}
+                                    </NavLink>
+                                </li>
+                            })
                         }
+                    </ul>
+                )
+            }
+            {
+                isMobile && (
+                    <button
+                        data-testid="menu-id"
+                        className={clsx(styles.btn_menu)}
+                        onClick={() => {
+                            setOpenMenu(true)
+                            document.querySelector('body').classList.add('Open_modal')
+                        }}
                     >
-                        Today
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to="/today/hourly"
-                        className={({ isActive }) =>
-                            isActive ? clsx(styles.active) : undefined
-                        }
-                    >
-                        Hourly
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to="10days"
-                        className={({ isActive }) =>
-                            isActive ? clsx(styles.active) : undefined
-                        }
-                    >
-                        10 days
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to="monthly"
-                        className={({ isActive }) =>
-                            isActive ? clsx(styles.active) : undefined
-                        }
-                    >
-                        Monthly
-                    </NavLink>
-                </li>
-            </ul>
-            <button className={clsx(
-                styles.btn_refresh,
-                toggle && styles.active_btn
+                        <IconContext.Provider value={{ className: clsx(styles.icon_menu) }}>
+                            <GiHamburgerMenu />
+                        </IconContext.Provider>
+                    </button>
+                )
+            }
+            <div className={clsx(
+                openMenu && styles.overlay_menu,
             )}
-                data-testid='refresh-id'
-                onClick={handleRefresh}
+                data-testid="overlay-id"
+                onClick={() => {
+                    setOpenMenu(false)
+                    document.querySelector('body').classList.remove('Open_modal')
+                }}
             >
-                <span className={styles.title_refresh}>Refresh</span>
-                <IconContext.Provider value={{ className: clsx(styles.icon_refresh) }}>
-                    <FiRefreshCw />
-                </IconContext.Provider>
-            </button>
+            </div>
+            <ul className={clsx(
+                styles.list_sidebar_mobile,
+                openMenu && styles.active_sidebar_mobile,
+            )}>
+                {
+                    menuArr.map(({ title, link }, i) => {
+                        return <li key={i}>
+                            <NavLink
+                                to={link}
+                                onClick={() => {
+                                    setOpenMenu(false)
+                                    document.querySelector('body').classList.remove('Open_modal')
+                                }}
+                                className={({ isActive }) =>
+                                    isActive ? clsx(styles.active_mobile) : undefined
+                                }
+                            >
+                                {title}
+                            </NavLink>
+                        </li>
+                    })
+                }
+            </ul>
         </nav>
     )
 }
 
-export default SideBar;
+export default React.memo(SideBar);

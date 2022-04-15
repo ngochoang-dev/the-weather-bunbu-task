@@ -81,6 +81,33 @@ input[type=number] {
   padding-right: 16px;
 }
 
+table {
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+th {
+  font-weight: 600;
+}
+
+tr {
+  padding: 10px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tr td:last-child {
+  width: 100px
+}
+
 @keyframes rotate {
   100% {
     transform: rotate(360deg);
@@ -105,7 +132,6 @@ input[type=number] {
 
 .App {
   padding-top: 100px;
-  overflow-x: hidden;
   margin: 0 auto;
   width: 1080px;
   min-height: 100vh;
@@ -121,7 +147,7 @@ input[type=number] {
 @media (max-width: 1023px) {
   .App {
     width: 644px;
-    padding-top: 50px;
+    padding-top: 20px;
   }
 }
 
@@ -130,5 +156,9 @@ input[type=number] {
     width: 100%;
     padding-left: 6px;
     padding-right: 6px;
+  }
+
+  .Open_modal {
+    padding-right: 2px;
   }
 }

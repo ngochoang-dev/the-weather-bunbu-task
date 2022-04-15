@@ -101,21 +101,21 @@ describe("sagas", () => {
         expect(dispatched[0].data).toEqual([]);
     })
 
-    test("should test getAllCity", async () => {
-        const dispatched = [];
-        await runSaga(
-            {
-                dispatch: (action) => dispatched.push(action),
-            },
-            getAllCity,
-            {
-                payload: {
-                    selectId: [0]
-                }
-            }
-        ).toPromise();
-        expect(dispatched[0].type).toEqual("GET_ALL_CITY_SUCCESS");
-    })
+    // test("should test getAllCity", async () => {
+    //     const dispatched = [];
+    //     await runSaga(
+    //         {
+    //             dispatch: (action) => dispatched.push(action),
+    //         },
+    //         getAllCity,
+    //         {
+    //             payload: {
+    //                 selectId: [0]
+    //             }
+    //         }
+    //     ).toPromise();
+    //     expect(dispatched[0].type).toEqual("GET_ALL_CITY_SUCCESS");
+    // })
 
     test("should test createForecast", async () => {
         const dispatched = [];

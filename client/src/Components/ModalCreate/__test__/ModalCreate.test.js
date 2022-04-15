@@ -32,7 +32,6 @@ describe('ModalCreate', () => {
         )
         const element = screen.getByTestId('input-id')
         fireEvent.change(element, { target: { value: 'enter city name #' } })
-        // expect(element.value).toBe('enter city name #')
     })
 
     test('fn button close', () => {
@@ -45,5 +44,19 @@ describe('ModalCreate', () => {
         )
         const element = screen.getByTestId('btnClose-id');
         fireEvent.click(element);
+    })
+
+    test('fn button create', () => {
+        render(
+            <Provider store={store}>
+                <ModalCreate
+                    setShowModal={setShowModal}
+                />
+            </Provider>
+        )
+        const btnCreate = screen.getByTestId('btnCreate-id');
+        const inputElm = screen.getByTestId('input-id')
+        fireEvent.change(inputElm, { target: { value: 'enter city name' } })
+        fireEvent.click(btnCreate);
     })
 })

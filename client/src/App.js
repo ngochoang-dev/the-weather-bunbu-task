@@ -13,15 +13,25 @@ import HourlyComponent from './Components/HourlyComponent/HourlyComponent';
 import MultiDayForecast from './Components/MultiDayForecast/MultiDayForecast';
 import MonthlyComponent from './Components/MonthlyComponent/MonthlyComponent';
 import { getAllForecast, handleGetDetailForecast } from './redux/actions';
+import Dashboard from './Components/Dashboard/Dashboard';
 
 
 function App() {
   const dispatch = useDispatch();
+  const [ids, setIds] = useState(1);
   const [selectId, setSelectId] = useState([1]);
-  const [showModal, setShowModal] = useState(false);
-  const [ids, setIds] = useState(selectId[0]);
-
-  const { cityId } = useSelector(state => state.forecastData);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMonthly, setIsMonthly] = useState(false);
+  const [isDashboard, setIsDashboard] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
+  const {
+    isDeleted,
+    allCity,
+    cityId,
+    loading,
+    allForecast,
+    monthlyData
+  } = useSelector(state => state.forecastData);
 
   useEffect(() => {
     (cityId || cityId === 0) &&
@@ -63,21 +73,47 @@ function App() {
     result.destination && actionDragEnd(result);
   }
 
+  const handleReSize = () => {
+    setIsMobile(window.screen.width < 644)
+  }
+
+  useEffect(() => {
+    setIsMobile(window.screen.width < 644)
+    window.addEventListener("resize", handleReSize)
+    return () => {
+      setIsMobile(false)
+      window.removeEventListener("resize", handleReSize)
+    }
+  }, []);
+
+
   return (
     <div className="App">
       <ToastContainer />
-      <ToolComponent
-        showModal={showModal}
+      <SideBar
+        isMobile={isMobile}
         selectId={selectId}
+        setIsMonthly={setIsMonthly}
+        setIsDashboard={setIsDashboard}
+      />
+      <ToolComponent
+        allCity={allCity}
+        cityId={cityId}
+        loading={loading}
+        allForecast={allForecast}
+        ids={ids}
+        isMobile={isMobile}
+        selectId={selectId}
+        isMonthly={isMonthly}
+        isDashboard={isDashboard}
         setSelectId={setSelectId}
-        setShowModal={setShowModal}
         setIds={setIds}
       />
-      <SideBar selectId={selectId} />
       <Routes>
         <Route path="/"
           element={
             <TodayComponent
+              isMobile={isMobile}
               selectId={selectId}
               setSelectId={setSelectId}
               handleOnDragEnd={handleOnDragEnd}
@@ -90,12 +126,23 @@ function App() {
         />
         <Route path="10days"
           element={<MultiDayForecast
+            allForecast={allForecast}
             selectId={selectId}
           />}
         />
         <Route path="monthly"
           element={<MonthlyComponent
             ids={ids}
+            monthlyData={monthlyData}
+          />}
+        />
+        <Route path="dashboard"
+          element={<Dashboard
+            setSelectId={setSelectId}
+            allCity={allCity}
+            isDeleted={isDeleted}
+            showModalDelete={showModalDelete}
+            setShowModalDelete={setShowModalDelete}
           />}
         />
       </Routes>
@@ -104,4 +151,3 @@ function App() {
 }
 
 export default App;
-
