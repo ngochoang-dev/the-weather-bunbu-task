@@ -68,6 +68,7 @@ function MainComponent({
         setDetailDate(newData)
     };
 
+
     return (
         <div className={clsx(
             styles.container,
