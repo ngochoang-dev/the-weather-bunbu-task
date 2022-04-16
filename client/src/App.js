@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import "react-toastify/dist/ReactToastify.css";
 
 import './css/App.css';
+import Header from './Components/Header/Header';
 import SideBar from './Components/SideBar/SideBar';
 import ToolComponent from './Components/ToolComponent/ToolComponent';
 import TodayComponent from './Components/TodayComponent/TodayComponent';
@@ -90,6 +91,7 @@ function App() {
   return (
     <div className="App">
       <ToastContainer />
+      <Header />
       <SideBar
         isMobile={isMobile}
         selectId={selectId}

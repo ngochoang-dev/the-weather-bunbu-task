@@ -104,7 +104,7 @@ function Chart({
             circle(currentForecast + 1, currentForecast + 1);
             // text
             function text(text, x, y) {
-                ctx.font = 'bolder 20px Roboto';
+                ctx.font = 'bolder 20px Open Sans';
                 ctx.fillStyle = '#039BE5';
                 ctx.textBaseline = 'bottom';
                 ctx.textAlign = 'center';

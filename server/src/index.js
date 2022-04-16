@@ -6,7 +6,6 @@ const db = require('./db/index');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const dayjs = require('dayjs');
-const axios = require('axios');
 
 const Weather = require('./models/Weather');
 
