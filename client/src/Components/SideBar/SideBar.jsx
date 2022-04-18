@@ -25,22 +25,31 @@ const menuArr = [
         link: 'monthly'
     },
     {
+        title: 'Radar',
+        link: 'radar'
+    },
+    {
         title: 'Dashboard',
         link: 'dashboard'
-    }
+    },
 ]
 
 function SideBar({
     isMobile,
     setIsMonthly,
-    setIsDashboard }) {
+    setIsDashboard,
+    setIsRadar }) {
     const { pathname } = useLocation();
     const [openMenu, setOpenMenu] = useState(false);
 
     useEffect(() => {
         setIsMonthly(pathname === '/monthly')
+        setIsRadar(pathname === '/radar')
         setIsDashboard(pathname === '/dashboard')
-    }, [pathname, setIsMonthly, setIsDashboard]);
+    }, [pathname,
+        setIsMonthly,
+        setIsDashboard,
+        setIsRadar]);
 
 
     return (
@@ -100,6 +109,17 @@ function SideBar({
                 styles.list_sidebar_mobile,
                 openMenu && styles.active_sidebar_mobile,
             )}>
+                <div className={clsx(
+                    styles.wrapper_logo
+                )}>
+                    <div
+                        className={clsx(
+                            styles.logo
+                        )}>
+                        <img draggable={false} src='./weather-logo.png' alt='logo' />
+                    </div>
+                    <p>The weather</p>
+                </div>
                 {
                     menuArr.map(({ title, link }, i) => {
                         return <li key={i}>

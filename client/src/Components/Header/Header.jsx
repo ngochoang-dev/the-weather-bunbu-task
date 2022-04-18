@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
 import styles from './Header.module.css';
 
@@ -8,7 +9,7 @@ function Header() {
         <div className={clsx(
             styles.container
         )}>
-            <div className={clsx(
+            <Link to='/' className={clsx(
                 styles.wrapper_logo
             )}>
                 <div
@@ -18,7 +19,7 @@ function Header() {
                     <img draggable={false} src='./weather-logo.png' alt='logo' />
                 </div>
                 <p>The weather</p>
-            </div>
+            </Link>
         </div >
     )
 }

@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import './css/App.css';
 import Header from './Components/Header/Header';
+import Radar from './Components/Radar/Radar.jsx';
 import SideBar from './Components/SideBar/SideBar';
 import ToolComponent from './Components/ToolComponent/ToolComponent';
 import TodayComponent from './Components/TodayComponent/TodayComponent';
@@ -24,6 +25,7 @@ function App() {
   const [isMobile, setIsMobile] = useState(false);
   const [isMonthly, setIsMonthly] = useState(false);
   const [isDashboard, setIsDashboard] = useState(false);
+  const [isRadar, setIsRadar] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const {
     isDeleted,
@@ -49,7 +51,6 @@ function App() {
           ? firstCondition() :
           secondCondition()
       });
-    setIds(prev => cityId ? cityId : prev)
   }, [cityId, setSelectId]);
 
   useEffect(() => {
@@ -95,6 +96,7 @@ function App() {
       <SideBar
         isMobile={isMobile}
         selectId={selectId}
+        setIsRadar={setIsRadar}
         setIsMonthly={setIsMonthly}
         setIsDashboard={setIsDashboard}
       />
@@ -105,6 +107,7 @@ function App() {
         allForecast={allForecast}
         ids={ids}
         isMobile={isMobile}
+        isRadar={isRadar}
         selectId={selectId}
         isMonthly={isMonthly}
         isDashboard={isDashboard}
@@ -137,6 +140,9 @@ function App() {
             ids={ids}
             monthlyData={monthlyData}
           />}
+        />
+        <Route path="radar"
+          element={<Radar />}
         />
         <Route path="dashboard"
           element={<Dashboard

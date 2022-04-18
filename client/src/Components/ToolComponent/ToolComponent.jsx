@@ -19,6 +19,7 @@ import {
 function ToolComponent({
     ids,
     isMobile,
+    isRadar,
     selectId,
     setSelectId,
     setIds,
@@ -82,7 +83,8 @@ function ToolComponent({
         <div
             className={clsx(
                 styles.options,
-                selectId.length === 3 ? styles.options_unset : ""
+                selectId.length === 3 ? styles.options_unset : "",
+                isRadar && styles.hiden
             )}>
             {
                 !isDashboard && <Select

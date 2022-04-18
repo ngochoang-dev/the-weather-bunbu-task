@@ -29,8 +29,8 @@ function Select({
     const [allCityName, setAllCityName] = useState([]);
     const [listSelect, setListSelect] = useState(selectArr);
     const [id, setId] = useState([1]);
+    const [newCityId, setNewCityId] = useState(null);
     const [selectOne, setSelectOne] = useState(() => ids ? [ids] : []);
-
 
     useClickOutSide((e) => {
         !selecRef.current.contains(e.target) &&
@@ -56,21 +56,19 @@ function Select({
         !isMonthly ?
             setListSelect(() => {
                 const data = selectArr.filter(d => {
-                    return cityId ?
-                        !id.includes(d.id) && cityId !== d.id
+                    return newCityId ?
+                        !id.includes(d.id) && newCityId !== d.id
                         : !id.includes(d.id)
                 });
                 return data;
             }) :
             setListSelect(() => {
                 const data = selectArr.filter(d => {
-                    return cityId ?
-                        !selectOne.includes(d.id) && cityId !== d.id
-                        : !selectOne.includes(d.id)
+                    return !selectOne.includes(d.id)
                 });
                 return data;
             })
-    }, [selectArr, id, cityId, isMonthly, selectOne]);
+    }, [selectArr, id, newCityId, isMonthly, selectOne]);
 
     const handleChooseCity = (item) => {
         const showToast = () => {
@@ -121,11 +119,13 @@ function Select({
                 const result = id.filter(d => d !== data.id);
                 return result[result.length - 1]
             })
+            setNewCityId(null)
         }
 
         const setSelectGroupB = () => {
             setIds(0)
             setSelectOne([])
+            setNewCityId(null)
         }
 
         !isMonthly ? setSelectGroupA() : setSelectGroupB()
@@ -134,6 +134,11 @@ function Select({
     useEffect(() => {
         isMonthly && setIds(selectOne[0])
     }, [isMonthly, setIds, selectOne]);
+
+    useEffect(() => {
+        setNewCityId(cityId)
+    }, [cityId]);
+
 
     return (
         <div className={clsx(

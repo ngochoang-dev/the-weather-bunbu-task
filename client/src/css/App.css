@@ -136,7 +136,6 @@ tr td:last-child {
   min-height: 100vh;
 }
 
-
 @media (min-width: 1024px) and (max-width: 1239px) {
   .App {
     width: 1024px;
