@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import "react-toastify/dist/ReactToastify.css";
 
 import './css/App.css';
+import Header from './Components/Header/Header';
+import Radar from './Components/Radar/Radar';
 import SideBar from './Components/SideBar/SideBar';
 import ToolComponent from './Components/ToolComponent/ToolComponent';
 import TodayComponent from './Components/TodayComponent/TodayComponent';
@@ -19,10 +21,13 @@ import Dashboard from './Components/Dashboard/Dashboard';
 function App() {
   const dispatch = useDispatch();
   const [ids, setIds] = useState(1);
+  const [currDay, setCurrDay] = useState(null);
   const [selectId, setSelectId] = useState([1]);
+  const [arrSelectShow, setArrSelectShow] = useState([1])
   const [isMobile, setIsMobile] = useState(false);
   const [isMonthly, setIsMonthly] = useState(false);
   const [isDashboard, setIsDashboard] = useState(false);
+  const [isRadar, setIsRadar] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const {
     isDeleted,
@@ -48,7 +53,6 @@ function App() {
           ? firstCondition() :
           secondCondition()
       });
-    setIds(prev => cityId ? cityId : prev)
   }, [cityId, setSelectId]);
 
   useEffect(() => {
@@ -90,24 +94,30 @@ function App() {
   return (
     <div className="App">
       <ToastContainer />
+      <Header />
       <SideBar
         isMobile={isMobile}
         selectId={selectId}
+        setIsRadar={setIsRadar}
         setIsMonthly={setIsMonthly}
         setIsDashboard={setIsDashboard}
       />
       <ToolComponent
+        ids={ids}
+        currDay={currDay}
         allCity={allCity}
         cityId={cityId}
         loading={loading}
-        allForecast={allForecast}
-        ids={ids}
         isMobile={isMobile}
+        isRadar={isRadar}
         selectId={selectId}
         isMonthly={isMonthly}
+        allForecast={allForecast}
         isDashboard={isDashboard}
-        setSelectId={setSelectId}
+        arrSelectShow={arrSelectShow}
         setIds={setIds}
+        setSelectId={setSelectId}
+        setArrSelectShow={setArrSelectShow}
       />
       <Routes>
         <Route path="/"
@@ -115,8 +125,11 @@ function App() {
             <TodayComponent
               isMobile={isMobile}
               selectId={selectId}
+              arrSelectShow={arrSelectShow}
+              setCurrDay={setCurrDay}
               setSelectId={setSelectId}
               handleOnDragEnd={handleOnDragEnd}
+              setArrSelectShow={setArrSelectShow}
             />}
         />
         <Route path="today/hourly"
@@ -136,12 +149,16 @@ function App() {
             monthlyData={monthlyData}
           />}
         />
+        <Route path="radar"
+          element={<Radar />}
+        />
         <Route path="dashboard"
           element={<Dashboard
-            setSelectId={setSelectId}
+            selectId={selectId}
             allCity={allCity}
             isDeleted={isDeleted}
             showModalDelete={showModalDelete}
+            setSelectId={setSelectId}
             setShowModalDelete={setShowModalDelete}
           />}
         />

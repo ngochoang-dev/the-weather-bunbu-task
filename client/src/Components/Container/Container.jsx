@@ -9,12 +9,16 @@ import DetailComponent from '../DetailComponent/DetailComponent';
 import MainComponent from '../MainComponent/MainComponent';
 
 function Container({
-    isMobile,
     id,
+    setCurrDay,
+    isMobile,
     setSelect,
     provided,
     detailForecast,
     allForecast,
+    selectId,
+    arrSelectShow,
+    setArrSelectShow
 }) {
     const [idOfCity, setIdOfCity] = useState(id);
     const [detailData, setDetailDate] = useState([]);
@@ -31,6 +35,13 @@ function Container({
         const result = allForecast.find(item => Number(item.cityId) === id)
         setDataForecast(result)
     }, [allForecast, id]);
+
+    const handleClickClose = () => {
+        const newArrSelectShow = arrSelectShow.filter(i => i !== id);
+        const newSelect = selectId.filter(i => i !== id)
+        setArrSelectShow(newArrSelectShow)
+        setSelect(newSelect)
+    }
 
     return (
         <div className={clsx(
@@ -59,15 +70,16 @@ function Container({
                 idOfCity={idOfCity}
                 allForecast={dataForecast}
                 isCelsius={isCelsius}
+                datas={dataForecast}
+                setCurrDay={setCurrDay}
                 setDay={setDay}
                 setDetailDate={setDetailDate}
-                datas={dataForecast}
             />
             <button className={clsx(
                 styles.btn_close
             )}
                 data-testid='btnClose-id'
-                onClick={() => setSelect(prev => prev.filter(i => i !== id))}
+                onClick={handleClickClose}
             >
                 <IconContext.Provider value={{ className: styles.icon_close }}>
                     <CgClose />

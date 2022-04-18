@@ -18,7 +18,9 @@ import {
 
 function ToolComponent({
     ids,
+    currDay,
     isMobile,
+    isRadar,
     selectId,
     setSelectId,
     setIds,
@@ -28,6 +30,8 @@ function ToolComponent({
     cityId,
     loading,
     allForecast,
+    arrSelectShow,
+    setArrSelectShow
 }) {
     const timerRef = useRef();
     const dispatch = useDispatch();
@@ -45,7 +49,7 @@ function ToolComponent({
             selectId,
             day: 7
         }));
-        dispatch(handleGetDetailForecast({ selectId }));
+        dispatch(handleGetDetailForecast({ selectId, currDay }));
         allForecast.forEach(item => {
             const { data } = item;
             const tomorrow = new Date();
@@ -82,7 +86,8 @@ function ToolComponent({
         <div
             className={clsx(
                 styles.options,
-                selectId.length === 3 ? styles.options_unset : ""
+                selectId.length === 3 ? styles.options_unset : "",
+                isRadar && styles.hiden
             )}>
             {
                 !isDashboard && <Select
@@ -95,6 +100,8 @@ function ToolComponent({
                     openSelect={openSelect}
                     isMonthly={isMonthly}
                     setOpenSelect={setOpenSelect}
+                    arrSelectShow={arrSelectShow}
+                    setArrSelectShow={setArrSelectShow}
                 />
             }
             <div className={clsx(

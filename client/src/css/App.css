@@ -131,12 +131,10 @@ tr td:last-child {
 }
 
 .App {
-  padding-top: 100px;
   margin: 0 auto;
   width: 1080px;
   min-height: 100vh;
 }
-
 
 @media (min-width: 1024px) and (max-width: 1239px) {
   .App {
@@ -147,7 +145,6 @@ tr td:last-child {
 @media (max-width: 1023px) {
   .App {
     width: 644px;
-    padding-top: 20px;
   }
 }
 

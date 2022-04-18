@@ -23,9 +23,10 @@ export const handleGetAllCity = () => {
 }
 
 export const handleGetDetailForecast = ({ payload }) => {
-    const { selectId } = payload;
-    const id = JSON.stringify(selectId)
-    return fetch(`${process.env.REACT_APP_URL}/forecast-detail?today=${dayjs().format('YYYY/M/DD')}&&cityId=${id}`)
+    const { selectId, currDay } = payload;
+    const id = JSON.stringify(selectId);
+    const date = currDay ? currDay : dayjs().format('YYYY/M/DD')
+    return fetch(`${process.env.REACT_APP_URL}/forecast-detail?today=${date}&&cityId=${id}`)
         .then(response => response.json())
 }
 

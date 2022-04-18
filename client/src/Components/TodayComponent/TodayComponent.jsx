@@ -11,10 +11,13 @@ import {
 } from '../../redux/actions';
 
 function TodayComponent({
+    setCurrDay,
     isMobile,
     selectId,
+    arrSelectShow,
     setSelectId,
-    handleOnDragEnd
+    handleOnDragEnd,
+    setArrSelectShow
 }) {
     const dispatch = useDispatch();
 
@@ -56,11 +59,15 @@ function TodayComponent({
                                                     {...provided.draggableProps}>
                                                     <Container
                                                         id={id}
+                                                        setCurrDay={setCurrDay}
                                                         isMobile={isMobile}
                                                         setSelect={setSelectId}
+                                                        selectId={selectId}
+                                                        arrSelectShow={arrSelectShow}
                                                         provided={provided}
                                                         detailForecast={detailForecast}
                                                         allForecast={allForecast}
+                                                        setArrSelectShow={setArrSelectShow}
                                                     />
                                                 </div>
                                             )}

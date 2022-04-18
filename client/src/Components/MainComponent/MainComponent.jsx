@@ -16,7 +16,8 @@ function MainComponent({
     isCelsius,
     setDay,
     setDetailDate,
-    datas
+    datas,
+    setCurrDay
 }) {
     let navigate = useNavigate();
     const [dataForecast, setDataForecast] = useState([{
@@ -66,6 +67,7 @@ function MainComponent({
         setDay(date)
         const newData = datas.data.find(item => item.date === date);
         setDetailDate(newData)
+        setCurrDay(date)
     };
 
 

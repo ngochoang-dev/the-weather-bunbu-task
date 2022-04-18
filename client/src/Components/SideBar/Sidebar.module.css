@@ -134,11 +134,31 @@
 .list_sidebar_mobile li a {
     display: block;
     width: 100%;
-    padding: 10px 4px;
+    padding: 10px;
 }
 
 .active_mobile {
     background-color: var(--background-color);
+    color: var(--primary-color);
+}
+
+.wrapper_logo {
+    padding: 0 10px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.logo {
+    width: 60px;
+}
+
+.logo>img {
+    width: 100%;
+}
+
+.wrapper_logo>p {
+    margin-left: 6px;
+    margin-bottom: 4px;
     color: var(--primary-color);
 }
 
