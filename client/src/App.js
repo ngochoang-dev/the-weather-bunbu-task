@@ -21,6 +21,7 @@ import Dashboard from './Components/Dashboard/Dashboard';
 function App() {
   const dispatch = useDispatch();
   const [ids, setIds] = useState(1);
+  const [currDay, setCurrDay] = useState(null);
   const [selectId, setSelectId] = useState([1]);
   const [arrSelectShow, setArrSelectShow] = useState([1])
   const [isMobile, setIsMobile] = useState(false);
@@ -102,19 +103,20 @@ function App() {
         setIsDashboard={setIsDashboard}
       />
       <ToolComponent
+        ids={ids}
+        currDay={currDay}
         allCity={allCity}
         cityId={cityId}
         loading={loading}
-        allForecast={allForecast}
-        ids={ids}
         isMobile={isMobile}
         isRadar={isRadar}
         selectId={selectId}
         isMonthly={isMonthly}
+        allForecast={allForecast}
         isDashboard={isDashboard}
         arrSelectShow={arrSelectShow}
-        setSelectId={setSelectId}
         setIds={setIds}
+        setSelectId={setSelectId}
         setArrSelectShow={setArrSelectShow}
       />
       <Routes>
@@ -124,6 +126,7 @@ function App() {
               isMobile={isMobile}
               selectId={selectId}
               arrSelectShow={arrSelectShow}
+              setCurrDay={setCurrDay}
               setSelectId={setSelectId}
               handleOnDragEnd={handleOnDragEnd}
               setArrSelectShow={setArrSelectShow}

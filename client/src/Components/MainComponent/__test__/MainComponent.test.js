@@ -8,6 +8,7 @@ const setDay = jest.fn();
 const handleGetDetail = jest.fn();
 const setDataAllForecast = jest.fn();
 const setDetailDate = jest.fn();
+const setCurrDay = jest.fn();
 
 describe('MainComponent', () => {
     test('should render', () => {
@@ -15,6 +16,7 @@ describe('MainComponent', () => {
             <BrowserRouter>
                 <MainComponent
                     isMobile={true}
+                    setCurrDay={setCurrDay}
                     idOfCity={1}
                     setDay={setDay}
                     typeForecast={typeForecast}
@@ -71,6 +73,7 @@ describe('MainComponent', () => {
                 <MainComponent
                     isMobile={false}
                     idOfCity={1}
+                    setCurrDay={setCurrDay}
                     setDay={setDay}
                     typeForecast={typeForecast}
                     handleGetDetail={handleGetDetail}

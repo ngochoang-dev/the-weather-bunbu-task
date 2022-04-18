@@ -11,6 +11,7 @@ import {
 } from '../../redux/actions';
 
 function TodayComponent({
+    setCurrDay,
     isMobile,
     selectId,
     arrSelectShow,
@@ -58,6 +59,7 @@ function TodayComponent({
                                                     {...provided.draggableProps}>
                                                     <Container
                                                         id={id}
+                                                        setCurrDay={setCurrDay}
                                                         isMobile={isMobile}
                                                         setSelect={setSelectId}
                                                         selectId={selectId}

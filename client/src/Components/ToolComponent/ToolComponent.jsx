@@ -18,6 +18,7 @@ import {
 
 function ToolComponent({
     ids,
+    currDay,
     isMobile,
     isRadar,
     selectId,
@@ -48,7 +49,7 @@ function ToolComponent({
             selectId,
             day: 7
         }));
-        dispatch(handleGetDetailForecast({ selectId }));
+        dispatch(handleGetDetailForecast({ selectId, currDay }));
         allForecast.forEach(item => {
             const { data } = item;
             const tomorrow = new Date();

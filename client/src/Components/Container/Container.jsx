@@ -9,8 +9,9 @@ import DetailComponent from '../DetailComponent/DetailComponent';
 import MainComponent from '../MainComponent/MainComponent';
 
 function Container({
-    isMobile,
     id,
+    setCurrDay,
+    isMobile,
     setSelect,
     provided,
     detailForecast,
@@ -69,9 +70,10 @@ function Container({
                 idOfCity={idOfCity}
                 allForecast={dataForecast}
                 isCelsius={isCelsius}
+                datas={dataForecast}
+                setCurrDay={setCurrDay}
                 setDay={setDay}
                 setDetailDate={setDetailDate}
-                datas={dataForecast}
             />
             <button className={clsx(
                 styles.btn_close

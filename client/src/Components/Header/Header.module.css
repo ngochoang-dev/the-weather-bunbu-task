@@ -3,6 +3,7 @@
 }
 
 .wrapper_logo {
+    width: fit-content;
     display: flex;
     align-items: flex-end;
 }
