@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import './css/App.css';
 import Header from './Components/Header/Header';
-import Radar from './Components/Radar/Radar.jsx';
+import Radar from './Components/Radar/Radar';
 import SideBar from './Components/SideBar/SideBar';
 import ToolComponent from './Components/ToolComponent/ToolComponent';
 import TodayComponent from './Components/TodayComponent/TodayComponent';
@@ -22,6 +22,7 @@ function App() {
   const dispatch = useDispatch();
   const [ids, setIds] = useState(1);
   const [selectId, setSelectId] = useState([1]);
+  const [arrSelectShow, setArrSelectShow] = useState([1])
   const [isMobile, setIsMobile] = useState(false);
   const [isMonthly, setIsMonthly] = useState(false);
   const [isDashboard, setIsDashboard] = useState(false);
@@ -111,8 +112,10 @@ function App() {
         selectId={selectId}
         isMonthly={isMonthly}
         isDashboard={isDashboard}
+        arrSelectShow={arrSelectShow}
         setSelectId={setSelectId}
         setIds={setIds}
+        setArrSelectShow={setArrSelectShow}
       />
       <Routes>
         <Route path="/"
@@ -120,8 +123,10 @@ function App() {
             <TodayComponent
               isMobile={isMobile}
               selectId={selectId}
+              arrSelectShow={arrSelectShow}
               setSelectId={setSelectId}
               handleOnDragEnd={handleOnDragEnd}
+              setArrSelectShow={setArrSelectShow}
             />}
         />
         <Route path="today/hourly"
@@ -146,10 +151,11 @@ function App() {
         />
         <Route path="dashboard"
           element={<Dashboard
-            setSelectId={setSelectId}
+            selectId={selectId}
             allCity={allCity}
             isDeleted={isDeleted}
             showModalDelete={showModalDelete}
+            setSelectId={setSelectId}
             setShowModalDelete={setShowModalDelete}
           />}
         />

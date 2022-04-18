@@ -23,12 +23,13 @@ function Select({
     cityId,
     openSelect,
     setOpenSelect,
-    isMonthly }) {
+    isMonthly,
+    arrSelectShow,
+    setArrSelectShow }) {
     const selecRef = useRef();
     const [isFocused, setIsFocused] = useState(false);
     const [allCityName, setAllCityName] = useState([]);
     const [listSelect, setListSelect] = useState(selectArr);
-    const [id, setId] = useState([1]);
     const [newCityId, setNewCityId] = useState(null);
     const [selectOne, setSelectOne] = useState(() => ids ? [ids] : []);
 
@@ -57,8 +58,8 @@ function Select({
             setListSelect(() => {
                 const data = selectArr.filter(d => {
                     return newCityId ?
-                        !id.includes(d.id) && newCityId !== d.id
-                        : !id.includes(d.id)
+                        !arrSelectShow.includes(d.id) && newCityId !== d.id
+                        : !arrSelectShow.includes(d.id)
                 });
                 return data;
             }) :
@@ -68,7 +69,7 @@ function Select({
                 });
                 return data;
             })
-    }, [selectArr, id, newCityId, isMonthly, selectOne]);
+    }, [selectArr, arrSelectShow, newCityId, isMonthly, selectOne]);
 
     const handleChooseCity = (item) => {
         const showToast = () => {
@@ -85,7 +86,7 @@ function Select({
         }
 
         const setSelectGroupA = () => {
-            setId(prev => [...prev, item.id])
+            setArrSelectShow(prev => [...prev, item.id])
             setSelect(prev => [...prev, item.id]);
             setOpenSelect(!openSelect)
         }
@@ -112,11 +113,11 @@ function Select({
             setSelect(prev => {
                 return prev.filter(item => item !== data.id);
             });
-            setId(prev => {
+            setArrSelectShow(prev => {
                 return prev.filter(item => item !== data.id);
             })
             setIds(() => {
-                const result = id.filter(d => d !== data.id);
+                const result = arrSelectShow.filter(d => d !== data.id);
                 return result[result.length - 1]
             })
             setNewCityId(null)

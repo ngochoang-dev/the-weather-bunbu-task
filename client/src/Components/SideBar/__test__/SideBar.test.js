@@ -7,6 +7,7 @@ import store from "../../../redux/store";
 
 const setIsMonthly = jest.fn();
 const setIsDashboard = jest.fn();
+const setIsRadar = jest.fn();
 
 
 jest.useFakeTimers();
@@ -19,6 +20,7 @@ describe("sidebar", () => {
                 <SideBar
                     isMobile={false}
                     setIsMonthly={setIsMonthly}
+                    setIsRadar={setIsRadar}
                     setIsDashboard={setIsDashboard}
                 />
             </Provider>
@@ -31,6 +33,7 @@ describe("sidebar", () => {
                 <SideBar
                     isMobile={true}
                     setIsMonthly={setIsMonthly}
+                    setIsRadar={setIsRadar}
                     setIsDashboard={setIsDashboard}
                 />
             </Provider>
@@ -49,6 +52,7 @@ describe("sidebar", () => {
                 <SideBar
                     isMobile={true}
                     setIsMonthly={setIsMonthly}
+                    setIsRadar={setIsRadar}
                     setIsDashboard={setIsDashboard}
                 />
             </Provider>

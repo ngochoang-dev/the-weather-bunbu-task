@@ -12,6 +12,7 @@ describe('Dashboard', () => {
         render(
             <Provider store={store}>
                 <Dashboard
+                    selectId={[1]}
                     setSelectId={setSelectId}
                     allCity={[
                         { id: 1, name: 'Ha Noi' },
@@ -29,6 +30,7 @@ describe('Dashboard', () => {
         render(
             <Provider store={store}>
                 <Dashboard
+                    selectId={[1]}
                     setSelectId={setSelectId}
                     allCity={[]}
                     isDeleted={true}
@@ -42,6 +44,7 @@ describe('Dashboard', () => {
         render(
             <Provider store={store}>
                 <Dashboard
+                    selectId={[1]}
                     setSelectId={setSelectId}
                     allCity={[
                         { id: 1, name: 'Ha Noi' },
@@ -62,6 +65,7 @@ describe('Dashboard', () => {
         render(
             <Provider store={store}>
                 <Dashboard
+                    selectId={[1]}
                     setSelectId={setSelectId}
                     allCity={[
                         { id: 1, name: 'Ha Noi' },
@@ -82,6 +86,7 @@ describe('Dashboard', () => {
         render(
             <Provider store={store}>
                 <Dashboard
+                    selectId={[1]}
                     setSelectId={setSelectId}
                     allCity={[
                         { id: 1, name: 'Ha Noi' },

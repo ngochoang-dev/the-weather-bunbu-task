@@ -7,6 +7,7 @@ import store from '../../../redux/store';
 const setSelect = jest.fn();
 const setIds = jest.fn();
 const setOpenSelect = jest.fn();
+const setArrSelectShow = jest.fn();
 
 const wrapper = (
     <Provider store={store}>
@@ -37,6 +38,8 @@ const wrapper = (
             openSelect={false}
             setOpenSelect={setOpenSelect}
             isMonthly={false}
+            arrSelectShow={[1]}
+            setArrSelectShow={setArrSelectShow}
         />
     </Provider>
 )
@@ -89,6 +92,8 @@ describe('Select', () => {
                     openSelect={false}
                     setOpenSelect={setOpenSelect}
                     isMonthly={true}
+                    arrSelectShow={[1]}
+                    setArrSelectShow={setArrSelectShow}
                 />
             </Provider>
         )
@@ -123,6 +128,8 @@ describe('Select', () => {
                 openSelect={false}
                 setOpenSelect={setOpenSelect}
                 isMonthly={false}
+                arrSelectShow={[1]}
+                setArrSelectShow={setArrSelectShow}
             />
         </Provider>)
     })
@@ -147,6 +154,8 @@ describe('Select', () => {
                 openSelect={false}
                 setOpenSelect={setOpenSelect}
                 isMonthly={false}
+                arrSelectShow={[1]}
+                setArrSelectShow={setArrSelectShow}
             />
         </Provider>)
         const elm = screen.getByTestId('remove-id');
@@ -173,6 +182,8 @@ describe('Select', () => {
                 openSelect={false}
                 setOpenSelect={setOpenSelect}
                 isMonthly={true}
+                arrSelectShow={[1]}
+                setArrSelectShow={setArrSelectShow}
             />
         </Provider>)
         const elm = screen.getByTestId('remove-id');
@@ -209,6 +220,8 @@ describe('Select', () => {
                     openSelect={true}
                     setOpenSelect={setOpenSelect}
                     isMonthly={false}
+                    arrSelectShow={[1]}
+                    setArrSelectShow={setArrSelectShow}
                 />
             </Provider>
         )
@@ -252,6 +265,8 @@ describe('Select', () => {
                     openSelect={true}
                     setOpenSelect={setOpenSelect}
                     isMonthly={true}
+                    arrSelectShow={[1]}
+                    setArrSelectShow={setArrSelectShow}
                 />
             </Provider>
         )
@@ -295,6 +310,8 @@ describe('Select', () => {
                     openSelect={true}
                     setOpenSelect={setOpenSelect}
                     isMonthly={false}
+                    arrSelectShow={[1]}
+                    setArrSelectShow={setArrSelectShow}
                 />
             </Provider>
         )
@@ -317,6 +334,8 @@ describe('Select', () => {
                     openSelect={true}
                     setOpenSelect={setOpenSelect}
                     isMonthly={false}
+                    arrSelectShow={[1]}
+                    setArrSelectShow={setArrSelectShow}
                 />
             </Provider>
         )

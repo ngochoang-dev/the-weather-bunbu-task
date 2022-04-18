@@ -8,6 +8,7 @@ import store from '../../../redux/store';
 const setShowModal = jest.fn();
 const setSelectId = jest.fn();
 const setIds = jest.fn();
+const setArrSelectShow = jest.fn();
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -17,6 +18,7 @@ describe('ToolComponent', () => {
     test('should render', () => {
         render(<Provider store={store}>
             <ToolComponent
+                isRadar={false}
                 isMobile={true}
                 setShowModal={setShowModal}
                 selectId={[1]}
@@ -46,6 +48,8 @@ describe('ToolComponent', () => {
                         temperature: "38"
                     }]
                 }]}
+                arrSelectShow={[1]}
+                setArrSelectShow={setArrSelectShow}
             />
         </Provider>)
     })
@@ -53,6 +57,7 @@ describe('ToolComponent', () => {
     test('should render isDashboard', () => {
         render(<Provider store={store}>
             <ToolComponent
+                isRadar={false}
                 setShowModal={setShowModal}
                 selectId={[1]}
                 setSelectId={setSelectId}
@@ -81,6 +86,8 @@ describe('ToolComponent', () => {
                         temperature: "38"
                     }]
                 }]}
+                arrSelectShow={[1]}
+                setArrSelectShow={setArrSelectShow}
             />
         </Provider>)
     })
@@ -88,6 +95,7 @@ describe('ToolComponent', () => {
     test('should selectId length 3', () => {
         render(<Provider store={store}>
             <ToolComponent
+                isRadar={false}
                 setShowModal={setShowModal}
                 selectId={[1, 2, 3]}
                 setSelectId={setSelectId}
@@ -116,6 +124,8 @@ describe('ToolComponent', () => {
                         temperature: "38"
                     }]
                 }]}
+                arrSelectShow={[1]}
+                setArrSelectShow={setArrSelectShow}
             />
         </Provider>)
     })
@@ -123,6 +133,7 @@ describe('ToolComponent', () => {
     test('should showModal true', () => {
         render(<Provider store={store}>
             <ToolComponent
+                isRadar={false}
                 setShowModal={setShowModal}
                 selectId={[1, 2, 3]}
                 setSelectId={setSelectId}
@@ -151,6 +162,8 @@ describe('ToolComponent', () => {
                         temperature: "38"
                     }]
                 }]}
+                arrSelectShow={[1]}
+                setArrSelectShow={setArrSelectShow}
             />
         </Provider>)
     })
@@ -158,6 +171,7 @@ describe('ToolComponent', () => {
     test('should click modal', () => {
         render(<Provider store={store}>
             <ToolComponent
+                isRadar={false}
                 setShowModal={setShowModal}
                 selectId={[1, 2, 3]}
                 setSelectId={setSelectId}
@@ -186,6 +200,8 @@ describe('ToolComponent', () => {
                         temperature: "38"
                     }]
                 }]}
+                arrSelectShow={[1]}
+                setArrSelectShow={setArrSelectShow}
             />
         </Provider>)
 
@@ -197,6 +213,7 @@ describe('ToolComponent', () => {
     test('should click refresh', () => {
         render(<Provider store={store}>
             <ToolComponent
+                isRadar={false}
                 setShowModal={setShowModal}
                 selectId={[1, 2, 3]}
                 setSelectId={setSelectId}
@@ -225,6 +242,8 @@ describe('ToolComponent', () => {
                         temperature: "38"
                     }]
                 }]}
+                arrSelectShow={[1]}
+                setArrSelectShow={setArrSelectShow}
             />
         </Provider>)
 

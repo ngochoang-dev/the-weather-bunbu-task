@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import Iframe from 'react-iframe'
+import Iframe from 'react-iframe';
 
 import styles from './Radar.module.css';
 
@@ -22,6 +22,7 @@ const mapWeather = [
 function Radar() {
     const [isActive, setIsActive] = useState(1);
     const [type, setType] = useState('radar');
+
     return (
         <div className={clsx(
             styles.container
@@ -46,6 +47,7 @@ function Radar() {
                                 className={clsx(
                                     styles.btn_menu
                                 )}
+                                data-testid={`btnMenu-${id}`}
                                 onClick={() => {
                                     setType(type)
                                     setIsActive(id)

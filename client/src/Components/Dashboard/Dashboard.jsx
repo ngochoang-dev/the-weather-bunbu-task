@@ -8,10 +8,11 @@ import styles from './Dashboard.module.css';
 import { deleteCity, resetLoading } from '../../redux/actions';
 
 function Dashboard({
-    setSelectId,
+    selectId,
     allCity,
     isDeleted,
     showModalDelete,
+    setSelectId,
     setShowModalDelete
 }) {
     const dispatch = useDispatch();
@@ -22,11 +23,10 @@ function Dashboard({
     }
 
     const handleConfirm = useCallback(() => {
+        const newSelect = selectId.filter(i => i !== idDelete)
+        setSelectId(newSelect)
         setShowModalDelete(false);
-        setSelectId(prev => {
-            return prev.filter(i => i !== idDelete)
-        })
-    }, [idDelete, setSelectId, setShowModalDelete])
+    }, [idDelete, selectId, setSelectId, setShowModalDelete])
 
     useEffect(() => {
         isDeleted && handleConfirm()

@@ -9,6 +9,7 @@ import Container from '../Container';
 
 const setSelect = jest.fn();
 const setDay = jest.fn();
+const setArrSelectShow = jest.fn();
 
 describe('container component', () => {
     test('should render', () => {
@@ -31,6 +32,9 @@ describe('container component', () => {
                         setSelect={setSelect}
                         day={'2022/12/2'}
                         setDay={setDay}
+                        selectId={[1]}
+                        arrSelectShow={[1]}
+                        setArrSelectShow={setArrSelectShow}
                     />
                 </Provider>
             </BrowserRouter>
@@ -54,6 +58,9 @@ describe('container component', () => {
                         }]}
                         typeForecast={typeForecast}
                         setSelect={setSelect}
+                        selectId={[1]}
+                        arrSelectShow={[1]}
+                        setArrSelectShow={setArrSelectShow}
                     />
                 </Provider>
             </BrowserRouter>

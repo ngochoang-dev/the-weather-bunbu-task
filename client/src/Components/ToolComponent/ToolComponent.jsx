@@ -29,6 +29,8 @@ function ToolComponent({
     cityId,
     loading,
     allForecast,
+    arrSelectShow,
+    setArrSelectShow
 }) {
     const timerRef = useRef();
     const dispatch = useDispatch();
@@ -97,6 +99,8 @@ function ToolComponent({
                     openSelect={openSelect}
                     isMonthly={isMonthly}
                     setOpenSelect={setOpenSelect}
+                    arrSelectShow={arrSelectShow}
+                    setArrSelectShow={setArrSelectShow}
                 />
             }
             <div className={clsx(

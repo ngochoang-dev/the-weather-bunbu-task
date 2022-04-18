@@ -13,8 +13,10 @@ import {
 function TodayComponent({
     isMobile,
     selectId,
+    arrSelectShow,
     setSelectId,
-    handleOnDragEnd
+    handleOnDragEnd,
+    setArrSelectShow
 }) {
     const dispatch = useDispatch();
 
@@ -58,9 +60,12 @@ function TodayComponent({
                                                         id={id}
                                                         isMobile={isMobile}
                                                         setSelect={setSelectId}
+                                                        selectId={selectId}
+                                                        arrSelectShow={arrSelectShow}
                                                         provided={provided}
                                                         detailForecast={detailForecast}
                                                         allForecast={allForecast}
+                                                        setArrSelectShow={setArrSelectShow}
                                                     />
                                                 </div>
                                             )}
